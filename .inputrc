@@ -1,0 +1,31 @@
+# case insensitive tab completion
+set completion-ignore-case on
+
+# list all possible completions, instead of ringing the bell (and pressing tab twice)
+set show-all-if-ambiguous on
+
+# add trailing slash when completing symlinks for directories
+set mark-symlinked-directories on
+
+# use already typed text as the prefix for searching through history
+"\e[B": history-search-forward
+"\e[A": history-search-backward
+
+# do not autocomplete hidden files, unless the pattern begins with a dot
+set match-hidden-files off
+
+# show completions at once, if there's more than 100 of them then prompt
+set page-completions off
+set completion-query-items 100
+
+# skip already completed text after the cursor
+# ~/.config/n|v will autocomplete to ~/.config/nvim, instead of ~/.config/nvim/v
+set skip-completed-text on
+
+# allow utf-8 input and output
+set input-meta on
+set output-meta on
+set convert-meta off
+
+# use M-Delete to delete a preceding word
+"\e[3;3~": kill-word
