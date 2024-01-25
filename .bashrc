@@ -69,6 +69,11 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# cargo
+if [ -f $HOME/.cargo/env ]; then
+  . "$HOME/.cargo/env"
+fi
+
 # alias definitions
 if [ -f ~/.bash_aliases ]; then
   . ~/.bash_aliases
@@ -84,20 +89,25 @@ if command -v starship &>/dev/null; then
   eval "$(starship init bash)"
 fi
 
-# cargo
-if [ -f $HOME/.cargo/env ]; then
-  . "$HOME/.cargo/env"
-fi
-
 # zoxide
 if command -v zoxide &>/dev/null; then
   eval "$(zoxide init bash)"
+fi
+
+# broot
+if command -v broot &>/dev/null; then
+  source $HOME/.config/broot/launcher/bash/br
 fi
 
 # mise
 if command -v ~/.local/bin/mise &>/dev/null; then
   eval "$(~/.local/bin/mise activate bash)"
   export PATH="$HOME/.local/share/mise/shims:$PATH"
+fi
+
+# bob
+if command -v bob &>/dev/null; then
+  export PATH="$HOME/.local/share/bob/nvim-bin:$PATH"
 fi
 
 # foundrdy
