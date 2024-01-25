@@ -1,0 +1,44 @@
+[user]
+	name = Alex March
+	email = alexmarch@fastmail.com
+	signingKey = 0x0644B87ED144C988
+
+[core]
+  pager = delta
+[interactive]
+  diffFilter = delta --color-only
+[merge]
+  conflictStyle = diff3
+[diff]
+  colorMoved = default
+[delta]
+  navigate = true
+  line-numbers = true
+[push]
+  default = simple
+	autoSetupRemote = true
+  followTags = yes
+[pull]
+  rebase = true
+[init]
+	defaultBranch = main
+[help]
+  autoCorrect = prompt
+; [commit]
+;   gpgsign = true
+
+[alias]
+  # status using short format
+  s = status --short
+  # short log graph of previous commits
+  l = log --pretty=oneline --graph --abbrev-commit --max-count=20
+  # always show all tags branches and remotes
+  tags = tag --list
+  branches = branch --all
+  remotes = remote --verbose
+  # list aliases
+  aliases = config --get-regexp alias
+  # amend currently staged files to the latest commit
+  amend = commit --amend --reuse-message=HEAD
+  # discards all changes and removes all untracked files/directories
+  nuke = !git reset --hard HEAD && git clean --force -d
