@@ -1,4 +1,19 @@
 [tools]
-node = "lts"
-go = "1.21.5"
-python = "3.11"
+"cargo:bat" = "0.24"
+"cargo:broot" = "1.32"
+"cargo:bob-nvim" = "2.8"
+"cargo:eza" = "0.17"
+"cargo:procs" = "0.14"
+"cargo:fd-find" = "9.0"
+"cargo:fend" = "1.4"
+"cargo:git-delta" = "0.16"
+"cargo:ripgrep" = "14.1"
+"cargo:zellij" = "0.39"
+"cargo:zoxide" = "0.9"
+
+[tasks.rustup]
+description = "Install rustup and cargo-binstall"
+run = [
+  "curl -L --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path -y",
+  "curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | sh"
+]
