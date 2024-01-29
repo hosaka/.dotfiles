@@ -1,13 +1,20 @@
 #!/usr/bin/env bash
 
-# if not running interactively, don't do anything
-case $- in
-*i*) ;;
-*) return ;;
-esac
+# only add a path if it exists and not already in path
+add_path() {
+  if [ -d "$1" ]; then
+    case ":${PATH:=$1}:" in
+      *:"$1":*) ;;
+      *) PATH="$1:$PATH" ;;
+    esac
+  fi
+}
 
 # add local bin to the PATH
-export PATH="$HOME/.local/bin:$PATH"
+add_path "$HOME/.local/bin"
+
+# machine identifier for host specific profiles
+MACHINE_PROFILE=$(hostname | tr "[:upper:]" "[:lower:]")
 
 # append to the history file, don't overwrite it
 shopt -s histappend
@@ -76,10 +83,11 @@ fi
 
 # mise
 if command -v mise &>/dev/null; then
-  MISE_ENV=$(hostname)
+  MISE_ENV=$MACHINE_PROFILE
   export MISE_ENV
+
   eval "$(mise activate bash)"
-  export PATH="$HOME/.local/share/mise/shims:$PATH"
+  eval "$(mise activate --shims)"
 fi
 
 # alias definitions (relies on cargo and mise)
@@ -104,24 +112,19 @@ fi
 
 # broot
 if command -v broot &>/dev/null; then
-  if [ -f ~/.config/broot/luncher/bash/br ]; then
+  if [ -e ~/.config/broot/luncher/bash/br ]; then
     . ~/.config/broot/launcher/bash/br
   fi
 fi
 
 # bob
 if command -v bob &>/dev/null; then
-  export PATH="$HOME/.local/share/bob/nvim-bin:$PATH"
+  add_path "$HOME/.local/share/bob/nvim-bin"
 fi
 
-# foundrdy
-if [ -d ~/.foundry/bin ]; then
-  export PATH="$HOME/.foundry/bin:$PATH"
+# load machine profiles
+if [ -e ~/.config/"$MACHINE_PROFILE".profile ]; then
+  . ~/.config/"$MACHINE_PROFILE".profile
 fi
 
-# pnpm
-export PNPM_HOME="$HOME/.local/share/pnpm"
-case ":$PATH:" in
-*":$PNPM_HOME:"*) ;;
-*) export PATH="$PNPM_HOME:$PATH" ;;
-esac
+export PATH

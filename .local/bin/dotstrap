@@ -10,8 +10,10 @@ read -r -d '' USAGE <<EOF
 Usage: $dotstrap [options] [command]
 
 Commands:
-  mise - Install mise, development environment setup tool
-  rustup - Install rust toolchain cargo and cargo-binstall
+  all - Install everything
+  foundry - A smart contract development toolchain
+  mise - Development environment setup tool
+  rustup - Rust toolchain cargo and cargo-binstall
 
 Options:
   -y, --yes - Answer yes to all prompts
@@ -23,7 +25,7 @@ function usage() {
 }
 
 function has() {
-  command -v "$1" &>/dev/null
+  type -t "$1" &>/dev/null
 }
 
 function ask() {
@@ -44,7 +46,7 @@ function remind() {
   echo "$dotstrap: reload the shell to update the paths (source .bashrc)"
 }
 
-function mise() {
+function get_mise() {
   if ! ask "$dotstrap: this will install mise, continue?"; then
     return
   fi
@@ -52,20 +54,19 @@ function mise() {
   if has "mise"; then
     echo "$dotstrap: mise is already installed: $(which mise)"
   else
-    if has "cargo"; then
-      cargo binstall mise
-    else
+    if ! has "cargo"; then
       if ask "$dotstrap: mise can be installed with cargo instead, install rustup first?"; then
-        rustup
-        cargo binstall mise
+        get_rustup
       else
         curl https://mise.jdx.dev/install.sh | sh
+        return
       fi
     fi
+    cargo binstall --no-discover-github-token -y mise
   fi
 }
 
-function rustup() {
+function get_rustup() {
   if ! ask "$dotstrap: this will install rusup and cargo-binstall, continue?"; then
     return
   fi
@@ -75,7 +76,7 @@ function rustup() {
   if has "cargo"; then
     echo "$dotstrap: rustup is already installed: $(which rustup)"
   else
-    curl "${curl_opts[@]}" $rustup_url | bash -s -- --default-toolchain 'none' --no-modify-path -y
+    curl "${curl_opts[@]}" $rustup_url | bash -s -- --default-toolchain 'stable' --no-modify-path -y
   fi
 
   if has "cargo-binstall"; then
@@ -83,7 +84,13 @@ function rustup() {
   else
     curl "${curl_opts[@]}" $binstall_url | bash
   fi
+}
 
+function get_foundry() {
+  if ! ask "$dotstrap: this will install foundry, continue?"; then
+    return
+  fi
+  curl -L https://foundry.paradigm.xyz | bash
 }
 
 options=$(getopt --options "y,h" --longoptions "yes,help" --name "$dotstrap" -- "$@")
@@ -118,15 +125,30 @@ done
 
 if ! has "curl"; then
   echo "$dotstrap: curl not found, please install it first"
+  exit 1
 fi
 
+function all() {
+  get_rustup
+  get_mise
+  command mise --cd "$HOME" -y install
+}
+
 case "$1" in
+"all")
+  all
+  remind
+  ;;
+"foundry")
+  get_foundry
+  remind
+  ;;
 "mise")
-  mise
+  get_mise
   remind
   ;;
 "rustup")
-  rustup
+  get_rustup
   remind
   ;;
 *)
