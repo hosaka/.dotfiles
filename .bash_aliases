@@ -5,10 +5,6 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
-alias -- -='cd -'
-
-# enable aliases to run with sudo
-alias sudo='sudo '
 
 if command -v eza &>/dev/null; then
   alias ls='eza'
@@ -27,21 +23,22 @@ else
   alias lla='ls -lGah --group-directories-first'
 fi
 
-# git
-alias gs='git status'
-alias gg='lazygit'
-
-if command -v nvim &>/dev/null; then
-  alias vim='nvim'
-fi
+# enable aliases to run with sudo
+alias sudo='sudo '
 
 # dotfiles management
 alias dot='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
-alias dotgg='lazygit --git-dir=$HOME/.dotfiles --work-tree=$HOME'
-
 # enable tab completion for dot alias
 if type __git_complete &>/dev/null; then
   __git_complete dot __git_main
+fi
+
+# git
+alias gs='git status'
+
+if command -v lazygit $ >/dev/null; then
+  alias gg='lazygit'
+  alias dotgg='lazygit --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 fi
 
 # create a new directory and enter it
