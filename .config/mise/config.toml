@@ -8,12 +8,12 @@
 "cargo:fend" = "1.4"
 "cargo:git-delta" = "0.16"
 "cargo:ripgrep" = "14.1"
+# "cargo:starship" = "1.17.1"
 "cargo:zellij" = "0.39"
 "cargo:zoxide" = "0.9"
 
-[tasks.rustup]
-description = "Install rustup and cargo-binstall"
-run = [
-  "curl -L --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | bash -s -- --no-modify-path -y",
-  "curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash"
-]
+[settings]
+experimental = true
+
+[settings.status]
+missing_tools = false

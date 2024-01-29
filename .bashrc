@@ -76,6 +76,8 @@ fi
 
 # mise
 if command -v mise &>/dev/null; then
+  MISE_ENV=$(hostname)
+  export MISE_ENV
   eval "$(mise activate bash)"
   export PATH="$HOME/.local/share/mise/shims:$PATH"
 fi
@@ -102,7 +104,9 @@ fi
 
 # broot
 if command -v broot &>/dev/null; then
-  . ~/.config/broot/launcher/bash/br
+  if [ -f ~/.config/broot/luncher/bash/br ]; then
+    . ~/.config/broot/launcher/bash/br
+  fi
 fi
 
 # bob

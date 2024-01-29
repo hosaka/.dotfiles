@@ -7,6 +7,9 @@ alias ....='cd ../../..'
 alias .....='cd ../../../..'
 alias -- -='cd -'
 
+# enable aliases to run with sudo
+alias sudo='sudo '
+
 if command -v eza &>/dev/null; then
   alias ls='eza'
   alias la='eza -a'
@@ -24,12 +27,13 @@ else
   alias lla='ls -lGah --group-directories-first'
 fi
 
-alias vim='nvim'
+# git
 alias gs='git status'
 alias gg='lazygit'
 
-# enable aliases to run with sudo
-alias sudo='sudo '
+if command -v nvim &>/dev/null; then
+  alias vim='nvim'
+fi
 
 # dotfiles management
 alias dot='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'

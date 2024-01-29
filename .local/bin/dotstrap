@@ -1,0 +1,137 @@
+#!/usr/bin/env bash
+
+dotstrap=$(basename "$0" .sh)
+skip_ask=false
+
+rustup_url="https://sh.rustup.rs"
+binstall_url="https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh"
+
+read -r -d '' USAGE <<EOF
+Usage: $dotstrap [options] [command]
+
+Commands:
+  mise - Install mise, development environment setup tool
+  rustup - Install rust toolchain cargo and cargo-binstall
+
+Options:
+  -y, --yes - Answer yes to all prompts
+  -h, --help - Print this message and quit
+EOF
+
+function usage() {
+  printf "%s\n" "$USAGE"
+}
+
+function has() {
+  command -v "$1" &>/dev/null
+}
+
+function ask() {
+  [ $skip_ask = true ] && return
+
+  read -r -p "${1:-continue?} (y/N): " answer
+  case "$answer" in
+  [yY] | [yY][eE][sS])
+    true
+    ;;
+  *)
+    false
+    ;;
+  esac
+}
+
+function remind() {
+  echo "$dotstrap: reload the shell to update the paths (source .bashrc)"
+}
+
+function mise() {
+  if ! ask "$dotstrap: this will install mise, continue?"; then
+    return
+  fi
+
+  if has "mise"; then
+    echo "$dotstrap: mise is already installed: $(which mise)"
+  else
+    if has "cargo"; then
+      cargo binstall mise
+    else
+      if ask "$dotstrap: mise can be installed with cargo instead, install rustup first?"; then
+        rustup
+        cargo binstall mise
+      else
+        curl https://mise.jdx.dev/install.sh | sh
+      fi
+    fi
+  fi
+}
+
+function rustup() {
+  if ! ask "$dotstrap: this will install rusup and cargo-binstall, continue?"; then
+    return
+  fi
+
+  local curl_opts=(-L --proto '=https' --tlsv1.2 -sSf)
+
+  if has "cargo"; then
+    echo "$dotstrap: rustup is already installed: $(which rustup)"
+  else
+    curl "${curl_opts[@]}" $rustup_url | bash -s -- --default-toolchain 'none' --no-modify-path -y
+  fi
+
+  if has "cargo-binstall"; then
+    echo "$dotstrap: cargo-binstall is already installed: $(which cargo-binstall)"
+  else
+    curl "${curl_opts[@]}" $binstall_url | bash
+  fi
+
+}
+
+options=$(getopt --options "y,h" --longoptions "yes,help" --name "$dotstrap" -- "$@")
+exit_code=$?
+
+if [ $exit_code -ne 0 ]; then
+  exit $exit_code
+fi
+
+eval set -- "$options"
+
+while [ "$1" != "" ]; do
+  case "$1" in
+  -h | --help)
+    usage
+    exit 0
+    ;;
+  -y | --yes)
+    skip_ask=true
+    shift
+    ;;
+  --)
+    shift
+    break
+    ;;
+  *)
+    break
+    ;;
+  esac
+  shift
+done
+
+if ! has "curl"; then
+  echo "$dotstrap: curl not found, please install it first"
+fi
+
+case "$1" in
+"mise")
+  mise
+  remind
+  ;;
+"rustup")
+  rustup
+  remind
+  ;;
+*)
+  echo "$dotstrap: invalid command -- '$1'" >&2
+  usage
+  exit 1
+  ;;
+esac
