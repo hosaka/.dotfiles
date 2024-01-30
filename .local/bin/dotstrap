@@ -5,6 +5,7 @@ skip_ask=false
 
 rustup_url="https://sh.rustup.rs"
 binstall_url="https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh"
+foundry_url="https://raw.githubusercontent.com/foundry-rs/foundry/master/foundryup/foundryup"
 
 read -r -d '' USAGE <<EOF
 Usage: $dotstrap [options] [command]
@@ -77,6 +78,7 @@ function get_rustup() {
     echo "$dotstrap: rustup is already installed: $(which rustup)"
   else
     curl "${curl_opts[@]}" $rustup_url | bash -s -- --default-toolchain 'stable' --no-modify-path -y
+    . ~/.cargo/env
   fi
 
   if has "cargo-binstall"; then
@@ -90,7 +92,17 @@ function get_foundry() {
   if ! ask "$dotstrap: this will install foundry, continue?"; then
     return
   fi
-  curl -L https://foundry.paradigm.xyz | bash
+
+  # note: install directly, instead of using https://foundry.paradigm.xyz
+  local foundry_dir="${XDG_CONFIG_HOME:-$HOME}/.foundry"
+  local foundry_bin_dir="$foundry_dir/bin"
+  local foundry_man_dir="$foundry_dir/share/man/man1"
+  local foundry_bin_path="$foundry_bin_dir/foundryup"
+
+  mkdir -p "$foundry_bin_dir"
+  curl -# -L "$foundry_url" -o "$foundry_bin_path"
+  chmod +x "$foundry_bin_path"
+  mkdir -p "$foundry_man_dir"
 }
 
 options=$(getopt --options "y,h" --longoptions "yes,help" --name "$dotstrap" -- "$@")
