@@ -1,46 +1,39 @@
 #!/usr/bin/env bash
 
-# only add a path if it exists and not already in path
-add_path() {
-  if [ -d "$1" ]; then
-    case ":${PATH:=$1}:" in
-      *:"$1":*) ;;
-      *) PATH="$1:$PATH" ;;
-    esac
-  fi
-}
+if [ -f ~/.bash_functions ]; then
+  . ~/.bash_functions
+fi
 
 # add local bin to the PATH
-add_path "$HOME/.local/bin"
+onpath "$HOME/.local/bin"
 
 # machine identifier for host specific profiles
 MACHINE_PROFILE=$(hostname | tr "[:upper:]" "[:lower:]")
 
-# append to the history file, don't overwrite it
-shopt -s histappend
+# shell options
+# autocd - **/qux will enter ./foo/bar/baz/qux
+# cdspell - autocorrect typos in path names when using cd
+# checkwinsize - update the window size after each command, if necessary
+# globstar - recursive globbing, echo **/*.txt
+# histappend - append to the history file, don't overwrite it
+for option in autocd cdspell checkwwinsize globstar histappend; do
+  shopt -s "$option" 2>/dev/null
+done
+unset option
 
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
-shopt -s checkwinsize
-
-# autocorrect typos in path names when using cd
-shopt -s cdspell
-
-# **/qux will enter ./foo/bar/baz/qux
-shopt -s autocd
-
-# if set, the pattern "**" used in a pathname expansion context will
-# match all files and zero or more directories and subdirectories.
-shopt -s globstar
-
-# increase bash history size
+# increase history size
 HISTSIZE=32768
 HISTFILESIZE="${HISTSIZE}"
-# don't put duplicate lines or lines starting with space in the history
-HISTCONTROL="ignoreboth"
+# ignore cmds starting with space, ignore duplicates and erase them
+HISTCONTROL="ignoreboth:erasedups"
 
 # default editor
-export EDITOR="vim"
+if has nvim; then
+  EDITOR="nvim"
+else
+  EDITOR="vim"
+fi
+export EDITOR
 
 # avoid issues with gpg under wsl not recognising smartcards
 GPG_TTY=$(tty)
@@ -52,37 +45,23 @@ export PYTHONIOENCODING="UTF-8"
 # don't clear the screen after quitting a manpage
 export MANPAGER="less -X"
 
-# make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
 # enable color support
 if [ -x /usr/bin/dircolors ]; then
-  if test -r ~/.dircolors; then
+  if [ -r ~/.dircolors ]; then
     eval "$(dircolors -b ~/.dircolors)"
   else
     eval "$(dircolors -b)"
   fi
-  alias grep='grep --color=auto'
-  alias fgrep='fgrep --color=auto'
-  alias egrep='egrep --color=auto'
 fi
 
 # enable completion features
-if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
-fi
+include /etc/bash_completion
 
 # cargo
-if [ -f ~/.cargo/env ]; then
-  . ~/.cargo/env
-fi
+include ~/.cargo/env
 
 # mise
-if command -v mise &>/dev/null; then
+if has mise; then
   MISE_ENV=$MACHINE_PROFILE
   export MISE_ENV
 
@@ -90,41 +69,35 @@ if command -v mise &>/dev/null; then
   eval "$(mise activate --shims)"
 fi
 
-# alias definitions (relies on cargo and mise)
-if [ -f ~/.bash_aliases ]; then
-  . ~/.bash_aliases
-fi
+# alias definitions (uses tools from cargo and mise)
+include ~/.bash_aliases
 
 # keychain
-if command -v keychain &>/dev/null; then
+if has keychain; then
   eval "$(keychain --quiet --eval id_ed25519)"
 fi
 
 # starship prompt
-if command -v starship &>/dev/null; then
+if has starship; then
   eval "$(starship init bash)"
 fi
 
 # zoxide
-if command -v zoxide &>/dev/null; then
+if has zoxide; then
   eval "$(zoxide init bash)"
 fi
 
 # broot
-if command -v broot &>/dev/null; then
-  if [ -e ~/.config/broot/luncher/bash/br ]; then
-    . ~/.config/broot/launcher/bash/br
-  fi
+if has broot; then
+  include ~/.config/broot/launcher/bash/br
 fi
 
 # bob
-if command -v bob &>/dev/null; then
-  add_path "$HOME/.local/share/bob/nvim-bin"
+if has bob; then
+  onpath "$HOME/.local/share/bob/nvim-bin"
 fi
 
 # load machine profiles
-if [ -e ~/.config/"$MACHINE_PROFILE".profile ]; then
-  . ~/.config/"$MACHINE_PROFILE".profile
-fi
+include "$HOME/.config/$MACHINE_PROFILE.profile"
 
 export PATH

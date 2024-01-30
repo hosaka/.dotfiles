@@ -9,7 +9,6 @@ To get a new machine setup, we can either:
 Use a bare repo with a [worktree](https://git-scm.com/docs/git-worktree):
 
 ```bash
-cd ~
 git clone --bare https://github.com/hosaka/.dotfiles.git $HOME/.dotfiles
 alias dot="/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
 dot checkout

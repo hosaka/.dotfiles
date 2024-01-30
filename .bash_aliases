@@ -6,12 +6,20 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
 
-if command -v eza &>/dev/null; then
+# enable aliases to run with sudo
+alias sudo='sudo '
+
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
+# ls alternatives
+if has eza; then
   alias ls='eza'
   alias la='eza -a'
   alias ll='eza -l --group-directories-first'
   alias lla='eza -la --group-directories-first'
-elif command -v lsd &>/dev/null; then
+elif has lsd; then
   alias ls='lsd'
   alias la='lsd -a'
   alias ll='lsd -lh --group-directories-first'
@@ -23,25 +31,20 @@ else
   alias lla='ls -lGah --group-directories-first'
 fi
 
-# enable aliases to run with sudo
-alias sudo='sudo '
-
-# dotfiles management
+# dotfiles management and tab completion as git alias
 alias dot='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
-# enable tab completion for dot alias
-if type __git_complete &>/dev/null; then
+alias dotadd='dot add -f'
+if has __git_complete; then
   __git_complete dot __git_main
 fi
 
 # git
-alias gs='git status'
+alias gst='git status'
+alias gco='git checkout'
+alias gs='git status --short'
+alias gl='git log --pretty=oneline --graph --abbrev-commit --max-count=20'
 
-if command -v lazygit $ >/dev/null; then
+if has lazygit; then
   alias gg='lazygit'
-  alias dotgg='lazygit --git-dir=$HOME/.dotfiles --work-tree=$HOME'
+  alias dotgg='lazygit  --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 fi
-
-# create a new directory and enter it
-function mkd() {
-  mkdir -p "$@" && cd "$_" || return
-}
