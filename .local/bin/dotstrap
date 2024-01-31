@@ -1,38 +1,57 @@
 #!/usr/bin/env bash
 
-dotstrap=$(basename "$0" .sh)
 skip_ask=false
 
 rustup_url="https://sh.rustup.rs"
 binstall_url="https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh"
 foundry_url="https://raw.githubusercontent.com/foundry-rs/foundry/master/foundryup/foundryup"
 
-read -r -d '' USAGE <<EOF
-Usage: $dotstrap [options] [command]
+usage() {
+  cat <<EOF
+Dotfiles bootstrap installer
+
+Usage: dotsrap [OPTIONS] <COMMAND>
 
 Commands:
-  all - Install everything
-  foundry - A smart contract development toolchain
-  mise - Development environment setup tool
-  rustup - Rust toolchain cargo and cargo-binstall
+  all       Install everything
+  foundry   A smart contract development toolchain
+  mise      Development environment setup tool
+  rustup    Rust toolchain cargo and cargo-binstall
 
 Options:
-  -y, --yes - Answer yes to all prompts
-  -h, --help - Print this message and quit
+  -y, --yes   Answer yes to all prompts
+  -h, --help  Print this message and quit
 EOF
-
-function usage() {
-  printf "%s\n" "$USAGE"
 }
 
-function has() {
-  type -t "$1" &>/dev/null
+hush() {
+  "$@" >/dev/null 2>&1
 }
 
-function ask() {
+has() {
+  hush command -v "$@"
+}
+
+say() {
+  printf "dotsrap: %s\n" "$1"
+}
+
+err() {
+  say "$1" >&2
+  exit 1
+}
+
+need() {
+  if ! has "$1"; then
+    err "need '$1' (command not found)"
+  fi
+}
+
+ask() {
   [ $skip_ask = true ] && return
 
-  read -r -p "${1:-continue?} (y/N): " answer
+  printf "dotstrap: %s (y/N): " "$1"
+  read -r answer
   case "$answer" in
   [yY] | [yY][eE][sS])
     true
@@ -43,20 +62,22 @@ function ask() {
   esac
 }
 
-function remind() {
-  echo "$dotstrap: reload the shell to update the paths (source .bashrc)"
+remind() {
+  say "reload the shell to update the paths (source .bashrc)"
 }
 
-function get_mise() {
-  if ! ask "$dotstrap: this will install mise, continue?"; then
+get_mise() {
+  need curl
+
+  if ! ask "this will install mise, continue?"; then
     return
   fi
 
   if has "mise"; then
-    echo "$dotstrap: mise is already installed: $(which mise)"
+    say "mise is already installed: $(which mise)"
   else
     if ! has "cargo"; then
-      if ask "$dotstrap: mise can be installed with cargo instead, install rustup first?"; then
+      if ask "mise can be installed with cargo instead, install rustup first?"; then
         get_rustup
       else
         curl https://mise.jdx.dev/install.sh | sh
@@ -67,29 +88,33 @@ function get_mise() {
   fi
 }
 
-function get_rustup() {
-  if ! ask "$dotstrap: this will install rusup and cargo-binstall, continue?"; then
+get_rustup() {
+  need curl
+
+  if ! ask "this will install rusup and cargo-binstall, continue?"; then
     return
   fi
 
   local curl_opts=(-L --proto '=https' --tlsv1.2 -sSf)
 
   if has "cargo"; then
-    echo "$dotstrap: rustup is already installed: $(which rustup)"
+    say "rustup is already installed: $(which rustup)"
   else
     curl "${curl_opts[@]}" $rustup_url | bash -s -- --default-toolchain 'stable' --no-modify-path -y
-    . ~/.cargo/env
+    source ~/.cargo/env
   fi
 
   if has "cargo-binstall"; then
-    echo "$dotstrap: cargo-binstall is already installed: $(which cargo-binstall)"
+    say "cargo-binstall is already installed: $(which cargo-binstall)"
   else
     curl "${curl_opts[@]}" $binstall_url | bash
   fi
 }
 
-function get_foundry() {
-  if ! ask "$dotstrap: this will install foundry, continue?"; then
+get_foundry() {
+  need curl
+
+  if ! ask "this will install foundry, continue?"; then
     return
   fi
 
@@ -105,9 +130,8 @@ function get_foundry() {
   mkdir -p "$foundry_man_dir"
 }
 
-options=$(getopt --options "y,h" --longoptions "yes,help" --name "$dotstrap" -- "$@")
+options=$(getopt --options "y,h" --longoptions "yes,help" --name "dotstrap" -- "$@")
 exit_code=$?
-
 if [ $exit_code -ne 0 ]; then
   exit $exit_code
 fi
@@ -135,12 +159,7 @@ while [ "$1" != "" ]; do
   shift
 done
 
-if ! has "curl"; then
-  echo "$dotstrap: curl not found, please install it first"
-  exit 1
-fi
-
-function all() {
+all() {
   get_rustup
   get_mise
   command mise --cd "$HOME" -y install
@@ -164,8 +183,6 @@ case "$1" in
   remind
   ;;
 *)
-  echo "$dotstrap: invalid command -- '$1'" >&2
-  usage
-  exit 1
+  err "invalid command -- '$1'" >&2
   ;;
 esac
