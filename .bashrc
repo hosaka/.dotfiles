@@ -21,9 +21,13 @@ for option in autocd cdspell checkwwinsize globstar histappend; do
 done
 unset option
 
-# increase history size
+# disable shell history
+# shopt -u -o history
+
+# disable shell history file
+unset HISTFILE
+# increase in memory history size
 HISTSIZE=32768
-HISTFILESIZE="${HISTSIZE}"
 # ignore cmds starting with space, ignore duplicates and erase them
 HISTCONTROL="ignoreboth:erasedups"
 
@@ -45,6 +49,9 @@ export PYTHONIOENCODING="UTF-8"
 # don't clear the screen after quitting a manpage
 export MANPAGER="less -X"
 
+# disable less history file
+export LESSHISTFILE=-
+
 # enable color support
 if [ -x /usr/bin/dircolors ]; then
   if [ -r ~/.dircolors ]; then
@@ -64,7 +71,6 @@ include ~/.cargo/env
 if has mise; then
   MISE_ENV=$MACHINE_PROFILE
   export MISE_ENV
-
   eval "$(mise activate bash)"
   eval "$(mise activate --shims)"
 fi
@@ -80,6 +86,11 @@ fi
 # starship prompt
 if has starship; then
   eval "$(starship init bash)"
+fi
+
+# atuin
+if has atuin; then
+  eval "$(atuin init bash --disable-up-arrow)"
 fi
 
 # zoxide
