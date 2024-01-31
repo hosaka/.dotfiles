@@ -1,6 +1,8 @@
 #!/bin/sh
 set -eu
 
+force_install=false
+
 hush() {
   "$@" >/dev/null 2>&1
 }
@@ -10,7 +12,7 @@ has() {
 }
 
 say() {
-  printf "dot: %s\n" "$1"
+  printf "dotinstall: %s\n" "$1"
 }
 
 err() {
@@ -36,42 +38,43 @@ dot() {
 
 usage() {
   cat <<EOF
-dotfiles installer
+Dotfiles installer
 
-install with \`curl https://hosaka.cc/sh/dotinstall | sh\`
+Install with \`curl https://hosaka.cc/sh/dotinstall | sh\`
 
-USAGE:
-    dotinstall [OPTIONS]
+Usage: dotinstall [OPTIONS]
 
-OPTIONS:
-    -f, --force
-        Ignore existing dotfiles and overwrite them
-    -h, --help
-        Print this message and quit
+Options:
+  -f, --force   Ignore existing dotfiles and overwrite them
+  -h, --help    Print this message and quit
 EOF
 }
 
 install() {
   need git
 
-  say "installing to ~/.dotfiles"
+  say "installing to $HOME/.dotfiles"
   git clone --bare https://code.hosaka.cc/hosaka/.dotfiles.git "$HOME/.dotfiles"
 
   if ! hush dot checkout; then
-    # files not present will appear as deleted and staged
-    # restore them to unstaged and "un-delete" out .gitignore
-    dot restore --staged .
-    dot restore --worktree .gitignore
+    if $force_install; then
+      hush dot checkout --force
+    else
+      # files not present will appear as deleted and staged
+      # restore them to unstaged and "un-delete" out .gitignore
+      dot restore --staged .
+      dot restore --worktree .gitignore
 
-    # only modified files will be saved in git stash
-    for file in $(dot diff --name-only --diff-filter=M); do
-      dot stash push --message "dot: backup $file" "$file"
-    done
+      # only modified files will be saved in git stash
+      for file in $(dot diff --name-only --diff-filter=M); do
+        dot stash push --message "dotinstall: backup $file" "$file"
+      done
 
-    dot restore .
+      dot restore .
+    fi
   fi
 
-  say "installed successfully to ~/.dotfiles"
+  say "installed successfully to $HOME/.dotfiles"
 }
 
 post_install() {
@@ -87,6 +90,35 @@ post_install() {
   say "use \`dot stash list\` to show files backed up during the install"
   say "use \`dotstrap\` to install common tools, see \`dotstrap --help\` to get started"
 }
+
+options=$(getopt --options "y,h" --longoptions "yes,help" --name "dotstrap" -- "$@")
+exit_code=$?
+if [ $exit_code -ne 0 ]; then
+  exit $exit_code
+fi
+
+eval set -- "$options"
+
+while [ "$1" != "" ]; do
+  case "$1" in
+  -h | --help)
+    usage
+    exit 0
+    ;;
+  -f | --force)
+    force_install=true
+    shift
+    ;;
+  --)
+    shift
+    break
+    ;;
+  *)
+    break
+    ;;
+  esac
+  shift
+done
 
 install
 post_install
