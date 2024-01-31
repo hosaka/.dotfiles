@@ -91,7 +91,7 @@ post_install() {
   say "use \`dotstrap\` to install common tools, see \`dotstrap --help\` to get started"
 }
 
-options=$(getopt --options "y,h" --longoptions "yes,help" --name "dotstrap" -- "$@")
+options=$(getopt --options "f,h" --longoptions "force,help" --name "dotstrap" -- "$@")
 exit_code=$?
 if [ $exit_code -ne 0 ]; then
   exit $exit_code
