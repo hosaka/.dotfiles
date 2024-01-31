@@ -138,7 +138,7 @@ fi
 
 eval set -- "$options"
 
-while [ "$1" != "" ]; do
+while [ -n "${1+x}" ]; do
   case "$1" in
   -h | --help)
     usage
@@ -150,9 +150,6 @@ while [ "$1" != "" ]; do
     ;;
   --)
     shift
-    break
-    ;;
-  *)
     break
     ;;
   esac

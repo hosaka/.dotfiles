@@ -41,6 +41,7 @@ usage() {
 Dotfiles installer
 
 Install with \`curl https://hosaka.cc/sh/dotinstall | sh\`
+Pass options with \`... | sh -- -h\`
 
 Usage: dotinstall [OPTIONS]
 
@@ -91,7 +92,7 @@ post_install() {
   say "use \`dotstrap\` to install common tools, see \`dotstrap --help\` to get started"
 }
 
-options=$(getopt --options "f,h" --longoptions "force,help" --name "dotstrap" -- "$@")
+options=$(getopt --options "f,h" --longoptions "force,help" --name "dotinstall" -- "$@")
 exit_code=$?
 if [ $exit_code -ne 0 ]; then
   exit $exit_code
@@ -99,7 +100,7 @@ fi
 
 eval set -- "$options"
 
-while [ "$1" != "" ]; do
+while [ -n "${1+x}" ]; do
   case "$1" in
   -h | --help)
     usage
@@ -111,9 +112,6 @@ while [ "$1" != "" ]; do
     ;;
   --)
     shift
-    break
-    ;;
-  *)
     break
     ;;
   esac
