@@ -100,4 +100,7 @@ fi
 # load machine profiles
 include "$HOME/.config/$MACHINE_PROFILE.profile"
 
+# preexec and precmd functions for bash
+include ~/.bash_preexec
+
 export PATH
