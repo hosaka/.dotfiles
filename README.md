@@ -24,7 +24,7 @@ git checkout -f main
 
 Use a remote install script:
 ```bash
-curl https://sh.hosaka.cc/dotinstall.sh | sh
+curl https://hosaka.cc/sh/dotinstall | sh
 ```
 
 ## Use

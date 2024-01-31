@@ -1,8 +1,6 @@
 #!/bin/sh
 set -eu
 
-# install with `curl -Ls https://sh.hosaka.cc/dotinstall.sh | sh`
-
 hush() {
   "$@" >/dev/null 2>&1
 }
@@ -13,19 +11,6 @@ has() {
 
 say() {
   printf "dot: %s\n" "$1"
-}
-
-ask() {
-  printf "dot: %s (y/N): " "$1"
-  read -r answer
-  case "$answer" in
-  [yY] | [yY][eE][sS])
-    true
-    ;;
-  *)
-    false
-    ;;
-  esac
 }
 
 err() {
@@ -49,28 +34,41 @@ dot() {
   git --git-dir="$HOME/.dotfiles" --work-tree="$HOME" "$@"
 }
 
+usage() {
+  cat <<EOF
+dotfiles installer
+
+install with \`curl https://hosaka.cc/sh/dotinstall | sh\`
+
+USAGE:
+    dotinstall [OPTIONS]
+
+OPTIONS:
+    -f, --force
+        Ignore existing dotfiles and overwrite them
+    -h, --help
+        Print this message and quit
+EOF
+}
+
 install() {
   need git
 
   say "installing to ~/.dotfiles"
   git clone --bare https://code.hosaka.cc/hosaka/.dotfiles.git "$HOME/.dotfiles"
 
-  if ! dot checkout; then
-    if ask "overwrite dotfiles that already exist? (otherwise stash them)"; then
-      dot checkout --force
-    else
-      # files not present will appear as deleted and staged
-      # restore them to unstaged and "un-delete" out .gitignore
-      dot restore --staged .
-      dot restore --worktree .gitignore
+  if ! hush dot checkout; then
+    # files not present will appear as deleted and staged
+    # restore them to unstaged and "un-delete" out .gitignore
+    dot restore --staged .
+    dot restore --worktree .gitignore
 
-      # only modified files will be saved in git stash
-      for file in $(dot diff --name-only --diff-filter=M); do
-        dot stash push --message "dot: backup $file" "$file"
-      done
+    # only modified files will be saved in git stash
+    for file in $(dot diff --name-only --diff-filter=M); do
+      dot stash push --message "dot: backup $file" "$file"
+    done
 
-      dot restore .
-    fi
+    dot restore .
   fi
 
   say "installed successfully to ~/.dotfiles"
