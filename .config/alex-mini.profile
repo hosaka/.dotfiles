@@ -2,5 +2,5 @@
 
 # foundrdy
 if [ -d ~/.foundry/bin ]; then
-  add_path "$HOME/.foundry/bin"
+  onpath "$HOME/.foundry/bin"
 fi

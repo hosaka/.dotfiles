@@ -15,8 +15,7 @@ MACHINE_PROFILE=$(hostname | tr "[:upper:]" "[:lower:]")
 # cdspell - autocorrect typos in path names when using cd
 # checkwinsize - update the window size after each command, if necessary
 # globstar - recursive globbing, echo **/*.txt
-# histappend - append to the history file, don't overwrite it
-for option in autocd cdspell checkwwinsize globstar histappend; do
+for option in autocd cdspell checkwwinsize globstar; do
   shopt -s "$option" 2>/dev/null
 done
 unset option
@@ -72,7 +71,7 @@ if has mise; then
   MISE_ENV=$MACHINE_PROFILE
   export MISE_ENV
   eval "$(mise activate bash)"
-  eval "$(mise activate --shims)"
+  # eval "$(mise activate bash --shims)"
 fi
 
 # alias definitions (uses tools from cargo and mise)
