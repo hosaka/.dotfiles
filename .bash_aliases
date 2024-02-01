@@ -40,9 +40,11 @@ fi
 
 # git
 alias gst='git status'
+alias gs='gst --short'
 alias gco='git checkout'
-alias gs='git status --short'
-alias gl='git log --pretty=oneline --graph --abbrev-commit --max-count=20'
+alias gsw='git switch'
+alias gl='git log --pretty=oneline --abbrev-commit --max-count=20'
+alias glg='gl --graph'
 
 if has lazygit; then
   alias gg='lazygit'
