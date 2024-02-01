@@ -41,7 +41,7 @@ usage() {
 Dotfiles installer
 
 Install with \`curl https://hosaka.cc/sh/dotinstall | sh\`
-Pass options with \`... | sh -- -h\`
+Pass options with \`... | sh -s -- -h\`
 
 Usage: dotinstall [OPTIONS]
 
