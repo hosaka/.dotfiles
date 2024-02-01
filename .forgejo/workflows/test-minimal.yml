@@ -1,0 +1,21 @@
+name: Minimal setup
+
+on:
+  push:
+
+jobs:
+  test:
+    runs-on: docker
+    # container:
+    #   image: code.forgejo.org/oci/alpine:3.19
+    steps:
+      - run: echo "Triggered by ${{ github.event_name }} event"
+      - run: echo "Running on ${{ runner.os }} os"
+      - run: echo "Running on branch ${{ github.ref }} in repo ${{ github.repository }}"
+
+      # - name: Checkout
+      #   uses: actions/checkout@v4
+      # - name: List repository
+      #   run: |
+      #     ls ${{ github.workspace }}
+      # - run: echo "This job status is ${{ job.status }}"
