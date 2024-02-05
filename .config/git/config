@@ -18,14 +18,10 @@
   default = simple
 	autoSetupRemote = true
   followTags = yes
-[pull]
-  rebase = true
 [init]
 	defaultBranch = main
 [help]
   autoCorrect = prompt
-; [commit]
-;   gpgsign = true
 
 [alias]
   # status using short format
