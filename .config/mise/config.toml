@@ -18,4 +18,4 @@
 experimental = true
 
 [settings.status]
-missing_tools = false
+missing_tools = "never"
