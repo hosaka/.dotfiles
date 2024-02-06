@@ -39,12 +39,12 @@ if has __git_complete; then
 fi
 
 # git
-alias gst='git status'
-alias gs='gst --short'
 alias gco='git checkout'
+alias gl='git l'
+alias glg='git l --graph'
+alias gs='git s'
+alias gst='git status'
 alias gsw='git switch'
-alias gl='git log --pretty=oneline --abbrev-commit --max-count=20'
-alias glg='gl --graph'
 
 if has lazygit; then
   alias gg='lazygit'

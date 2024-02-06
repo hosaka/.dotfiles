@@ -26,8 +26,8 @@
 [alias]
   # status using short format
   s = status --short
-  # short log graph of previous commits
-  l = log --pretty=oneline --graph --abbrev-commit --max-count=20
+  # short log of previous commits
+  l = log --abbrev-commit --date=relative --date-order --pretty=format:'%C(auto,yellow)%h %C(auto,blue)%>(12,trunc)%ad %C(auto,white italic)%G? %C(reset)%C(auto,green)%<(12,trunc)%aN%C(auto)%d %C(reset)%s' -10
   # always show all tags branches and remotes
   tags = tag --list
   branches = branch --all
