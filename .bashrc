@@ -79,7 +79,7 @@ include ~/.bash_aliases
 
 # keychain
 if has keychain; then
-  eval "$(keychain --quiet --eval id_ed25519)"
+  eval "$(keychain --quiet --nogui --eval)"
 fi
 
 # starship prompt
