@@ -50,3 +50,7 @@ if has lazygit; then
   alias gg='lazygit'
   alias dotgg='lazygit  --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 fi
+
+if has keychain; then
+  alias keychain='keychain --quiet'
+fi
