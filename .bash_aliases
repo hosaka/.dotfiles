@@ -31,6 +31,17 @@ else
   alias lla='ls -lGah --group-directories-first'
 fi
 
+if has bat; then
+  export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+  help() {
+    "$@" --help 2>&1 | bat --plain --language=help
+  }
+fi
+
+if has nvim; then
+  alias vimdiff='nvim -d'
+fi
+
 # dotfiles management and tab completion as git alias
 alias dot='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 alias dotadd='dot add -f'
@@ -45,6 +56,8 @@ alias glg='git l --graph'
 alias gs='git s'
 alias gst='git status'
 alias gsw='git switch'
+alias gd='git diff'
+alias gds='git diff --staged'
 
 if has lazygit; then
   alias gg='lazygit'

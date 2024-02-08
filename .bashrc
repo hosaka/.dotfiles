@@ -45,9 +45,6 @@ export GPG_TTY
 # make Python use UTF-8 encoding for output to stdin, stdout, and stderr
 export PYTHONIOENCODING="UTF-8"
 
-# don't clear the screen after quitting a manpage
-export MANPAGER="less -X"
-
 # disable less history file
 export LESSHISTFILE=-
 
