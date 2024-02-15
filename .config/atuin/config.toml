@@ -23,7 +23,9 @@
 update_check = true
 
 ## address of the sync server
-sync_address = "https://atuin.hosaka.cc"
+## defined via the ATUIN_SYNC_ADDRESS env variable
+## on a per-profile basis
+# sync_address = "https://atuin.hosaka.cc"
 
 ## how often to sync history. note that this is only triggered when a command
 ## is ran, so sync intervals may well be longer
