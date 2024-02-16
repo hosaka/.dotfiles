@@ -104,6 +104,13 @@ if has bob; then
   onpath "$HOME/.local/share/bob/nvim-bin"
 fi
 
+# fzf
+if [[ -d ~/.fzf/ ]]; then
+  if [[ ! "$PATH" == *"$HOME.fzf/bin"* ]]; then
+    onpath "$HOME/.fzf/bin"
+  fi
+fi
+
 # load machine profiles
 include "$HOME/.config/$MACHINE_PROFILE.profile"
 

@@ -1,4 +1,7 @@
 [tools]
+# todo: go list -m -versions does not return any Versions
+# "go:github.com/junegunn/fzf" = "latest"
+
 "cargo:atuin" = "17.2"
 "cargo:bat" = "0.24"
 "cargo:bob-nvim" = "2.8"
