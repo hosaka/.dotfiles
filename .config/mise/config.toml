@@ -6,6 +6,7 @@
 "cargo:bat" = "0.24"
 "cargo:bob-nvim" = "2.8"
 "cargo:broot" = "1.32"
+"cargo:du-dust" = "0.9"
 "cargo:eza" = "0.17"
 "cargo:fd-find" = "9.0"
 "cargo:fend" = "1.4"
