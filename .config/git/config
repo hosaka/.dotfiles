@@ -8,20 +8,30 @@
 [interactive]
   diffFilter = delta --color-only
 [merge]
-  conflictStyle = diff3
+  conflictStyle = zdiff3
 [diff]
   colorMoved = default
+  submodule = log
+  algorithm = histogram
 [delta]
   navigate = true
   line-numbers = true
 [push]
   default = simple
-	autoSetupRemote = true
+  autoSetupRemote = true
   followTags = yes
+[branch]
+  sort = -committerdate
+[rebase]
+  autosquash = true
 [init]
-	defaultBranch = main
+  defaultBranch = main
 [help]
   autoCorrect = prompt
+[status]
+  submoduleSummary = true
+[log]
+  date = iso
 
 [alias]
   # status using short format
