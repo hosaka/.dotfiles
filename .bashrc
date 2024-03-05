@@ -38,10 +38,6 @@ else
 fi
 export EDITOR
 
-# avoid issues with gpg under wsl not recognising smartcards
-GPG_TTY=$(tty)
-export GPG_TTY
-
 # make Python use UTF-8 encoding for output to stdin, stdout, and stderr
 export PYTHONIOENCODING="UTF-8"
 
