@@ -53,6 +53,12 @@ if [ -x /usr/bin/dircolors ]; then
   fi
 fi
 
+if on_wsl; then
+  # avoid issues with gpg not recognising smartcards
+  GPG_TTY=$(tty)
+  export GPG_TTY
+fi
+
 # enable completion features
 include /etc/bash_completion
 
@@ -102,7 +108,7 @@ fi
 
 # fzf
 if [[ -d ~/.fzf/ ]]; then
-  if [[ ! "$PATH" == *"$HOME.fzf/bin"* ]]; then
+  if [[ ! "$PATH" == *"$HOME/.fzf/bin"* ]]; then
     onpath "$HOME/.fzf/bin"
   fi
 fi

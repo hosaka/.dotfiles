@@ -60,6 +60,10 @@ include() {
   fi
 }
 
+on_wsl() {
+  test -n "${WSL_DISTRO_NAME}"
+}
+
 # create a new directory and enter it
 function mkd() {
   mkdir -p "$@" && cd "$_" || return
@@ -69,7 +73,7 @@ function mkd() {
 function cdu() {
   local start=$PWD
   local target=${*:-.git}
-  while ! (test -f "$target" || test -d "$target"); do
+  while ! { test -f "$target" || test -d "$target"; }; do
     cd ..
     if [ "$PWD" = "/" ]; then
       warn "nothing found" >&2
