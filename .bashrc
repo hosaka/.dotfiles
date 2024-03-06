@@ -70,7 +70,7 @@ if has mise; then
   MISE_ENV=$MACHINE_PROFILE
   export MISE_ENV
   eval "$(mise activate bash)"
-  # eval "$(mise activate bash --shims)"
+  eval "$(mise hook-env -s bash)"
 fi
 
 # alias definitions (uses tools from cargo and mise)
