@@ -43,6 +43,7 @@ Rust toolchain can be installed with `dotstrap rustup`.
 
 A tool for managing development environments and tooling, see [mise.jdx.dev](https://mise.jdx.dev/).
 In addition to a global config, per-machine config can be added (based on the `hostname`).
+See [.config/mise/](.config/mise) for examples.
 
 Bootstrap it with `dotstrap mise`. To view a list of tools and install them use:
 
@@ -51,11 +52,12 @@ mise list
 mise install tool # or tool@version
 ```
 
-It is also used as an intermediate step to install versioned tools from other package managers such as `cargo`, `go` and `npm`. Some of the tools which can be installed with Mise are described below.
+It is also used as an intermediate step to install versioned tools from other package managers such as `cargo`, `go` and `npm`.
+Some of the tools which can be installed with Mise are described below.
 
 #### Atuin
 
-Replaces shell history with a searchable database, see [docs.atuin.sh](https://docs.atuin.sh/).
+Replaces shell history with a searchable database, see [docs.atuin.sh](https://docs.atuin.sh/). Install with `mise install "cargo:atuin"`.
 Shell history can be synced between different machines via a self hosted server (see `.config/atuin/config.toml`).
 
 To setup a new machine (omit the password flag to enter it via a prompt):
@@ -74,6 +76,12 @@ A version manager for Neovim. Install with `mise install "cargo:bob"`, To use/in
 bob use nightly
 ```
 
+To update an existing version:
+
+```bash
+bob update nightly
+```
+
 ### Neovim
 
 Added as a gitsubmodule, neovim config can be pulled in by running:
@@ -84,7 +92,7 @@ dot submodule update --init .config/nvim
 
 ## Add
 
-All files are ignored by default (see `.gitignore`). To add a new dotfile pass the `--force` flag to the git add command:
+All files are ignored by default (see `.gitignore`). To add a new dotfile pass the `--force/-f` flag to the git add command:
 
 ```bash
 dot add -f .vimrc
