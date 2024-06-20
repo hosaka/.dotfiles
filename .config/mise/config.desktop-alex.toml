@@ -1,0 +1,8 @@
+[tools]
+# todo: go list -m -versions does not return any Versions
+# "go:github.com/cloudflare/cloudflared" = "latest"
+
+node = "lts-iron"
+golang = "1.21"
+python = "3.10"
+

@@ -1,5 +1,0 @@
-[tools]
-node = "lts-iron"
-golang = "1.21"
-python = "3.10"
-
