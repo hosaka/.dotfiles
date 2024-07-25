@@ -51,18 +51,22 @@ fi
 
 # git
 alias gco='git checkout'
+alias gd='git diff'
+alias gds='git diff --staged'
 alias gl='git l'
 alias glg='git l --graph'
 alias gs='git s'
 alias gst='git status'
 alias gsw='git switch'
-alias gd='git diff'
-alias gds='git diff --staged'
 
 if has lazygit; then
   alias gg='lazygit'
   alias dotgg='lazygit  --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 fi
+
+# docker
+alias dimg='docker images'
+alias dpsa='docker ps -a'
 
 if has keychain; then
   alias keychain='keychain --quiet'
