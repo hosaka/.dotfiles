@@ -1,7 +1,4 @@
 [tools]
-# todo: go list -m -versions does not return any Versions
-# "go:github.com/junegunn/fzf" = "latest"
-
 "cargo:atuin" = "18.2"
 "cargo:bat" = "0.24"
 "cargo:bob-nvim" = "2.9"
@@ -19,6 +16,8 @@
 "cargo:tlrc" = "1.9"
 "cargo:zellij" = "0.40"
 "cargo:zoxide" = "0.9"
+
+"go:github.com/jesseduffield/lazygit" = "0.43.1"
 
 [settings]
 experimental = true
