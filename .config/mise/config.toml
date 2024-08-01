@@ -18,6 +18,7 @@
 "cargo:zoxide" = "0.9"
 
 "go:github.com/jesseduffield/lazygit" = "0.43.1"
+"go:github.com/jesseduffield/lazydocker" = "0.23.3"
 
 [settings]
 experimental = true

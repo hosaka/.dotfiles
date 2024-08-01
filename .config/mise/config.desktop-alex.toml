@@ -3,6 +3,6 @@
 # "go:github.com/cloudflare/cloudflared" = "latest"
 
 node = "lts-iron"
-golang = "1.21"
+golang = "1.22"
 python = "3.10"
 
