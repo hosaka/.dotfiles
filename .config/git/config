@@ -48,5 +48,10 @@
   aliases = config --get-regexp alias
   # amend currently staged files to the latest commit
   amend = commit --amend --reuse-message=HEAD
+  # amend last commit to gpg sign it
+  amend-sign = commit --amend --no-edit --gpg-sign
   # discards all changes and removes all untracked files/directories
   nuke = !git reset --hard HEAD && git clean --force -d
+
+[credential "https://github.com"]
+	helper = !/usr/bin/gh auth git-credential
