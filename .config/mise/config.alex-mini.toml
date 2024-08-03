@@ -2,4 +2,5 @@
 node = "lts-iron"
 golang = "1.22"
 python = "3.11"
+zig = "latest"
 
