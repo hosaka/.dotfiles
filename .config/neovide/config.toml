@@ -1,0 +1,35 @@
+neovim-bin = "~/.local/share/bob/nvim-bin/nvim"
+wsl = true
+
+[font]
+size = 11
+hinting = "full"
+edging = "antialias"
+
+[font.features]
+"Monaspace Neon" = ["+calt", "+liga", "+dlig", "+ss01", "+ss02", "+ss03", "+ss04", "+ss05", "+ss06", "+ss07", "+ss08"]
+"Monaspace Radon" = ["+calt", "+liga", "+dlig", "+ss01", "+ss02", "+ss03", "+ss04", "+ss05", "+ss06", "+ss07", "+ss08"]
+"Monaspace Krypton" = ["+calt", "+liga", "+dlig", "+ss01", "+ss02", "+ss03", "+ss04", "+ss05", "+ss06", "+ss07", "+ss08"]
+"Monaspace Xenon" = ["+calt", "+liga", "+dlig", "+ss01", "+ss02", "+ss03", "+ss04", "+ss05", "+ss06", "+ss07", "+ss08"]
+
+[[font.normal]]
+family = "Monaspace Neon"
+style = "Thin"
+
+[[font.italic]]
+family = "Monaspace Radon"
+style = "Light"
+slant = "Italic"
+
+[[font.bold]]
+family = "Monaspace Krypton"
+style = "Bold"
+
+[[font.bold_italic]]
+family = "Monaspace Xenon"
+style = "Bold"
+slant = "Italic"
+
+# fallback for glyphs
+[[font.normal]]
+family = "FiraCode Nerd Font"
