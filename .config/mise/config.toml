@@ -9,6 +9,7 @@
 "cargo:fend" = "1.4"
 "cargo:git-delta" = "0.17"
 "cargo:hexyl" = "0.14"
+"cargo:just" = "1.36.0"
 "cargo:ouch" = "0.5"
 "cargo:procs" = "0.14"
 "cargo:ripgrep" = "14.1"

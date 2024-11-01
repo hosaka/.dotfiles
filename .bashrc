@@ -113,6 +113,11 @@ if [[ -d ~/.fzf/ ]]; then
   fi
 fi
 
+# just
+if has just; then
+  eval "$(just --completions bash)"
+fi
+
 # load machine profiles
 include "$HOME/.config/$MACHINE_PROFILE.profile"
 
