@@ -1,28 +1,30 @@
 [tools]
 "cargo:atuin" = "18.2"
 "cargo:bat" = "0.24"
-"cargo:bob-nvim" = "2.9"
-"cargo:broot" = "1.38"
-"cargo:du-dust" = "1.0"
-"cargo:eza" = "0.18"
-"cargo:fd-find" = "10.1"
-"cargo:fend" = "1.4"
-"cargo:git-delta" = "0.17"
-"cargo:hexyl" = "0.14"
-"cargo:just" = "1.36.0"
+"cargo:bob-nvim" = "4.0"
+"cargo:broot" = "1.44"
+"cargo:du-dust" = "1.1"
+"cargo:eza" = "0.20"
+"cargo:fd-find" = "10.2"
+"cargo:fend" = "1.5"
+"cargo:git-delta" = "0.18"
+"cargo:hexyl" = "0.15"
+"cargo:just" = "1.36"
 "cargo:ouch" = "0.5"
 "cargo:procs" = "0.14"
 "cargo:ripgrep" = "14.1"
-"cargo:starship" = "1.18.2"
+"cargo:starship" = "1.21"
 "cargo:tlrc" = "1.9"
-"cargo:zellij" = "0.40"
+"cargo:zellij" = "0.41"
 "cargo:zoxide" = "0.9"
 
-"go:github.com/jesseduffield/lazygit" = "0.43.1"
 "go:github.com/jesseduffield/lazydocker" = "0.23.3"
+"go:github.com/jesseduffield/lazygit" = "0.43.1"
 
 [settings]
 experimental = true
+disable_backends = ["asdf"]
+not_found_auto_install = false
 
 [settings.status]
 missing_tools = "never"
