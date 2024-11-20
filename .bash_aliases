@@ -38,6 +38,15 @@ if has bat; then
   }
 fi
 
+if has rg; then
+  if has delta; then
+    # highlight ripgrep output
+    rgd() {
+      rg --json --context 2 "$@" | delta
+    }
+  fi
+fi
+
 if has nvim; then
   alias vimdiff='nvim -d'
 fi
