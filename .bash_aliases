@@ -32,7 +32,7 @@ else
 fi
 
 if has bat; then
-  export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+  # colorize --help messages
   help() {
     "$@" --help 2>&1 | bat --plain --language=help
   }

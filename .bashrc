@@ -38,6 +38,13 @@ else
 fi
 export EDITOR
 
+# default manpager
+if has bat; then
+  export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+elif has nvim; then
+  export MANPAGER="nvim +Man!"
+fi
+
 # make Python use UTF-8 encoding for output to stdin, stdout, and stderr
 export PYTHONIOENCODING="UTF-8"
 
