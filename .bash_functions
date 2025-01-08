@@ -85,3 +85,27 @@ function cdu() {
   pwd
   return 0
 }
+
+if has gpg; then
+  function secret() {
+    local filename=${1}
+    if ! test -f "${filename}"; then
+      warn "provide a file to encrypt" >&2
+      return 1
+    fi
+    local output="$filename.enc"
+    gpg --armor --symmetric --output "${output}" "${filename}"
+    return 0
+  }
+
+  function reveal() {
+    local filename=${1}
+    if ! test -f "${filename}"; then
+      warn "provide a file to decrypt" >&2
+      return 1
+    fi
+    local output=$(basename "${filename}" ".enc")
+    gpg --decrypt --output "${output}" "${filename}"
+    return 0
+  }
+fi
