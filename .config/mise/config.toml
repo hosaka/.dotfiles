@@ -1,4 +1,6 @@
 [tools]
+usage = "latest"
+
 "cargo:atuin" = "18.2"
 "cargo:bat" = "0.24"
 "cargo:bob-nvim" = "4.0"
