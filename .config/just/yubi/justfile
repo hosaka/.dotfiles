@@ -1,19 +1,23 @@
 yubikey_hwid := "1050:0407"
 
+alias a := attach
+alias d := detach
+alias s := status
+
 [no-cd, doc('list recipes (default)')]
 @help:
-  just --list=yubi
+  just --list=yubi --no-aliases
 
-[no-cd, doc('attach yubikey to WSL')]
+[no-cd, doc('attach yubikey to WSL (alias `a`)')]
 attach:
   usbipd.exe attach --wsl --hardware-id {{ yubikey_hwid }}
   sudo service pcscd restart
 
-[no-cd, doc('detach yubikey from WSL')]
+[no-cd, doc('detach yubikey from WSL (alias `d`)')]
 detach:
   usbipd.exe detach --hardware-id {{ yubikey_hwid }}
   sudo service pcscd restart
 
-[no-cd, doc('show card status')]
+[no-cd, doc('show card status (alias `s`)')]
 status:
   gpg --card-status

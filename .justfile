@@ -1,14 +1,17 @@
 [doc('list recipes (default)')]
 @help:
-  just --list
+  just --list --no-aliases
 
 [doc('list recipes with submodules')]
 @list:
-  just --list --list-submodules
+  just --list --no-aliases --list-submodules
 
 [doc('edit recipes')]
 @edit:
   just --edit
 
-# yubikey management (`just yubi` for more)
+# yubikey management (`just yubi` for more, alias `y`)
 mod yubi '~/.config/just/yubi'
+@_y *args:
+  just yubi {{ args }}
+alias y := _y
