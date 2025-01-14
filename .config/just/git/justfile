@@ -1,0 +1,16 @@
+cwd := quote(invocation_directory())
+
+alias s := sign
+alias r := resign
+
+[doc('list recipes (default)'), no-cd]
+@help:
+  just --list=git --no-aliases
+
+[doc('enable gpg signing (alias `s`)'), no-cd, no-exit-message]
+sign:
+  git config commit.gpgsign true
+
+[doc('gpg sign last commit (alias `r`)'), no-cd, no-exit-message]
+resign:
+  git commit --amend --no-edit --gpg-sign

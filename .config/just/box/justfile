@@ -1,0 +1,11 @@
+cwd := quote(invocation_directory())
+
+alias s := sync
+
+[doc('list recipes (default)'), no-cd]
+@help:
+  just --list=box --no-aliases
+
+[doc('rsync selfhosted config (alias `s`)'), no-cd, no-exit-message]
+sync:
+  rsync -chavzP {{ cwd + "/" }} alex@box.hosaka.cc:box/
