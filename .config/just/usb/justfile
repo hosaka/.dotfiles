@@ -1,0 +1,32 @@
+cwd := quote(invocation_directory())
+have_sudo := path_exists("/mnt/c/Windows/System32/sudo.exe")
+
+alias a := attach
+alias b := bind
+alias d := detach
+alias l := list
+
+[doc('list recipes (default)'), no-cd]
+@help:
+  just --list=usb --no-aliases
+
+[doc('attach usb device to WSL (alias `a`)'), no-cd]
+attach hwid:
+  usbipd.exe attach --wsl --hardware-id {{ hwid }}
+
+[doc('share a usb device with WSL (alias `b`)'), no-cd]
+bind hwid:
+  echo {{ \
+  if have_sudo != "true" { \
+    `sudo.exe usbipd.exe bind --hardware-id {{ hwid }}` \
+  } else { \
+    "need to run bind with sudo.exe which is not available" } \
+  }}
+
+[doc('detach usb device from WSL (alias `d`)'), no-cd]
+detach hwid:
+  usbipd.exe detach --hardware-id {{ hwid }}
+
+[doc('list usb devices (alias `l`)'), no-cd]
+list:
+  usbipd.exe list

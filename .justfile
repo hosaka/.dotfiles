@@ -14,11 +14,11 @@
 @edit:
   just --edit
 
-# yubikey management (`just yubi` for more, alias `y`)
-mod yubi '~/.config/just/yubi'
+# box management (`just box` for more, alias `b`)
+mod box '~/.config/just/box'
 [private]
-@y *args:
-  just yubi {{ args }}
+@b *args:
+  just box {{ args }}
 
 # git shortcuts (`just git` for more, alias `g`)
 mod git '~/.config/just/git'
@@ -26,8 +26,14 @@ mod git '~/.config/just/git'
 @g *args:
   just git {{ args }}
 
-# box management (`just box` for more, alias `b`)
-mod box '~/.config/just/box'
+# usb management (`just usb` for more, alias `u`)
+mod usb '~/.config/just/usb'
 [private]
-@b *args:
-  just box {{ args }}
+@u *args:
+  just usb {{ args }}
+
+# yubikey management (`just yubi` for more, alias `y`)
+mod yubi '~/.config/just/yubi'
+[private]
+@y *args:
+  just yubi {{ args }}

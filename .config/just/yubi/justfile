@@ -1,5 +1,5 @@
 cwd := quote(invocation_directory())
-yubikey_hwid := "1050:0407"
+hwid := "1050:0407"
 
 alias a := attach
 alias d := detach
@@ -11,17 +11,18 @@ alias s := status
 
 [doc('attach yubikey to WSL (alias `a`)'), no-cd]
 attach: && pcscd
-  usbipd.exe attach --wsl --hardware-id {{ yubikey_hwid }}
+  usbipd.exe attach --wsl --hardware-id {{ hwid }}
 
 [doc('detach yubikey from WSL (alias `d`)'), no-cd]
 detach: && pcscd
-  usbipd.exe detach --hardware-id {{ yubikey_hwid }}
+  usbipd.exe detach --hardware-id {{ hwid }}
+
+[doc('show card status (alias `s`)'), no-cd, no-exit-message]
+status:
+  gpg --card-status
 
 [private]
 pcscd:
   sleep 1 # waiting for hw
   sudo service pcscd restart
 
-[doc('show card status (alias `s`)'), no-cd, no-exit-message]
-status:
-  gpg --card-status
