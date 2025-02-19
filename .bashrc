@@ -125,6 +125,13 @@ if has just; then
   eval "$(just --completions bash)"
 fi
 
+# delta
+if has delta; then
+  export GIT_PAGER="delta"
+  export DELTA_FEATURES="side-by-side line-numbers navigate"
+  # todo: not sure how to add interactive.diffFilter = delta --color-only
+fi
+
 # load machine profiles
 include "$HOME/.config/$MACHINE_PROFILE.profile"
 
