@@ -8,11 +8,23 @@ To get a new machine setup, there are a few choices.
 
 Use a bare repo with a [worktree](https://git-scm.com/docs/git-worktree):
 
+
 ```bash
 git clone --bare https://github.com/hosaka/.dotfiles.git $HOME/.dotfiles
 alias dot="/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
 dot checkout -f
 ```
+
+<details>
+<summary>Using Windows/PowerShell</summary>
+
+```bash
+git clone --bare https://github.com/hosaka/.dotfiles.git $HOME/.dotfiles
+function dot { git --git-dir=$HOME/.dotfiles --work-tree=$HOME $Args }
+dot checkout -f
+```
+
+</details>
 
 Clone directly into `$HOME`:
 
@@ -100,3 +112,6 @@ dot add -f .vimrc
 
 All subsequent changes to this file will be tracked by git and it will appear in git status, git diff etc, an can be committed as usual.
 Alternatively use the `dotadd` alias to avoid having to pass the `-f` flag every time.
+
+# TODO
+- [ ] Add profile config and instructions for Windows/PowerShell
