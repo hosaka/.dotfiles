@@ -5,7 +5,7 @@ $MachineProfile = (hostname).ToLower()
 
 # mise
 if (Has "mise") {
-  $env:MISE_ENV = $MachineProfile
+  $env:MISE_ENV = "$MachineProfile-windows"
   mise activate pwsh | Out-String | Invoke-Expression
   # mise hook-env -s pwsh | Out-String | Invoke-Expression
 }
