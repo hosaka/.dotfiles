@@ -5,7 +5,7 @@ $MachineProfile = (hostname).ToLower()
 
 # mise
 if (Has "mise") {
-  $env:MISE_ENV = "$MachineProfile-windows"
+  $env:MISE_ENV = "$MachineProfile,windows"
   mise activate pwsh | Out-String | Invoke-Expression
   # mise hook-env -s pwsh | Out-String | Invoke-Expression
 }
@@ -20,7 +20,10 @@ if (Has "starship") {
 
 # zoxide
 if (Has "zoxide") {
-  zoxide init powershell | Out-String | Invoke-Expression
+  Invoke-Expression (& {
+      $hook = if ($PSVersionTable.PSVersion.Major -lt 6) { 'prompt' } else { 'pwd' }
+      (zoxide init --hook $hook powershell | Out-String)
+  })
 }
 
 # just

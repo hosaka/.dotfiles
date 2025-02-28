@@ -70,3 +70,6 @@ function dpsa { docker ps -a @args }
 if (Has "keychain") {
     function keychain { & "keychain" --quiet @args }
 }
+
+# vscodium
+Set-Alias -Name code -Value codium
