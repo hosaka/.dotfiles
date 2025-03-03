@@ -30,21 +30,6 @@ HISTSIZE=32768
 # ignore cmds starting with space, ignore duplicates and erase them
 HISTCONTROL="ignoreboth:erasedups"
 
-# default editor
-if has nvim; then
-  EDITOR="nvim"
-else
-  EDITOR="vim"
-fi
-export EDITOR
-
-# default manpager
-if has bat; then
-  export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-elif has nvim; then
-  export MANPAGER="nvim +Man!"
-fi
-
 # make Python use UTF-8 encoding for output to stdin, stdout, and stderr
 export PYTHONIOENCODING="UTF-8"
 
@@ -75,6 +60,9 @@ include ~/.cargo/env
 # mise
 if has mise; then
   MISE_ENV=$MACHINE_PROFILE
+  if on_wsl; then
+    MISE_ENV=$MISE_ENV,wsl
+  fi
   export MISE_ENV
   eval "$(mise activate bash)"
   eval "$(mise hook-env -s bash)"
@@ -82,6 +70,21 @@ fi
 
 # alias definitions (uses tools from cargo and mise)
 include ~/.bash_aliases
+
+# default editor
+if has nvim; then
+  EDITOR="nvim"
+else
+  EDITOR="vim"
+fi
+export EDITOR
+
+# default manpager
+if has bat; then
+  export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+elif has nvim; then
+  export MANPAGER="nvim +Man!"
+fi
 
 # keychain
 if has keychain; then
