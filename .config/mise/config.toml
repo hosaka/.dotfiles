@@ -1,27 +1,23 @@
 [tools]
 usage = "latest"
 
-"cargo:atuin" = "18.4"
-"cargo:bat" = "0.25"
-"cargo:bob-nvim" = "4.0"
-"cargo:broot" = "1.44"
-"cargo:du-dust" = "1.1"
-"cargo:eza" = "0.20"
-"cargo:fd-find" = "10.2"
-"cargo:fend" = "1.5"
-"cargo:git-delta" = "0.18"
-"cargo:hexyl" = "0.16"
-"cargo:just" = "1.38"
-"cargo:ouch" = "0.5"
-"cargo:procs" = "0.14"
-"cargo:ripgrep" = "14.1"
-"cargo:starship" = "1.21"
-"cargo:tlrc" = "1.9"
-"cargo:zellij" = "0.41"
-"cargo:zoxide" = "0.9"
-
-"go:github.com/jesseduffield/lazydocker" = "0.23.3"
-"go:github.com/jesseduffield/lazygit" = "0.43.1"
+"ubi:BurntSushi/ripgrep" = { version = "14.1", exe = "rg" }
+"ubi:MordechaiHadad/bob" = { version = "4.0", matching = "openssl" }
+"ubi:ajeetdsouza/zoxide" = { version = "0.9" }
+"ubi:bootandy/dust" = { version = "1.1" }
+"ubi:casey/just" = { version = "1.39" }
+"ubi:dalance/procs" = { version = "0.14" }
+"ubi:dandavison/delta" = { version = "0.18" }
+"ubi:eza-community/eza" = { version = "0.20" }
+"ubi:jesseduffield/lazydocker" = { version = "0.24" }
+"ubi:jesseduffield/lazygit" = { version = "0.47" }
+"ubi:ouch-org/ouch" = { version = "0.5" }
+"ubi:printfn/fend" = { version = "1.5" }
+"ubi:sharkdp/bat" = { version = "0.25" }
+"ubi:sharkdp/fd" = { version = "10.2" }
+"ubi:sharkdp/hexyl" = { version = "0.16" }
+"ubi:starship/starship" = { version = "1.21" }
+"ubi:tldr-pages/tlrc" = { version = "1.10", exe = "tldr" }
 
 [settings]
 experimental = true

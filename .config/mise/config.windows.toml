@@ -1,18 +1,4 @@
 [tools]
-"ubi:BurntSushi/ripgrep" = { version = "14.1", exe = "rg" }
-"ubi:Canop/broot" = { version = "1.44", extract_all = "true", bin_path = "x86_64-pc-windows-gnu" }
-"ubi:ajeetdsouza/zoxide" = { version = "0.9" }
-"ubi:bootandy/dust" = { version = "1.1" }
-"ubi:casey/just" = { version = "1.39" }
-"ubi:dalance/procs" = { version = "0.14" }
-"ubi:dandavison/delta" = { version = "0.18" }
-"ubi:eza-community/eza" = { version = "0.20" }
-"ubi:jesseduffield/lazydocker" = { version = "0.24" }
-"ubi:jesseduffield/lazygit" = { version = "0.47" }
-"ubi:ouch-org/ouch" = { version = "0.5" }
-"ubi:printfn/fend" = { version = "1.5" }
-"ubi:sharkdp/bat" = { version = "0.25" }
-"ubi:sharkdp/fd" = { version = "10.2" }
-"ubi:sharkdp/hexyl" = { version = "0.16" }
-"ubi:starship/starship" = { version = "1.21" }
-"ubi:tldr-pages/tlrc" = { version = "1.10", exe = "tldr" }
+
+[settings]
+# disable_tools = []
