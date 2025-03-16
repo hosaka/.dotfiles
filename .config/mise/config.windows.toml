@@ -1,4 +1,4 @@
 [tools]
 
 [settings]
-# disable_tools = []
+disable_tools = ["ubi:zellij-org/zellij", "ubi:atuinsh/atuin"]

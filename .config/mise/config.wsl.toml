@@ -1,6 +1,4 @@
 [tools]
-"ubi:atuinsh/atuin" = { version = "18.4", matching = "atuin-x86_64-unknown-linux-gnu.tar.gz" }
-"ubi:zellij-org/zellij" = { version = "0.41" }
 
 [settings]
-# disable_tools = []
+disable_tools = []

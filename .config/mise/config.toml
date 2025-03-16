@@ -4,6 +4,7 @@ usage = "latest"
 "ubi:BurntSushi/ripgrep" = { version = "14.1", exe = "rg" }
 "ubi:MordechaiHadad/bob" = { version = "4.0", matching = "openssl" }
 "ubi:ajeetdsouza/zoxide" = { version = "0.9" }
+"ubi:atuinsh/atuin" = { version = "18.4", matching = ".tar.gz" }
 "ubi:bootandy/dust" = { version = "1.1" }
 "ubi:casey/just" = { version = "1.39" }
 "ubi:dalance/procs" = { version = "0.14" }
@@ -20,6 +21,7 @@ usage = "latest"
 "ubi:sharkdp/hyperfine" = { version = "1.19" }
 "ubi:starship/starship" = { version = "1.21" }
 "ubi:tldr-pages/tlrc" = { version = "1.10", exe = "tldr" }
+"ubi:zellij-org/zellij" = { version = "0.41" }
 
 [settings]
 experimental = true
