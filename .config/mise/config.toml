@@ -10,6 +10,7 @@ usage = "latest"
 "ubi:dalance/procs" = { version = "0.14" }
 "ubi:dandavison/delta" = { version = "0.18" }
 "ubi:eza-community/eza" = { version = "0.20" }
+"ubi:getsops/sops" = { version = "3.9" }
 "ubi:jesseduffield/lazydocker" = { version = "0.24" }
 "ubi:jesseduffield/lazygit" = { version = "0.47" }
 "ubi:ouch-org/ouch" = { version = "0.5" }
