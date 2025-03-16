@@ -12,10 +12,12 @@ usage = "latest"
 "ubi:jesseduffield/lazydocker" = { version = "0.24" }
 "ubi:jesseduffield/lazygit" = { version = "0.47" }
 "ubi:ouch-org/ouch" = { version = "0.5" }
+"ubi:pkolaczk/fclones" = { version = "0.35" }
 "ubi:printfn/fend" = { version = "1.5" }
 "ubi:sharkdp/bat" = { version = "0.25" }
 "ubi:sharkdp/fd" = { version = "10.2" }
 "ubi:sharkdp/hexyl" = { version = "0.16" }
+"ubi:sharkdp/hyperfine" = { version = "1.19" }
 "ubi:starship/starship" = { version = "1.21" }
 "ubi:tldr-pages/tlrc" = { version = "1.10", exe = "tldr" }
 
