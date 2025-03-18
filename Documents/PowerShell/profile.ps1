@@ -6,6 +6,7 @@ $MachineProfile = (hostname).ToLower()
 # mise
 if (Has "mise") {
   $env:MISE_ENV = "$MachineProfile,windows"
+  $env:MISE_GLOBAL_CONFIG_FILE = "$env:UserProfile\.config\mise\config.toml"
   mise activate pwsh | Out-String | Invoke-Expression
   # mise hook-env -s pwsh | Out-String | Invoke-Expression
 }
