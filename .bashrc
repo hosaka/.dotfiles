@@ -135,6 +135,11 @@ if has delta; then
   # todo: not sure how to add interactive.diffFilter = delta --color-only
 fi
 
+# watchexec
+if has watchexec; then
+  eval "$(watchexec --completions bash)"
+fi
+
 # load machine profiles
 include "$HOME/.config/$MACHINE_PROFILE.profile"
 

@@ -25,6 +25,7 @@ usage = "latest"
 "ubi:sharkdp/hyperfine" = { version = "1.19" }
 "ubi:starship/starship" = { version = "1.21" }
 "ubi:tldr-pages/tlrc" = { version = "1.10", exe = "tldr" }
+"ubi:watchexec/watchexec" = { version = "2.3" }
 "ubi:zellij-org/zellij" = { version = "0.41" }
 
 [settings]
