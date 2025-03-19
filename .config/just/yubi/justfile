@@ -10,19 +10,14 @@ alias s := status
   just --list=yubi --no-aliases
 
 [doc('attach yubikey to WSL (alias `a`)'), no-cd]
-attach: && pcscd
+attach:
   usbipd.exe attach --wsl --hardware-id {{ hwid }}
 
 [doc('detach yubikey from WSL (alias `d`)'), no-cd]
-detach: && pcscd
+detach:
   usbipd.exe detach --hardware-id {{ hwid }}
 
 [doc('show card status (alias `s`)'), no-cd, no-exit-message]
 status:
   gpg --card-status
-
-[private]
-pcscd:
-  sleep 1 # waiting for hw
-  sudo service pcscd restart
 
