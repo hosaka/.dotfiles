@@ -8,8 +8,8 @@ alias r := resign
   just --list=git --no-aliases
 
 [doc('enable gpg signing (alias `s`)'), no-cd, no-exit-message]
-sign:
-  git config commit.gpgsign true
+sign val="true":
+  git config commit.gpgsign {{ val }}
 
 [doc('gpg sign last commit (alias `r`)'), no-cd, no-exit-message]
 resign:
