@@ -26,6 +26,7 @@ usage = "latest"
 "ubi:starship/starship" = { version = "1.21" }
 "ubi:tldr-pages/tlrc" = { version = "1.10", exe = "tldr" }
 "ubi:watchexec/watchexec" = { version = "2.3" }
+"ubi:sxyazi/yazi" = { version = "25.4", extract_all = "true" }
 "ubi:zellij-org/zellij" = { version = "0.41" }
 
 [settings]
