@@ -16,6 +16,7 @@ usage = "latest"
 "ubi:getsops/sops" = { version = "3.9" }
 "ubi:jesseduffield/lazydocker" = { version = "0.24" }
 "ubi:jesseduffield/lazygit" = { version = "0.47" }
+"ubi:muesli/duf" = { version = "0.8" }
 "ubi:ouch-org/ouch" = { version = "0.5" }
 "ubi:pkolaczk/fclones" = { version = "0.35" }
 "ubi:printfn/fend" = { version = "1.5" }
@@ -24,9 +25,9 @@ usage = "latest"
 "ubi:sharkdp/hexyl" = { version = "0.16" }
 "ubi:sharkdp/hyperfine" = { version = "1.19" }
 "ubi:starship/starship" = { version = "1.21" }
+"ubi:sxyazi/yazi" = { version = "25.4", extract_all = "true" }
 "ubi:tldr-pages/tlrc" = { version = "1.10", exe = "tldr" }
 "ubi:watchexec/watchexec" = { version = "2.3" }
-"ubi:sxyazi/yazi" = { version = "25.4", extract_all = "true" }
 "ubi:zellij-org/zellij" = { version = "0.41" }
 
 [settings]
