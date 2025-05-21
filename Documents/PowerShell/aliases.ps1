@@ -10,6 +10,7 @@ if (Has "eza") {
     function la  { & "eza" -a @args }
     function ll  { & "eza" -l "--group-directories-first" @args }
     function lla { & "eza" -la "--group-directories-first" @args }
+    function lst { & "eza" --tree "--group-directories-first" @args }
 } elseif (Has "lsd") {
     function ls  { & "lsd"  @args }
     function la  { & "lsd" -a @args }
