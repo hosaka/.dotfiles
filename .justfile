@@ -1,3 +1,5 @@
+set windows-shell := ["powershell.exe", "-NoLogo", "-NonInteractive", "-Command"]
+
 [doc('list recipes (default)')]
 @help:
   just --list --no-aliases
