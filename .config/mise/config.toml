@@ -1,37 +1,39 @@
 [tools]
 usage = "latest"
 
-"ubi:BurntSushi/ripgrep" = { version = "14.1", exe = "rg" }
-"ubi:MordechaiHadad/bob" = { version = "4.0", matching = "openssl" }
-"ubi:ajeetdsouza/zoxide" = { version = "0.9" }
-"ubi:atuinsh/atuin" = { version = "18.4", matching = ".tar.gz" }
-"ubi:bootandy/dust" = { version = "1.1" }
-"ubi:casey/just" = { version = "1.40" }
-"ubi:cloudflare/cloudflared" = { version = "2025.2.1" }
-"ubi:dalance/procs" = { version = "0.14" }
-"ubi:dandavison/delta" = { version = "0.18" }
-"ubi:ducaale/xh" = { version = "0.24" }
-"ubi:eza-community/eza" = { version = "0.20" }
-"ubi:getsops/sops" = { version = "3.9" }
-"ubi:jesseduffield/lazydocker" = { version = "0.24" }
-"ubi:jesseduffield/lazygit" = { version = "0.47" }
-"ubi:muesli/duf" = { version = "0.8" }
-"ubi:ouch-org/ouch" = { version = "0.5" }
+"aqua:atuinsh/atuin" = { version = "18.4" }
+bat = { version = "0.25" }
+"aqua:MordechaiHadad/bob" = { version = "4.0" }
+cosign = { version = "2.5" }
+cloudflared = { version = "2025.2" }
+delta = { version = "0.18" }
+duf = { version = "0.8" }
+dust = { version = "1.1" }
+eza = { version = "0.20" }
 "ubi:pkolaczk/fclones" = { version = "0.35" }
-"ubi:printfn/fend" = { version = "1.5" }
-"ubi:sharkdp/bat" = { version = "0.25" }
-"ubi:sharkdp/fd" = { version = "10.2" }
-"ubi:sharkdp/hexyl" = { version = "0.16" }
-"ubi:sharkdp/hyperfine" = { version = "1.19" }
-"ubi:starship/starship" = { version = "1.21" }
-"ubi:sxyazi/yazi" = { version = "25.4", extract_all = "true" }
-"ubi:tldr-pages/tlrc" = { version = "1.10", exe = "tldr" }
-"ubi:watchexec/watchexec" = { version = "2.3" }
-"ubi:zellij-org/zellij" = { version = "0.41" }
+fd = { version = "10.2" }
+"aqua:printfn/fend" = { version = "1.5" }
+hexyl = { version = "0.16" }
+hyperfine = { version = "1.19" }
+just = { version = "1.40" }
+lazydocker = { version = "0.24" }
+lazygit = { version = "0.47" }
+"aqua:ouch-org/ouch" = { version = "0.5" }
+"aqua:dalance/procs" = { version = "0.14" }
+ripgrep = { version = "14.1" }
+sops = { version = "3.9" }
+starship = { version = "1.21" }
+"aqua:tldr-pages/tlrc" = { version = "1.10" }
+watchexec = { version = "2.3" }
+xh = { version = "0.24" }
+yazi = { version = "25.4" }
+zellij = { version = "0.41" }
+zoxide = { version = "0.9" }
 
 [settings]
 experimental = true
 disable_backends = ["asdf"]
+exec_auto_install = false
 not_found_auto_install = false
 
 [settings.status]

@@ -19,6 +19,7 @@ if has eza; then
   alias la='eza -a'
   alias ll='eza -l --group-directories-first'
   alias lla='eza -la --group-directories-first'
+  alias lst='eza --tree'
 elif has lsd; then
   alias ls='lsd'
   alias la='lsd -a'

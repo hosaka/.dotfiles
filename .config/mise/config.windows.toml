@@ -1,4 +1,4 @@
 [tools]
 
 [settings]
-disable_tools = ["ubi:zellij-org/zellij", "ubi:atuinsh/atuin"]
+disable_tools = ["zellij", "aqua:atuinsh/atuin"]

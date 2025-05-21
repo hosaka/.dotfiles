@@ -1,4 +1,5 @@
 [tools]
+go = "1.24"
 node = "lts-iron"
 python = "3.11"
 zig = "latest"
