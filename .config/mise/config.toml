@@ -10,7 +10,7 @@ delta = { version = "0.18" }
 duf = { version = "0.8" }
 dust = { version = "1.1" }
 eza = { version = "0.20" }
-"ubi:pkolaczk/fclones" = { version = "0.35" }
+"aqua:pkolaczk/fclones" = { version = "0.35" }
 fd = { version = "10.2" }
 "aqua:printfn/fend" = { version = "1.5" }
 hexyl = { version = "0.16" }
