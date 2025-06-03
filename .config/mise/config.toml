@@ -4,7 +4,6 @@ usage = "latest"
 "aqua:atuinsh/atuin" = { version = "18.4" }
 bat = { version = "0.25" }
 "aqua:MordechaiHadad/bob" = { version = "4.0" }
-cosign = { version = "2.5" }
 cloudflared = { version = "2025.2" }
 delta = { version = "0.18" }
 duf = { version = "0.8" }
