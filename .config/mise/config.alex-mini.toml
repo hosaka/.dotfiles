@@ -1,6 +1,4 @@
 [tools]
-bun = "1.1"
-golang = "1.22"
+golang = "1.24"
 node = "lts-iron"
-python = "3.11"
 zig = "latest"
