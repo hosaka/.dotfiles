@@ -1,14 +1,14 @@
 [tools]
 usage = "latest"
 
-"aqua:atuinsh/atuin" = { version = "18.4" }
+"aqua:atuinsh/atuin" = { version = "18.6" }
 bat = { version = "0.25" }
 "aqua:MordechaiHadad/bob" = { version = "4.0" }
-cloudflared = { version = "2025.2" }
+cloudflared = { version = "2025.5" }
 delta = { version = "0.18" }
 duf = { version = "0.8" }
-dust = { version = "1.1" }
-eza = { version = "0.20" }
+dust = { version = "1.2" }
+eza = { version = "0.21" }
 "aqua:pkolaczk/fclones" = { version = "0.35" }
 fd = { version = "10.2" }
 "aqua:printfn/fend" = { version = "1.5" }
@@ -16,17 +16,18 @@ hexyl = { version = "0.16" }
 hyperfine = { version = "1.19" }
 just = { version = "1.40" }
 lazydocker = { version = "0.24" }
-lazygit = { version = "0.47" }
-"aqua:ouch-org/ouch" = { version = "0.5" }
+lazygit = { version = "0.51" }
+"aqua:ouch-org/ouch" = { version = "0.6" }
 "aqua:dalance/procs" = { version = "0.14" }
 ripgrep = { version = "14.1" }
-sops = { version = "3.9" }
-starship = { version = "1.21" }
-"aqua:tldr-pages/tlrc" = { version = "1.10" }
+sops = { version = "3.10" }
+starship = { version = "1.23" }
+"aqua:tldr-pages/tlrc" = { version = "1.11" }
 watchexec = { version = "2.3" }
 xh = { version = "0.24" }
-yazi = { version = "25.4" }
-zellij = { version = "0.41" }
+yazi = { version = "25.5" }
+zellij = { version = "0.42" }
+"aqua:zk-org/zk" = { version = "0.15" }
 zoxide = { version = "0.9" }
 
 [settings]
