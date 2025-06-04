@@ -32,6 +32,7 @@ zoxide = { version = "0.9" }
 [settings]
 experimental = true
 disable_backends = ["asdf"]
+idiomatic_version_file_enable_tools = []
 exec_auto_install = false
 not_found_auto_install = false
 

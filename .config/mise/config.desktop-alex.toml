@@ -1,5 +1,5 @@
 [tools]
 go = "1.24"
 node = "lts-iron"
-zig = "latest"
+zig = "0.14.1"
 
