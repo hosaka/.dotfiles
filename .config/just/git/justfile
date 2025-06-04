@@ -1,6 +1,7 @@
 cwd := quote(invocation_directory())
 
 alias s := sign
+alias p := prune
 alias r := resign
 
 [doc('list recipes (default)'), no-cd]
@@ -11,6 +12,12 @@ alias r := resign
 sign val="true":
   git config commit.gpgsign {{ val }}
 
-[doc('gpg sign last commit (alias `r`)'), no-cd, no-exit-message]
-resign:
-  git commit --amend --no-edit --gpg-sign
+[doc('enable origin prune on (alias `p`)'), no-cd, no-exit-message]
+prune val="true":
+  git config remote.origin.prune {{ val }}
+
+[doc('gpg resign last commits (alias `r`)'), no-cd, no-exit-message]
+resign ref="HEAD~1":
+  git rebase --keep-empty --exec "git commit --amend --no-edit --gpg-sign" {{ ref }}
+  git log --abbrev-commit --date=relative --date-order --pretty=format:"%C(auto,yellow)%h %C(auto,blue)%>(12,trunc)%ad %C(auto,white italic)%G? %C(reset)%C(auto,green)%<(12,trunc)%aN %C(reset)%s" {{ ref }}..HEAD
+
