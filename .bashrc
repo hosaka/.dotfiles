@@ -140,6 +140,11 @@ if has watchexec; then
   eval "$(watchexec --completions bash)"
 fi
 
+# pay-respects
+if has pay-respects; then
+  eval "$(pay-respects bash --alias f)"
+fi
+
 # load machine profiles
 include "$HOME/.config/$MACHINE_PROFILE.profile"
 
