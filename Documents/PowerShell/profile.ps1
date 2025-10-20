@@ -11,7 +11,7 @@ if (Has "mise") {
   # mise hook-env -s pwsh | Out-String | Invoke-Expression
 }
 
-# alias definitions (uses tools from cargo and mise)
+# alias definitions (uses tools from mise)
 . (Join-Path $ProfileDir "aliases.ps1")
 
 # starship prompt
@@ -37,6 +37,10 @@ if (Has "delta") {
   $env:GIT_PAGER = "delta"
   $env:DELTA_FEATURES = "side-by-side line-numbers navigate"
   # todo: not sure how to add interactive.diffFilter = delta --color-only
+}
+
+if (Has "pay-respects") {
+  pay-respects pwsh --alias f | Out-String | Invoke-Expression
 }
 
 # load machine profiles
