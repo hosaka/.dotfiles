@@ -23,6 +23,7 @@ ripgrep = { version = "14.1" }
 sops = { version = "3.10" }
 starship = { version = "1.23" }
 "aqua:tldr-pages/tlrc" = { version = "1.11" }
+tree-sitter = { version = "0.25" }
 watchexec = { version = "2.3" }
 xh = { version = "0.24" }
 yazi = { version = "25.5" }
