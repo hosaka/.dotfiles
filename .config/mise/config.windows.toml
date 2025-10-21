@@ -1,4 +1,4 @@
 [tools]
 
 [settings]
-disable_tools = ["zellij", "aqua:atuinsh/atuin", "cloudflared"]
+disable_tools = ["zellij", "aqua:atuinsh/atuin", "cloudflared", "tree-sitter"]
