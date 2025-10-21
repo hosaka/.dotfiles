@@ -1,4 +1,4 @@
 [tools]
-golang = "1.24"
-node = "lts-iron"
-zig = "0.14.1"
+go = "1.25"
+node = "lts-jod"
+zig = "0.15.2"
