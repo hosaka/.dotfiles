@@ -18,7 +18,6 @@ just = { version = "1.40" }
 lazydocker = { version = "0.24" }
 lazygit = { version = "0.51" }
 "aqua:ouch-org/ouch" = { version = "0.6" }
-"aqua:iffse/pay-respects" = { version = "0.7" }
 "aqua:dalance/procs" = { version = "0.14" }
 ripgrep = { version = "14.1" }
 sops = { version = "3.10" }

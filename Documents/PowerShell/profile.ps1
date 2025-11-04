@@ -39,10 +39,6 @@ if (Has "delta") {
   # todo: not sure how to add interactive.diffFilter = delta --color-only
 }
 
-if (Has "pay-respects") {
-  pay-respects pwsh --alias f | Out-String | Invoke-Expression
-}
-
 # load machine profiles
 $MachineProfileScript = Join-Path "$ProfileDir" "$MachineProfile.profile.ps1"
 if (Test-Path $MachineProfileScript) {
