@@ -131,8 +131,13 @@ fi
 # delta
 if has delta; then
   export GIT_PAGER="delta"
-  export DELTA_FEATURES="side-by-side line-numbers navigate"
+  export DELTA_FEATURES="line-numbers navigate"
   # todo: not sure how to add interactive.diffFilter = delta --color-only
+fi
+
+# difftastic
+if has difft; then
+  export GIT_EXTERNAL_DIFF="difft"
 fi
 
 # watchexec

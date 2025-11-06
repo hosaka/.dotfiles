@@ -1,2 +1,9 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/jesseduffield/lazygit/master/schema/config.json
+
 os:
   editPreset: "nvim-remote"
+
+git:
+  pagers:
+    - useExternalDiffGitConfig: true
+    - pager: delta --dark --paging=never --hyperlinks --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"

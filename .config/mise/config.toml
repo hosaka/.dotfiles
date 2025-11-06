@@ -6,6 +6,7 @@ bat = { version = "0.26" }
 bob = { version = "4.1" }
 cloudflared = { version = "2025.10" }
 delta = { version = "0.18" }
+difftastic = { version = "0.65" }
 duf = { version = "0.9" }
 dust = { version = "1.2" }
 eza = { version = "0.23" }
