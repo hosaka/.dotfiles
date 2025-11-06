@@ -1,39 +1,51 @@
 # ANSI escape sequences
-$BOLD      = "`e[1m"
-$GREY      = "`e[90m"
+$BOLD = "`e[1m"
+$GREY = "`e[90m"
 $UNDERLINE = "`e[4m"
-$RED       = "`e[31m"
-$GREEN     = "`e[32m"
-$YELLOW    = "`e[33m"
-$BLUE      = "`e[34m"
-$MAGENTA   = "`e[35m"
-$NO_COLOR  = "`e[0m"
+$RED = "`e[31m"
+$GREEN = "`e[32m"
+$YELLOW = "`e[33m"
+$BLUE = "`e[34m"
+$MAGENTA = "`e[35m"
+$NO_COLOR = "`e[0m"
 
 function Info {
-    param([Parameter(ValueFromRemainingArguments=$true)]$Message)
-    Write-Output "$BOLD$GREY> $NO_COLOR$($Message -join ' ')"
+    param([Parameter(ValueFromRemainingArguments = $true)]$Message)
+    Write-Output "$BOLD$BLUE>$NO_COLOR $($Message -join ' ')"
 }
 
 function Warn {
-    param([Parameter(ValueFromRemainingArguments=$true)]$Message)
+    param([Parameter(ValueFromRemainingArguments = $true)]$Message)
     Write-Output "$YELLOW! $($Message -join ' ')$NO_COLOR"
 }
 
 function Error {
-    param([Parameter(ValueFromRemainingArguments=$true)]$Message)
+    param([Parameter(ValueFromRemainingArguments = $true)]$Message)
     Write-Output "$($RED)x $($Message -join ' ')$NO_COLOR"
+    exit 1
 }
 
-# run a command, discarding all output
+<#
+.SYNOPSIS
+    Run a command, discarding all output.
+#>
 function Hush {
     & @args > $null 2>&1
 }
 
+<#
+.SYNOPSIS
+    Ensure a command exists, returning true/false.
+#>
 function Has {
     param([string]$Command)
-    return (Get-Command $Command -ErrorAction SilentlyContinue) -ne $null
+    return $null -ne (Get-Command $Command -ErrorAction SilentlyContinue)
 }
 
+<#
+.SYNOPSIS
+    Ensure a command exists. Will error and exit if not.
+#>
 function Need {
     param([string]$Command)
     if (-not (Has $Command)) {
@@ -41,15 +53,23 @@ function Need {
     }
 }
 
+<#
+.SYNOPSIS
+    Ensure command is executed successfully. Will error and exit if not.
+#>
 function Ensure {
     try {
         & @args | Out-Null
-    } catch {
+    }
+    catch {
         Error "command failed: $($args -join ' ')"
     }
 }
 
-# add to path if not already present
+<#
+.SYNOPSIS
+    Add directory to path if not already present.
+#>
 function OnPath {
     param([string]$Dir)
     if (Test-Path $Dir -PathType Container) {
@@ -60,7 +80,10 @@ function OnPath {
     }
 }
 
-# source if exists
+<#
+.SYNOPSIS
+    Source if a file exists.
+#>
 function Include {
     param([string]$File)
     if (Test-Path $File) {
