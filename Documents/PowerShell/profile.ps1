@@ -40,7 +40,7 @@ if (Has "delta") {
 }
 
 if (Has "difft") {
-  $env:GIT_EXTERNAL_DIFF = "difft"
+  $env:GIT_EXTERNAL_DIFF = "difft --color=always"
 }
 
 # load machine profiles

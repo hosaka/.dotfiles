@@ -137,7 +137,7 @@ fi
 
 # difftastic
 if has difft; then
-  export GIT_EXTERNAL_DIFF="difft"
+  export GIT_EXTERNAL_DIFF="difft --color=always"
 fi
 
 # watchexec
