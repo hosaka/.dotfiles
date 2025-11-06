@@ -81,3 +81,8 @@ alias dpsa='docker ps -a'
 if has keychain; then
   alias keychain='keychain --quiet'
 fi
+
+# just
+if has just; then
+  alias jj='just --justfile=$HOME/.justfile'
+fi
