@@ -35,8 +35,12 @@ if (Has "just") {
 # delta
 if (Has "delta") {
   $env:GIT_PAGER = "delta"
-  $env:DELTA_FEATURES = "side-by-side line-numbers navigate"
+  $env:DELTA_FEATURES = "line-numbers navigate"
   # todo: not sure how to add interactive.diffFilter = delta --color-only
+}
+
+if (Has "difft") {
+  $env:GIT_EXTERNAL_DIFF = "difft"
 }
 
 # load machine profiles

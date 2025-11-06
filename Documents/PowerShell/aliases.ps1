@@ -72,5 +72,9 @@ if (Has "keychain") {
     function keychain { & "keychain" --quiet @args }
 }
 
+if (Has "just") {
+    function jj { & "just" --justfile="$HOME/.justfile" @args }
+}
+
 # vscodium
 Set-Alias -Name code -Value codium
