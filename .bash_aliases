@@ -84,5 +84,5 @@ fi
 
 # just
 if has just; then
-  alias jj='just --justfile=$HOME/.justfile'
+  alias j='just --justfile=$HOME/.justfile'
 fi

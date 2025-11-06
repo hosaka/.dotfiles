@@ -2,20 +2,19 @@
 
 skip_ask=false
 
+mise_url="https://mise.jdx.dev/install.sh"
 rustup_url="https://sh.rustup.rs"
 binstall_url="https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh"
-foundry_url="https://raw.githubusercontent.com/foundry-rs/foundry/master/foundryup/foundryup"
 
 usage() {
   cat <<EOF
-Dotfiles bootstrap installer
+Dotfiles bootstrap installer for Bash
 
 Usage: dotsrap [OPTIONS] <COMMAND>
 
 Commands:
   all       Install everything
-  foundry   A smart contract development toolchain
-  mise      Development environment setup tool
+  mise      Development tools and environment management
   rustup    Rust toolchain cargo and cargo-binstall
 
 Options:
@@ -80,7 +79,7 @@ get_mise() {
       if ask "mise can be installed with cargo instead, install rustup first?"; then
         get_rustup
       else
-        curl https://mise.jdx.dev/install.sh | sh
+        curl $mise_url | sh
         return
       fi
     fi
@@ -109,25 +108,6 @@ get_rustup() {
   else
     curl "${curl_opts[@]}" $binstall_url | bash
   fi
-}
-
-get_foundry() {
-  need curl
-
-  if ! ask "this will install foundry, continue?"; then
-    return
-  fi
-
-  # note: install directly, instead of using https://foundry.paradigm.xyz
-  local foundry_dir="${XDG_CONFIG_HOME:-$HOME}/.foundry"
-  local foundry_bin_dir="$foundry_dir/bin"
-  local foundry_man_dir="$foundry_dir/share/man/man1"
-  local foundry_bin_path="$foundry_bin_dir/foundryup"
-
-  mkdir -p "$foundry_bin_dir"
-  curl -# -L "$foundry_url" -o "$foundry_bin_path"
-  chmod +x "$foundry_bin_path"
-  mkdir -p "$foundry_man_dir"
 }
 
 options=$(getopt --options "y,h" --longoptions "yes,help" --name "dotstrap" -- "$@")
@@ -165,10 +145,6 @@ all() {
 case "$1" in
 "all")
   all
-  remind
-  ;;
-"foundry")
-  get_foundry
   remind
   ;;
 "mise")

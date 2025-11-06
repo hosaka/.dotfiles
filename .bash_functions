@@ -11,7 +11,7 @@ MAGENTA="$(tput setaf 5 2>/dev/null || printf '')"
 NO_COLOR="$(tput sgr0 2>/dev/null || printf '')"
 
 info() {
-  printf '%s\n' "${BOLD}${GREY}>${NO_COLOR} $*"
+  printf '%s\n' "${BOLD}${BLUE}>${NO_COLOR} $*"
 }
 
 warn() {
