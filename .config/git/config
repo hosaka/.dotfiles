@@ -33,18 +33,19 @@
   l = log --abbrev-commit --date=relative --date-order --pretty=format:'%C(auto,yellow)%h %C(auto,blue)%>(12,trunc)%ad %C(auto,white italic)%G? %C(reset)%C(auto,green)%<(12,trunc)%aN%C(auto)%d %C(reset)%s' -10
   # show what has changed in the last commits
   changes = log --patch --abbrev-commit --pretty=medium
-  # always show all tags branches and remotes
+  # list all tags
   tags = tag --list
+  # list all branches
   branches = branch --all
+  # list all remotes
   remotes = remote --verbose
-  # list aliases
+  # list all aliases
   aliases = config --get-regexp alias
+  # list all configs
+  configs = config --list --show-origin
   # amend currently staged files to the latest commit
   amend = commit --amend --reuse-message=HEAD
   # amend last commit to gpg sign it
   amend-sign = commit --amend --no-edit --gpg-sign
   # discards all changes and removes all untracked files/directories
   nuke = !git reset --hard HEAD && git clean --force -d
-
-[credential "https://github.com"]
-	helper = !/usr/bin/gh auth git-credential
