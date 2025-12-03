@@ -73,7 +73,7 @@ if (Has "keychain") {
 }
 
 if (Has "just") {
-    function jj { & "just" --justfile="$HOME/.justfile" @args }
+    function j { & "just" --justfile="$HOME/.justfile" @args }
 }
 
 # vscodium
