@@ -1,0 +1,27 @@
+profile work {
+  exec notify-send -a "Kanshi" "Activated display profile Work."
+
+  # Left
+  output "Dell Inc. DELL U2415 64G096210MML" {
+    mode 1920x1200@59.95Hz
+    position 0,0
+    scale 1.0
+    transform 90
+  }
+
+  # Right
+  output "Dell Inc. DELL U2414H W3XDX41D225L" {
+    mode 1920x1080@60Hz
+    position 3120,400
+    scale 1.0
+    transform normal
+  }
+
+  # Center
+  output "Dell Inc. DELL U2414H W3XDX57LC7US" {
+    mode 1920x1080@60Hz
+    position 1200,400
+    scale 1.0
+    transform normal
+  }
+}
