@@ -1,0 +1,44 @@
+{
+    "policies": {
+        "AppAutoUpdate": false,
+        "AppAutoUpdate_comment": "Change to false to disable auto-updates.",
+        "DisableFirefoxStudies": true,
+        "DisableTelemetry": true,
+        "DisableFeedbackCommands": true,
+        "DisablePocket": true,
+        "DisableSetDesktopBackground": true,
+        "DisableDeveloperTools": false,
+        "DontCheckDefaultBrowser": true,
+        "ManualAppUpdateOnly": true,
+        "ManualAppUpdateOnly_comment": "Change to true to disable auto-updates.",
+        "NoDefaultBookmarks": true,
+        "SearchEngines": {
+            "PreventInstalls": false,
+            "Remove": [
+                "Bing",
+                "DuckDuckGo",
+                "Google",
+                "Perplexity"
+            ],
+            "Default": "SearXNG",
+            "Add": [
+                {
+                    "Name": "SearXNG",
+                    "Description": "SearXNG",
+                    "Alias": "@s",
+                    "Method": "GET",
+                    "URLTemplate": "https://search.hosaka.cc/?q={searchTerms}",
+                    "IconURL": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAFCUlEQVRYR7WXW0wcVRjH/2fYLSBVqVWrLRpTeagRdleosUQfrOViU2G31Yqx2gerjSY10cQH1MT4YK08VFNj6qWJ1RjTWhR2WVtN1ViNqRdsdllESFpigaQqxgpJJbDszvF/JjPbYWFmBxMmIZPZ811+3+Wc8yHg4QlsllVaFjdBw0opUSqBc0UahhM+fIcOkfVgwlFEOK2EIrKcjp4UEtshUOkgN06ZI5rEvkRM/Pp/QOYBkFowgufpuI2OL/FqlCCdaQ27BjrF7151lNwsADPqT/jjXc5GdC5pTst/6Vm0pOLiB68QOYDKjbK4rBg/8oegXZk1/5O/dTPC73Wdf2mM+YtRR4bbIdHAENbmyU8LgXXJqEh6gcgBhMLyAI09ainRoU4Hb2aWoK2/A5OhZtRKDVUszZWUSf6Wxc8TR8U/wYh8mEb28rerbA6Hx4HQ2ajgy/0xAIJh2UTqz22i48iiMRkXPbW10p+pwAjXr5ltSocutd2pGF6o3oTLNT8OCw2NxDYeZu5gb0w8UhDAcHAdBkmyOicsEEl2iZj1zd54jRm5nsa/oJM/aHw91+43ob6ZzOI+fxq6rxQDtHO1zekthUohQptlmKmO2pQOUenBQuTVm+SyIj/epVyE+l8mY2isjuDuIuBYrowSHzILD7nZEqzh26TemVPSUdPbLRKFAGzZ6VIQzNAzvVGxl9k6w+8bzfWJZBTLuNm4PP8jqPATl2416zbVG0MZFcxKFsZQmdB8GKJkmrrXBsP4gKXZZmmyZDckOsWwIwAzMMoMVJgAXzNlLmfA/GasLJK6nqfiGu6mNyxJngt1bueC4A6YInGxCdBOgLbCcc+WoI2naeNVNunODJDwaejJAegIp7pFt3MGwvI8lVkn71sn3xjPkN2M+jkp0MyraZqH1PFcTwFN7I3cd76uysAAAdaYAAlmoGbBGYjIIe6EVZkprPSV4DHae8WykZUI9MVEn1sGDlHhAVNghl1bspAmxJ3SFyxHOwHKCP84AzpMe61GQGzMjB+X9neItCNAICy3awLv2wSe4jmwb6FZUPLcEau5I/oJUKLuK5nFUULd42ZL3LxVLvXPYJRC5epcZien2bnBvrgYXBiEcY330IZRQp6W4BacdaLOZ8+4CwIR+SyBX7Y1zi9MXR1Td8ErBFO/h5G3WScO3+dT41iBE4Ibw/kxAMyr+KRFb4oPcdZq7YuKU24GqHsZr/GD1N1iOFeRX5wyYhem0XrmMzHt2APWQmCLrNB0dYfL5TZhNjFe5PZ6J9UlxuxGKrbK0uUZbOCt+RZTvUqlXD0258Y3S/oVJnkWHBf/OpbAWqhqkWuLBOJzr15DYphO1KQzxgDrCFXDtzEaGfU2vM8fp9KjzY1s7jnzwRwVQqzgxPsxF+7wWn8VvON0e9GImpDW50M4MYtQGDsYZTsFrnADYXRSlzigaWDysMNIev7MqLwoSomUrqHBXk5XcNWcS5dwFANuo2Alw1T/F5TwfY7fo3R8ipPwycEu8beC5M26n68nCmTu9EwW9f1xMeJSNa/JnytnbUdXCxIjbN765KfitIfSLRyGEG1suj2upWMzZ3U0LAqAcswZYRdr/jpBnH1I7F80AKMnWuQ2un+Pf7452ZA4lpxAeFEBDAgOvVLHR9bQY4DQ+fgE7j17QkwtOoDyx7tmA8fSGCHK6PxbOm9SzhdlFzg1XqBZrhNFeImXXMR+yf0HtFjeLXeYkL4AAAAASUVORK5CYII="
+                },
+                {
+                    "Name": "Google (no AI)",
+                    "Description": "Google (no AI)",
+                    "Alias": "@g",
+                    "Method": "GET",
+                    "URLTemplate": "https://www.google.com/search?udm=14&q={searchTerms}",
+                    "IconURL": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAqFBMVEVHcEz7+/v+/v709PX////7+/v09fX4+Pj////8/Pz7+/v////z+PP29vf09PX////+/v7///////////83qlfrQzPsTkFHiPUlpkszf/RAhfX6uwD8wBLW4vyQs/j96N3/+vPh8eR8wJiHrfjylpBhuXftX0rR6Nb608j0qKNwofBKsGWzy/rzn5n0o57uc2/94J78zFb3u7es1rC6z/rHuTCVsC08ooagt3gtAAAAE3RSTlMA08Eb4kVwOqb5kV7jkn8NfnFw9v5R3wAAAVtJREFUOI2dU9lywjAMTIAchgmljU3sJBRycRZoocf//1ltyZ4cpi/dl0jeHWllxY7TxVPgecGT8weCkMQAEgaP6EncwcSShPEAYZ+fDHlZ5BG/P9T1YW8rRnhyYRoXzEeGn0G6XrKlBmNrOJppAVZnmpNftt1gDeSfVbhhwNa3W83Y1hh9aR1eFX/G43N/kjEYyCR/sGcdG4vvWb692jzYnKrgI88znL96RVQrlU3NJWdSgM5FihBv5sKHggSR9gW5FKx1BSGUSHwawQI8ZHl2B8FK4ZgmAjwspMDDKb4obc2nsgIEnrnpzTeltDF8lSbpsb1r2OWdS8Vpp8KiVAWgA+4TesSNFFBOm+bE+U8iqraD47gqJidVQ4NjA1eve4ydS6PgvGw3AfAxL0oOKAvM/fafi4z/YrcrTBx1/9q5vcj54N2QPk3sx+V3JMS3aKgSuUTCjR49zf/jF+G2OgtU1MugAAAAAElFTkSuQmCC"
+                }
+            ]
+        }
+    }
+}
