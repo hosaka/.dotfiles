@@ -64,7 +64,12 @@ mise list
 mise install tool # or tool@version
 ```
 
-It is also used as an intermediate step to install versioned tools from other package managers such as `cargo`, `go` and `npm`.
+It is also used as an intermediate step to install versioned tools from other package managers such as `cargo`, `go` and `npm`. It is worth to add a *GitHub Personal Access* Token to the environment so Mise will not be throttled when installing multiple tools at the same time, this can be done by placing a `.mise.toml` or `.mise.local.toml` in $HOME:
+```toml
+[env]
+GITHUB_TOKEN = "github_pat_"
+```
+
 Some of the tools which can be installed with Mise are described below.
 
 #### Atuin
