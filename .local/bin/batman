@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# mandoc passes a file name, other tools write to stdout
+# using `cat "$@"` we take care of both reading from file and stdin
+# add `--pager "$PAGER"` to skip the default scrollable pager
+exec cat "$@" | col -bx | bat --language man --style plain

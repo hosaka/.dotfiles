@@ -81,9 +81,7 @@ export EDITOR
 
 # default manpager
 if has bat; then
-  export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-elif has nvim; then
-  export MANPAGER="nvim +Man!"
+  export MANPAGER="batman"
 fi
 
 # keychain
