@@ -1,0 +1,2 @@
+#!/bin/sh
+exec wpctl status > /dev/null 2> /dev/null
