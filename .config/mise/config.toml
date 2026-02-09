@@ -24,7 +24,7 @@ ripgrep = { version = "15.1" }
 sops = { version = "3.11" }
 starship = { version = "1.24" }
 tlrc = { version = "1.12" }
-tree-sitter = { version = "0.25" }
+tree-sitter = { version = "0.26" }
 watchexec = { version = "2.3" }
 xh = { version = "0.25" }
 yazi = { version = "25.5" }
