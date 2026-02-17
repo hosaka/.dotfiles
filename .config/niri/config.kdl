@@ -3,10 +3,7 @@
 // Check the wiki for a full description of the configuration:
 // https://yalter.github.io/niri/Configuration:-Introduction
 
-// Todo: Consider passing these via greetd instad
 environment {
-    QT_QPA_PLATFORM "wayland"
-    QT_QPA_PLATFORMTHEME "qt6ct"
 }
 
 // Input device configuration.
@@ -269,8 +266,8 @@ layout {
 }
 
 // Add lines like this to spawn processes at startup.
-// Note that running niri as a session supports xdg-desktop-autostart,
-// which may be more convenient to use.
+// Note that running niri as a session (with systemd) supports
+// xdg-desktop-autostart, which may be more convenient to use.
 // See the binds section below for more spawn examples.
 spawn-at-startup "qs" "-c" "noctalia-shell"
 
