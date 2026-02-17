@@ -1,0 +1,7 @@
+#       Serial: 15800665, Slot: 1
+#         Name: age identity dc650ed5
+#      Created: Fri, 13 Feb 2026 16:02:07 +0000
+#   PIN policy: Always (A PIN is required for every decryption, if set)
+# Touch policy: Always (A physical touch is required for every decryption)
+#    Recipient: age1yubikey1qwwnsmww37xputt2xndxhqp82zrqk2hq7mjgvmgrg7jyw96g2xds6j0jzyn
+AGE-PLUGIN-YUBIKEY-1TYVLZQYZM3JSA4GDUGGXQ
