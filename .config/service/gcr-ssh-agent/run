@@ -4,7 +4,7 @@
 
 : "${GCR_BASE_DIR:=$XDG_RUNTIME_DIR/gcr}"
 
-[ ! -d $GCR_BASE_DIR ] && install -m700 -d $GCR_BASE_DIR
+[ ! -d $GCR_BASE_DIR ] && install -m755 -d $GCR_BASE_DIR
 
 if [ -d "$TURNSTILE_ENV_DIR" ]; then
 	echo "$GCR_BASE_DIR/ssh" > "$TURNSTILE_ENV_DIR"/SSH_AUTH_SOCK
