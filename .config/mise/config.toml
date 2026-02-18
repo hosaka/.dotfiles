@@ -10,9 +10,7 @@ difftastic = { version = "0.65" }
 duf = { version = "0.9" }
 dust = { version = "1.2" }
 eza = { version = "0.23" }
-"aqua:pkolaczk/fclones" = { version = "0.35" }
 fd = { version = "10.3" }
-"aqua:printfn/fend" = { version = "1.5" }
 hexyl = { version = "0.16" }
 hyperfine = { version = "1.19" }
 just = { version = "1.43" }
@@ -21,7 +19,6 @@ lazygit = { version = "0.56" }
 "aqua:ouch-org/ouch" = { version = "0.6" }
 "aqua:dalance/procs" = { version = "0.14" }
 ripgrep = { version = "15.1" }
-sops = { version = "3.11" }
 starship = { version = "1.24" }
 tlrc = { version = "1.12" }
 tree-sitter = { version = "0.26" }
