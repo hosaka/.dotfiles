@@ -4,6 +4,7 @@
 // https://yalter.github.io/niri/Configuration:-Introduction
 
 environment {
+    SSH_AUTH_SOCK "/run/user/1000/gcr/ssh"
 }
 
 // Input device configuration.
