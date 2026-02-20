@@ -1,5 +1,0 @@
-[submodule ".config/nvim"]
-	path = .config/nvim
-	url = ../nvim.git
-	branch = main
-	ignore = dirty
