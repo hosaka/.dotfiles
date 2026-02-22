@@ -1,0 +1,16 @@
+# Manage files that have different locations on different machines
+# https://www.chezmoi.io/user-guide/manage-machine-to-machine-differences/#ignore-files-or-a-directory-on-different-machines
+
+.cache/
+.cargo/
+.rustup/
+
+{{- if eq .chezmoi.os "linux" }}
+# turnstiled
+.config/service-env/
+{{- end }}
+
+{{- if eq .chezmoi.os "windows" }}
+Documents/*
+!Documents/PowerShell/
+{{- end }}
