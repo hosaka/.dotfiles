@@ -59,11 +59,6 @@ include ~/.cargo/env
 
 # mise
 if has mise; then
-  MISE_ENV=$MACHINE_PROFILE
-  if on_wsl; then
-    MISE_ENV=$MISE_ENV,wsl
-  fi
-  export MISE_ENV
   eval "$(mise activate bash)"
   eval "$(mise hook-env -s bash)"
 fi
@@ -141,6 +136,11 @@ fi
 # watchexec
 if has watchexec; then
   eval "$(watchexec --completions bash)"
+fi
+
+# foundrdy
+if [ -d ~/.foundry/bin ]; then
+  onpath "$HOME/.foundry/bin"
 fi
 
 # load machine profiles
