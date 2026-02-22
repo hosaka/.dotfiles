@@ -1,4 +1,0 @@
-[tools]
-go = "1.25"
-node = "lts-jod"
-zig = "0.15.2"

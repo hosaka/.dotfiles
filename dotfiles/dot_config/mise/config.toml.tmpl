@@ -1,10 +1,8 @@
 [tools]
 usage = "latest"
 
-atuin = { version = "18.10" }
 bat = { version = "0.26" }
 bob = { version = "4.1" }
-cloudflared = { version = "2025.10" }
 delta = { version = "0.18" }
 difftastic = { version = "0.65" }
 duf = { version = "0.9" }
@@ -21,13 +19,17 @@ lazygit = { version = "0.56" }
 ripgrep = { version = "15.1" }
 starship = { version = "1.24" }
 tlrc = { version = "1.12" }
-tree-sitter = { version = "0.26" }
 watchexec = { version = "2.3" }
 xh = { version = "0.25" }
 yazi = { version = "25.5" }
-zellij = { version = "0.43" }
 "aqua:zk-org/zk" = { version = "0.15" }
 zoxide = { version = "0.9" }
+{{- if ne .chezmoi.os "windows" }}
+atuin = { version = "18.10" }
+cloudflared = { version = "2025.10" }
+tree-sitter = { version = "0.26" }
+zellij = { version = "0.43" }
+{{- end }}
 
 [settings]
 experimental = true
