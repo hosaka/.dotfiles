@@ -52,11 +52,9 @@ if has nvim; then
   alias vimdiff='nvim -d'
 fi
 
-# dotfiles management and tab completion as git alias
-alias dot='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
-alias dotadd='dot add -f'
-if has __git_complete; then
-  __git_complete dot __git_main
+# dotfiles management
+if has chezmoi; then
+  alias dot='chezmoi'
 fi
 
 # git
@@ -71,7 +69,9 @@ alias gsw='git switch'
 
 if has lazygit; then
   alias gg='lazygit'
-  alias dotgg='lazygit  --git-dir=$HOME/.dotfiles --work-tree=$HOME'
+  if has chezmoid; then
+    alias dotgg='lazygit  --git-dir=$HOME/.local/share/chezmoi'
+  fi
 fi
 
 # docker
