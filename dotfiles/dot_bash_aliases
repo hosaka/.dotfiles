@@ -52,9 +52,15 @@ if has nvim; then
   alias vimdiff='nvim -d'
 fi
 
-# dotfiles management
+# dotfiles management and tab completion for chezmoi alias
 if has chezmoi; then
   alias dot='chezmoi'
+  if has lazygit; then
+    alias dotgg='lazygit --work-tree=$HOME/.local/share/chezmoi'
+  fi
+  if has __start_chezmoi; then
+    complete -o default -F __start_chezmoi dot
+  fi
 fi
 
 # git
@@ -69,9 +75,6 @@ alias gsw='git switch'
 
 if has lazygit; then
   alias gg='lazygit'
-  if has chezmoid; then
-    alias dotgg='lazygit  --git-dir=$HOME/.local/share/chezmoi'
-  fi
 fi
 
 # docker

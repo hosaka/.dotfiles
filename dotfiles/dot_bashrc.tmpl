@@ -138,6 +138,11 @@ if has watchexec; then
   eval "$(watchexec --completions bash)"
 fi
 
+# chezmoi
+if has chezmoi; then
+  eval "$(chezmoi completion bash)"
+fi
+
 # foundrdy
 if [ -d ~/.foundry/bin ]; then
   onpath "$HOME/.foundry/bin"
