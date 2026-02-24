@@ -10,7 +10,8 @@
 .config/service-env/
 {{- end }}
 
-{{- if eq .chezmoi.os "windows" }}
 Documents/*
-!Documents/PowerShell/
+{{- if eq .chezmoi.os "windows" }}
+!Documents/PowerShell/ # track powershell profiles
 {{- end }}
+
