@@ -1,0 +1,8 @@
+[packages.apt]
+
+[packages.apt.common]
+packages = ["curl"]
+
+[packages.xbps]
+[packages.xbps.common]
+packages = ["curl"]
