@@ -2,10 +2,7 @@
 
 My dotfiles. Managed with [chezmoi](https://www.chezmoi.io/).
 
-<details>
-<summary>Previous Setup</summary>
-I have previously used bare git repo with a work tree and my own bootstrap scripts. See the [last commit before the switch](65f7c44de8b03638395dd65d07c43a533098c76c).
-</details>
+I have previously used bare git repo with a work tree and my own bootstrap scripts. See the last commit before the switch: 65f7c44de8b03638395dd65d07c43a533098c76c.
 
 ## Install
 
