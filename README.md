@@ -26,27 +26,26 @@ curl https://hosaka.cc/sh/dotinstall | sh
 
 ## Use
 
+Pull the latest changes from this repo and apply them:
+```bash
+dot update
+```
+
 Use `dot` alias to interact with the dotfiles repo, it is a direct alias to `chezmoi`.
-Use `dotstrap` to install common tools. See `dotstrap --help` for more help.
-
-### Rustup
-
-Rust toolchain can be installed with `dotstrap rustup`.
 
 ### Mise
 
 A tool for managing development environments and tooling, see [mise.jdx.dev](https://mise.jdx.dev/).
-In addition to a global config, per-machine config can be added (based on the `hostname`).
-See [.config/mise/](.config/mise) for examples.
 
-Bootstrap it with `dotstrap mise`. To view a list of tools and install them use:
+Mise will be automatically bootstrapped when running `chezmoi apply` based on the machine configuration.
+To view a list of configured tools and install them use (also see [mise/config.toml](dotfiles/dot_config/mise/config.toml.tmpl)):
 
 ```bash
 mise list
 mise install tool # or tool@version
 ```
 
-It is also used as an intermediate step to install versioned tools from other package managers such as `cargo`, `go` and `npm`. It is worth to add a *GitHub Personal Access* Token to the environment so Mise will not be throttled when installing multiple tools at the same time, this can be done by placing a `.mise.toml` or `.mise.local.toml` in $HOME:
+It is worth to add a *GitHub Personal Access* Token to the environment so Mise will not be throttled when installing multiple tools at the same time, this can be done by placing a `.mise.toml` or `.mise.local.toml` in $HOME:
 ```toml
 [env]
 GITHUB_TOKEN = "github_pat_"
@@ -69,7 +68,7 @@ The encryption key can be obtained with `atuin key` on an existing machine.
 
 #### Bob
 
-A version manager for Neovim. Install with `mise install "cargo:bob"`, To use/install a version:
+A version manager for Neovim. Install with `mise install bob`, To use/install a version:
 
 ```bash
 bob use nightly
