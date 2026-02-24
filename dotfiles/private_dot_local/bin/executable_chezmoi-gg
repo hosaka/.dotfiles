@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+if [ -f ~/.bash_functions ]; then
+  . ~/.bash_functions
+fi
+
+if has lazygit; then
+  lazygit --work-tree=$HOME/.local/share/chezmoi
+else
+  warn "lazygit (command not found)"
+fi

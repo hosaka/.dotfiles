@@ -55,9 +55,6 @@ fi
 # dotfiles management and tab completion for chezmoi alias
 if has chezmoi; then
   alias dot='chezmoi'
-  if has lazygit; then
-    alias dotgg='lazygit --work-tree=$HOME/.local/share/chezmoi'
-  fi
   if has __start_chezmoi; then
     complete -o default -F __start_chezmoi dot
   fi
