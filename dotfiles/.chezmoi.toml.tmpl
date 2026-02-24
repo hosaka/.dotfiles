@@ -1,15 +1,15 @@
-{{- $personal_computer := promptBoolOnce . "personal_computer" "Is this a personal computer? (y/n)" -}}
-{{- $dev_computer := promptBoolOnce . "dev_computer" "Do you do development on this computer? (y/n)" -}}
+{{- $work := promptBoolOnce . "work" "Is this a work computer? (y/N)" -}}
+{{- $development := promptBoolOnce . "development" "Do you do development on this computer? (y/N)" -}}
 
 encryption = "age"
 [age]
-  identity  = "~/.config/sops/age/keys.txt"
+  identity  = "{{ .chezmoi.homeDir }}/.config/sops/age/keys.txt"
   # todo: having issues with the age1yubikey format of recipient created by age-plugin-yubikey
   recipient = "age1yubikey1qwwnsmww37xputt2xndxhqp82zrqk2hq7mjgvmgrg7jyw96g2xds6j0jzyn"
 
 [data]
-  personal_computer = {{ $personal_computer }}
-  dev_computer      = {{ $dev_computer }}
+  work        = {{ $work }}
+  development = {{ $development }}
 
   xdgCacheDir       = "{{ .chezmoi.homeDir }}/.cache"
   xdgConfigDir      = "{{ .chezmoi.homeDir }}/.config"
