@@ -1,0 +1,6 @@
+#!/bin/sh
+
+[ -r ./conf ] && . ./conf
+
+# exec chpst -e "$TURNSTILE_ENV_DIR" ibus-daemon --panel disable $([ "$XDG_SESSION_TYPE" = "x11" ] && echo "--xim") $OPTS 2>&1
+exec chpst -e "$TURNSTILE_ENV_DIR" /usr/libexec/ibus-ui-gtk3 --enable-wayland-im --exec-daemon --daemon-args "--panel disable $([ "$XDG_SESSION_TYPE" = "x11" ] && echo "--xim") $OPTS" 2>&1

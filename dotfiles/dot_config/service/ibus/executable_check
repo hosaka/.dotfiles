@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec ibus address | grep --invert-match "(null)" > /dev/null 2> /dev/null
+
