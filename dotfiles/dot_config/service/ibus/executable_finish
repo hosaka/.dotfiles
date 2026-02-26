@@ -1,0 +1,5 @@
+#!/bin/sh
+
+[ -r ./conf ] && . ./conf
+
+exec chpst ibus exit > /dev/null 2>&1
