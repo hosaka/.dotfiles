@@ -148,6 +148,11 @@ if [ -d ~/.foundry/bin ]; then
   onpath "$HOME/.foundry/bin"
 fi
 
+# opencode
+if [ -d ~/.opencode/bin ]; then
+  onpath "$HOME/.opencode/bin"
+fi
+
 # load machine profiles
 include "$HOME/.config/$MACHINE_PROFILE.profile"
 
@@ -155,3 +160,4 @@ include "$HOME/.config/$MACHINE_PROFILE.profile"
 include ~/.bash_preexec
 
 export PATH
+
