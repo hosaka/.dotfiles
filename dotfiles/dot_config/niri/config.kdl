@@ -271,6 +271,7 @@ layout {
 // xdg-desktop-autostart, which may be more convenient to use.
 // See the binds section below for more spawn examples.
 spawn-at-startup "qs" "-c" "noctalia-shell"
+spawn-at-startup "ibus" "start" "--type=wayland"
 
 hotkey-overlay {
     // Uncomment this line to disable the "Important Hotkeys" pop-up at startup.
