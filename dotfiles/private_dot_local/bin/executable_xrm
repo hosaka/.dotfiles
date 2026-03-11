@@ -1,0 +1,23 @@
+#! /bin/sh
+# xrm PKGS... - like xbps-remove, using sudo/su
+
+which_sudo() {
+	if command -v sudo >/dev/null && sudo -l | grep -q -e ' ALL$' -e xbps-remove; then
+		echo sudo
+	elif command -v doas >/dev/null && [ -f /etc/doas.conf ]; then
+		echo doas
+	elif [ "$(id -u)" != 0 ]; then
+		echo su
+	fi
+}
+
+do_remove() {
+	if [ "$SUDO" = su ]; then
+		su root -c 'xbps-remove "$@"' -- sh "$@"
+	else
+		$SUDO xbps-remove "$@"
+	fi
+}
+
+SUDO=$(which_sudo)
+do_remove "$@"
