@@ -4,3 +4,7 @@
 input_path = "~/.config/noctalia/templates/neovim.lua"
 output_path = "~/.config/nvim/lua/noctalia.lua"
 post_hook = 'pkill -SIGUSR1 nvim'
+
+[templates.opencode]
+input_path = "~/.config/noctalia/templates/opencode.json"
+output_path = "~/.config/opencode/themes/noctalia.json"
