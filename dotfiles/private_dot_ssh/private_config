@@ -1,5 +1,5 @@
-Host *.hosaka.cc !box.hosaka.cc
-  ProxyCommand cloudflared access ssh --hostname %h
+Host *.hosaka.cc !box.hosaka.cc !frp.hosaka.cc
+  ProxyCommand socat - PROXY:frp.hosaka.cc:%h:%p,proxyport=3912
   ServerAliveInterval 240
 
 Host ssh.hosaka.cc
@@ -11,3 +11,7 @@ Host git.hosaka.cc
 
 Host box.hosaka.cc
   User alex
+
+Host frp.hosaka.cc
+  User debian
+
