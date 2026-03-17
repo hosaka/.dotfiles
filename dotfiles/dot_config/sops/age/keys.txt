@@ -4,4 +4,12 @@
 #   PIN policy: Always (A PIN is required for every decryption, if set)
 # Touch policy: Always (A physical touch is required for every decryption)
 #    Recipient: age1yubikey1qwwnsmww37xputt2xndxhqp82zrqk2hq7mjgvmgrg7jyw96g2xds6j0jzyn
-AGE-PLUGIN-YUBIKEY-1TYVLZQYZM3JSA4GDUGGXQ
+# AGE-PLUGIN-YUBIKEY-1TYVLZQYZM3JSA4GDUGGXQ
+
+#       Serial: 15800665, Slot: 2
+#         Name: age identity 9d5aadce
+#      Created: Tue, 17 Mar 2026 13:22:25 +0000
+#   PIN policy: Never  (A PIN is NOT required to decrypt)
+# Touch policy: Never  (A physical touch is NOT required to decrypt)
+#    Recipient: age1yubikey1qv9d7qpcpstrf6mafkxekfwjcp29984saucq76gfyewz5ytl70eevwgwkqj
+AGE-PLUGIN-YUBIKEY-1TYVLZQYRN4D2MNS9JFTV6
