@@ -153,6 +153,12 @@ if [ -d ~/.opencode/bin ]; then
   onpath "$HOME/.opencode/bin"
 fi
 
+# forgejo-cli
+if has fj; then
+  eval "$(fj completion bash)"
+  export FJ_FALLBACK_HOST="https://code.hosaka.cc"
+fi
+
 # load machine profiles
 include "$HOME/.config/$MACHINE_PROFILE.profile"
 
