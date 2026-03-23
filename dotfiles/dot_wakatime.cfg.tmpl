@@ -1,6 +1,7 @@
 [settings]
 debug = false
 api_url = https://waka.hosaka.cc/api
+api_key = {{ (rbw "waka.hosaka.cc").data.password }}
 exclude_unknown_project = true
 exclude =
     ^COMMIT_EDITMSG$
