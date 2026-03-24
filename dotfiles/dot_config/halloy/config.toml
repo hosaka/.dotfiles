@@ -1,0 +1,44 @@
+# For a complete list of available options,
+# please visit https://halloy.chat/configuration.html
+
+theme = "noctalia"
+check_for_update_on_launch = false
+
+[servers.liberachat]
+nickname = "GoodSoftMud"
+nick_password_command = "rbw get libera.chat"
+server = "irc.libera.chat"
+channels = ["#voidlinux", "#neovim"]
+
+[preview]
+enabled = true
+
+[preview.card]
+show_image = false
+
+[sidebar]
+position = "top"
+
+[sidebar.user_menu]
+show_new_version_indicator = false
+
+[actions.sidebar]
+buffer = "replace-pane"
+
+[buffer.server_messages.topic]
+enabled = false
+
+[buffer.channel.topic_banner]
+enabled = true
+max_lines = 2
+
+[buffer.server_messages]
+join.enabled = false
+part.enabled = false
+quit.enabled = false
+change_nick.enabled = false
+change_host.enabled = false
+
+# [buffer.server_messages.condense]
+# messages = ["join", "part", "quit"]
+# dimmed = true
