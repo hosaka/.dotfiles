@@ -1,0 +1,25 @@
+{{- if eq .osid "linux-void" -}}
+#!/usr/bin/env bash
+
+if [ -f {{ .chezmoi.homeDir }}/.bash_functions ]; then
+  . {{ .chezmoi.homeDir }}/.bash_functions
+fi
+
+packages=(
+  {{- range $package := .packages.xbps.common.packages }}
+  "{{ $package }}"
+  {{- end }}
+)
+
+# todo: do this only when there is actually a new package to be installed
+doas xbps-install -S
+
+for package in "${packages[@]}"; do
+  if xbps-query --show "${package}" &> /dev/null; then
+    info "package ${package} is already installed"
+    continue
+  fi
+  # doas xbps-install --yes "${package}"
+done
+
+{{- end }}

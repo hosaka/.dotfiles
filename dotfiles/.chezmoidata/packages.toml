@@ -5,4 +5,30 @@ packages = ["curl"]
 
 [packages.xbps]
 [packages.xbps.common]
-packages = ["curl"]
+packages = [
+  # "atuin",
+  # "bat",
+  # "bob",
+  "curl",
+  # "delta",
+  # "difftastic",
+  # "duf",
+  # "dust",
+  # "eza",
+  # "fd",
+  # "git",
+  # "github-cli",
+  # "hexyl",
+  # "hyperfine",
+  # "just",
+  # "jq",
+  # "lazygit",
+  # "rbw",
+  # "ripgrep",
+  # "starship",
+  # "watchexec",
+  # "xh",
+  "yazi",
+  # "zellij",
+  # "zoxide",
+]
