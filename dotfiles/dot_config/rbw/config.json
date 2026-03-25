@@ -1,0 +1,13 @@
+{
+  "email": "alex@hosaka.cc",
+  "sso_id": null,
+  "base_url": "https://vaultwarden.hosaka.cc/",
+  "identity_url": null,
+  "ui_url": null,
+  "notifications_url": null,
+  "lock_timeout": 3600,
+  "sync_interval": 3600,
+  "pinentry": "/usr/sbin/pinentry-gnome3",
+  "client_cert_path": null
+}
+
