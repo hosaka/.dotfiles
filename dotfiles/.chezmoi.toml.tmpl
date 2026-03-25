@@ -1,6 +1,11 @@
 {{- $work := promptBoolOnce . "work" "Is this a work computer? (y/N)" -}}
 {{- $development := promptBoolOnce . "development" "Do you do development on this computer? (y/N)" -}}
 
+{{- $osid := .chezmoi.os -}}
+{{- if hasKey .chezmoi.osRelease "id" -}}
+{{-   $osid = printf "%s-%s" .chezmoi.os .chezmoi.osRelease.id -}}
+{{- end -}}
+
 encryption = "age"
 [age]
   identity  = "{{ .chezmoi.homeDir }}/.config/sops/age/keys.txt"
@@ -9,8 +14,9 @@ encryption = "age"
 [data]
   work        = {{ $work }}
   development = {{ $development }}
+  osid        = {{ $osid | quote }}
 
-  xdgCacheDir       = "{{ .chezmoi.homeDir }}/.cache"
-  xdgConfigDir      = "{{ .chezmoi.homeDir }}/.config"
-  xdgDataDir        = "{{ .chezmoi.homeDir }}/.local/share"
-  xdgStateDir       = "{{ .chezmoi.homeDir }}/.local/state"
+  xdgCacheDir  = "{{ .chezmoi.homeDir }}/.cache"
+  xdgConfigDir = "{{ .chezmoi.homeDir }}/.config"
+  xdgDataDir   = "{{ .chezmoi.homeDir }}/.local/share"
+  xdgStateDir  = "{{ .chezmoi.homeDir }}/.local/state"
