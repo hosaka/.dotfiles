@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 if [ -f ~/.bash_functions ]; then
+  # shellcheck source={{ .chezmoi.homeDir }}/.bash_functions
   . ~/.bash_functions
 fi
 

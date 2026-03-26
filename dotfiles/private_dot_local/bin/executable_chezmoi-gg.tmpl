@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 
 if [ -f ~/.bash_functions ]; then
+  # shellcheck source={{ .chezmoi.homeDir }}/.bash_functions
   . ~/.bash_functions
 fi
 
 if has lazygit; then
-  lazygit --work-tree=$HOME/.local/share/chezmoi
+  lazygit --work-tree="$HOME/.local/share/chezmoi"
 else
   warning "lazygit (command not found)"
 fi
