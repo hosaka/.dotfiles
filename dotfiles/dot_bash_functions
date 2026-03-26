@@ -14,13 +14,21 @@ info() {
   printf '%s\n' "${BOLD}${BLUE}>${NO_COLOR} $*"
 }
 
-warn() {
+warning() {
   printf '%s\n' "${YELLOW}! $*${NO_COLOR}"
 }
 
 error() {
   printf '%s\n' "${RED}x $*${NO_COLOR}" >&2
   exit 1
+}
+
+success() {
+  printf '%s\n' "${BOLD}${GREEN}>${NO_COLOR} $*"
+}
+
+header() {
+  printf '%s\n' "${BOLD}${MAGENTA}>${NO_COLOR} $*"
 }
 
 hush() {
@@ -60,6 +68,19 @@ include() {
   fi
 }
 
+# find available sudo executable
+which_sudo() {
+  if [ "$(id -u)" = "0" ]; then
+    return
+  elif has sudo; then
+    echo sudo
+  elif has doas && [ -f /etc/doas.conf ]; then
+    echo doas
+  else
+    echo su
+  fi
+}
+
 on_wsl() {
   test -n "${WSL_DISTRO_NAME}"
 }
@@ -76,7 +97,7 @@ function cdu() {
   while ! { test -f "$target" || test -d "$target"; }; do
     cd ..
     if [ "$PWD" = "/" ]; then
-      warn "nothing found" >&2
+      warning "nothing found" >&2
       cd "$start" || return 1
       pwd
       return 1
@@ -90,7 +111,7 @@ if has gpg; then
   function secret() {
     local filename=${1}
     if ! test -f "${filename}"; then
-      warn "provide a file to encrypt" >&2
+      warning "provide a file to encrypt" >&2
       return 1
     fi
     local output="$filename.enc"
@@ -101,7 +122,7 @@ if has gpg; then
   function reveal() {
     local filename=${1}
     if ! test -f "${filename}"; then
-      warn "provide a file to decrypt" >&2
+      warning "provide a file to decrypt" >&2
       return 1
     fi
     local output=$(basename "${filename}" ".enc")
