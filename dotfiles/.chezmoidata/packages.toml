@@ -4,31 +4,68 @@
 packages = ["curl"]
 
 [packages.xbps]
+# when removing a package from a list, place it here and it will
+# be removed next time you run chezmoi apply
+remove = []
+
 [packages.xbps.common]
 packages = [
-  # "atuin",
-  # "bat",
-  # "bob",
+  "age",
+  "age-plugin-yubikey",
+  "atuin",
+  "bat",
+  "bob",
+  "btop",
+  "chezmoi",            # after bootstrap
   "curl",
-  # "delta",
-  # "difftastic",
-  # "duf",
-  # "dust",
-  # "eza",
-  # "fd",
-  # "git",
-  # "github-cli",
-  # "hexyl",
-  # "hyperfine",
-  # "just",
-  # "jq",
-  # "lazygit",
-  # "rbw",
-  # "ripgrep",
-  # "starship",
-  # "watchexec",
-  # "xh",
+  "delta",
+  "difftastic",
+  "duf",
+  "dust",
+  "eza",
+  "fd",
+  "git",
+  "hexyl",
+  "jq",
+  "just",
+  "just-lsp",
+  # "lazydocker",
+  "lazygit",
+  # "neovide",
+  "openpgp-card-tool-git",
+  "openpgp-card-tools",
+  "ouch",
+  "procs",
+  "rbw",                   # should be in personal
+  "ripgrep",
+  "starship",
+  # "tree-sitter",           # when it's 0.26
+  "xh",
   "yazi",
-  # "zellij",
-  # "zoxide",
+  "zellij",
+  "zoxide",
+]
+
+[packages.xbps.personal]
+packages = [
+  "aerc",
+  "fastfetch",
+  "halloy",    # or senpai
+  # "helix",
+  # "zk",
+]
+
+[packages.xbps.development]
+packages = [
+  "StyLua",
+  "bash-language-server",
+  "github-cli",
+  "hyperfine",
+  "lua-language-server",
+  "rsync",
+  "shellcheck",
+  "shfmt",
+  "taplo",
+  "watchexec",
+  "yaml-language-server",
 ]

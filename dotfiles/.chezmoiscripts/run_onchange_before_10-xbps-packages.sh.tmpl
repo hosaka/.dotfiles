@@ -5,21 +5,55 @@ if [ -f {{ .chezmoi.homeDir }}/.bash_functions ]; then
   . {{ .chezmoi.homeDir }}/.bash_functions
 fi
 
+SUDO=$(which_sudo)
+
+do_install() {
+  if [ "$SUDO" = su ]; then
+    su root -c 'xbps-install --yes "$@"' -- sh "$@"
+  else
+    $SUDO xbps-install --yes "$@"
+  fi
+}
+
 packages=(
+  # common
   {{- range $package := .packages.xbps.common.packages }}
   "{{ $package }}"
   {{- end }}
+  {{ if .development }}
+  # development
+  {{- range $package := .packages.xbps.development.packages }}
+  "{{ $package }}"
+  {{- end }}
+  {{- end }}
+  {{ if .personal }}
+  # personal
+  {{- range $package := .packages.xbps.personal.packages }}
+  "{{ $package }}"
+  {{- end }}
+  {{- end }}
 )
 
-# todo: do this only when there is actually a new package to be installed
-doas xbps-install -S
+header "intalling xbps packages"
 
+needs_install=()
 for package in "${packages[@]}"; do
-  if xbps-query --show "${package}" &> /dev/null; then
-    info "package ${package} is already installed"
-    continue
+  if ! xbps-query --show "${package}" &> /dev/null; then
+    info "${package} will be installed"
+    needs_install+=("${package}")
   fi
-  # doas xbps-install --yes "${package}"
 done
+
+if [ ${#needs_install[@]} -ne 0 ]; then
+  $SUDO xbps-install -S
+  do_install "${needs_install[@]}"
+
+  if [ $? -eq 16 ]; then
+    warning "xbps needs to be updated first"
+    do_install -u xbps && do_install "${needs_install[@]}"
+  fi
+fi
+
+success "all packages installed"
 
 {{- end }}
