@@ -86,3 +86,13 @@ fi
 if has just; then
   alias j='just --justfile=$HOME/.justfile'
 fi
+
+# restic
+if has resticprofile; then
+  alias rst='doas -u restic resticprofile'
+fi
+
+# rocketpool
+if has rocketpool; then
+  alias rp='rocketpool'
+fi

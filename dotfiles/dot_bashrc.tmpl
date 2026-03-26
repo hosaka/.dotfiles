@@ -8,7 +8,7 @@ fi
 onpath "$HOME/.local/bin"
 
 # machine identifier for host specific profiles
-MACHINE_PROFILE=$(hostname | tr "[:upper:]" "[:lower:]")
+# MACHINE_PROFILE=$(hostname | tr "[:upper:]" "[:lower:]")
 
 # shell options
 # autocd - **/qux will enter ./foo/bar/baz/qux
@@ -92,6 +92,7 @@ fi
 # atuin
 if has atuin; then
   eval "$(atuin init bash --disable-up-arrow)"
+  export ATUIN_SYNC_ADDRESS="https://atuin.hosaka.cc"
 fi
 
 # zoxide
@@ -159,9 +160,6 @@ if has fj; then
   eval "$(fj completion bash)"
   export FJ_FALLBACK_HOST="https://code.hosaka.cc"
 fi
-
-# load machine profiles
-include "$HOME/.config/$MACHINE_PROFILE.profile"
 
 # preexec and precmd functions for bash
 include ~/.bash_preexec
