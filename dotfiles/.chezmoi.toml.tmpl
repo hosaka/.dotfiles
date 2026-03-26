@@ -1,4 +1,4 @@
-{{- $work := promptBoolOnce . "work" "Is this a work computer? (y/N)" -}}
+{{- $personal := promptBoolOnce . "personal" "Is this a personal computer? (y/N)" -}}
 {{- $development := promptBoolOnce . "development" "Do you do development on this computer? (y/N)" -}}
 
 {{- $osid := .chezmoi.os -}}
@@ -12,7 +12,7 @@ encryption = "age"
   recipient = "age1yubikey1qv9d7qpcpstrf6mafkxekfwjcp29984saucq76gfyewz5ytl70eevwgwkqj"
 
 [data]
-  work        = {{ $work }}
+  personal    = {{ $personal }}
   development = {{ $development }}
   osid        = {{ $osid | quote }}
 
