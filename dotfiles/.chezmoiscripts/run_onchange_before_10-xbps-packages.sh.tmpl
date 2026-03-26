@@ -1,12 +1,7 @@
 {{- if eq .osid "linux-void" -}}
 #!/usr/bin/env bash
 
-if [ -f {{ .chezmoi.homeDir }}/.bash_functions ]; then
-  . {{ .chezmoi.homeDir }}/.bash_functions
-fi
-
-SUDO=$(which_sudo)
-
+{{ template "shared_script.bash.tmpl" . }}
 do_install() {
   if [ "$SUDO" = su ]; then
     su root -c 'xbps-install --yes "$@"' -- sh "$@"
@@ -34,7 +29,7 @@ packages=(
   {{- end }}
 )
 
-header "intalling xbps packages"
+header "installing xbps packages"
 
 needs_install=()
 for package in "${packages[@]}"; do

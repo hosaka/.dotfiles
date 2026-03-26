@@ -1,0 +1,34 @@
+# nullglob - for f in *.txt will work even if *.txt has no matches
+# globstart - recursive globbing, echo **/*.txt
+shopt -s nullglob globstar
+
+set -o errtrace # trap errors in subshells and functions
+set -o errexit  # exit on error, append `|| true` to a call if allowed to fail
+set -o nounset  # error and exit on expanding a variable that is not set
+set -o pipefail # use last non-zero exit code in a pipeline
+
+# trap '_trap ${LINENO} ${BASH_LINENO} "${BASH_COMMAND}" "${FUNCNAME[*]}" "${0}" "${BASH_SOURCE[0]}"' EXIT INT TERM SIGINT SIGQUIT SIGTERM
+
+{{ template "shared_functions.bash" . }}
+SUDO=$(which_sudo)
+# LOGFILE="${HOME}/.chezmoi/logs/$(basename "$0").log"
+
+# Log errors and cleanup when an error is trapped, called by `trap`
+# $1: line number where the error was trapped
+# $2: line number in bash function executing
+# $3: command executing at the time of the trap
+# $4: name of all shell functions in the execution stack
+# $5: script name
+# $6: $BASH_SOURCE
+_trap() {
+  local line=${1:-}
+  local linefunc=${2:-}
+  local command=${3:-}
+  local funcstack=${4:-}
+  local scriptname=${5:-}
+  local bashsource=${6:-}
+
+  echo "trap"
+
+  exit 1
+}
