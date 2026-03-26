@@ -6,8 +6,13 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
 
-# enable aliases to run with sudo
-alias sudo='sudo '
+# enable aliases to run as superuser
+if has sudo; then
+  alias sudo='sudo '
+fi
+if has doas; then
+  alias doas='doas '
+fi
 
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
@@ -61,22 +66,26 @@ if has chezmoi; then
 fi
 
 # git
-alias gco='git checkout'
-alias gd='git diff'
-alias gds='git diff --staged'
-alias gl='git l'
-alias glg='git l --graph'
-alias gs='git s'
-alias gst='git status'
-alias gsw='git switch'
+if has git; then
+  alias gco='git checkout'
+  alias gd='git diff'
+  alias gds='git diff --staged'
+  alias gl='git l'
+  alias glg='git l --graph'
+  alias gs='git s'
+  alias gst='git status'
+  alias gsw='git switch'
+fi
 
 if has lazygit; then
   alias gg='lazygit'
 fi
 
 # docker
-alias dimg='docker images'
-alias dpsa='docker ps -a'
+if has docker; then
+  alias dimg='docker images'
+  alias dpsa='docker ps -a'
+fi
 
 if has keychain; then
   alias keychain='keychain --quiet'
