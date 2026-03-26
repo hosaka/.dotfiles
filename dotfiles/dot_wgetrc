@@ -12,3 +12,6 @@ retry_connrefused = on
 
 # ignore robots.txt and nofollow meta
 robots = off
+
+# disable history file (~/.wget-hsts)
+hsts = 0
