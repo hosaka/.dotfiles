@@ -1,16 +1,41 @@
 # Manage files that have different locations on different machines
 # https://www.chezmoi.io/user-guide/manage-machine-to-machine-differences/#ignore-files-or-a-directory-on-different-machines
 
+.android/
+.ansible/
+.atuin/
+.bun/
 .cache/
 .cargo/
+.docker/
+.expo/
+.gradle/
+.java/
+.local/share/
+.local/state/
+.mozilla/
+.npm/
+.nv/
+.opencode/
 .rustup/
+.wakatime/
+
+.mise.toml
+.gtkrc-2.0
+
+.config/chezmoi
 
 {{- if eq .chezmoi.os "linux" }}
 # turnstiled
+.config/service/dbus
+.config/service/turnstile-ready
+.config/service/**/supervise
 .config/service-env/
+.psensor/
+# flatpak app data
+.var/
 {{- end }}
 
-Documents/
 {{- if eq .chezmoi.os "windows" }}
 !Documents/PowerShell/ # track powershell profiles
 {{- end }}
