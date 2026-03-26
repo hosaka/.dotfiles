@@ -33,8 +33,10 @@ HISTCONTROL="ignoreboth:erasedups"
 
 # make Python use UTF-8 encoding for output to stdin, stdout, and stderr
 export PYTHONIOENCODING="UTF-8"
+# disable REPL history file (~/.python_history)
+export PYTHON_HISTORY=/dev/null
 
-# disable less history file
+# disable less history file (~/.lesshst)
 export LESSHISTFILE=-
 
 # enable color support
