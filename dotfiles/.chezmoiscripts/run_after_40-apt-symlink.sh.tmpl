@@ -1,0 +1,19 @@
+{{- if eq .osid "linux-ubuntu" -}}
+#!/usr/bin/env bash
+
+{{ template "shared_script.bash.tmpl" . }}
+# bat is installed as batcat
+if ! has bat && has batcat; then
+  mkdir --parents {{ .xdgBinDir }}
+  ln -s $(which batcat) "{{ .xdgBinDir}}/bat"
+  info "symlink batcat to bat"
+fi
+
+# fd is installed as fdfind
+if ! has fd && has fdfind; then
+  mkdir --parents {{ .xdgBinDir }}
+  ln -s $(which fdfind) "{{ .xdgBinDir}}/fd"
+  info "symlink fdfind to fd"
+fi
+
+{{- end }}
