@@ -6,11 +6,9 @@ do_install() {
   if [ "$SUDO" = su ]; then
     su root -c 'apt install "$@"' -- sh "$@"
   else
-    $SUDO apt install "$@"
+    $SUDO apt install --yes "$@"
   fi
 }
-
-export DEBIAN_FRONTEND=noninteractive
 
 packages=(
   # common
@@ -40,8 +38,7 @@ needs_remove=(
 header "removing apt packages"
 
 if [ ${#needs_remove[@]} -ne 0 ]; then
-  $SUDO apt remove "${needs_remove[@]}"
-  $SUDO apt autoremove --purge
+  $SUDO apt remove --autoremove --yes "${needs_remove[@]}"
 fi
 
 header "installing apt packages"
