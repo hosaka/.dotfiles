@@ -12,6 +12,8 @@ packages = [
   "bat",
   "chezmoi",
   "curl",
+  "delta",
+  "difftastic",
   "eza",
   "fd",
   "git",
