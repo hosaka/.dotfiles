@@ -1,0 +1,64 @@
+{{- if eq .osid "linux-ubuntu" -}}
+#!/usr/bin/env bash
+
+{{ template "shared_script.bash.tmpl" . }}
+do_install() {
+  if [ "$SUDO" = su ]; then
+    su root -c 'apt install "$@"' -- sh "$@"
+  else
+    $SUDO apt install "$@"
+  fi
+}
+
+export DEBIAN_FRONTEND=noninteractive
+
+packages=(
+  # common
+  {{- range $package := .packages.apt.common.packages }}
+  "{{ $package }}"
+  {{- end }}
+  {{ if .development }}
+  # development
+  {{- range $package := .packages.apt.development.packages }}
+  "{{ $package }}"
+  {{- end }}
+  {{- end }}
+  {{ if .personal }}
+  # personal
+  {{- range $package := .packages.apt.personal.packages }}
+  "{{ $package }}"
+  {{- end }}
+  {{- end }}
+)
+
+needs_remove=(
+  {{- range $package := .packages.apt.remove }}
+  "{{ $package }}"
+  {{- end }}
+)
+
+header "removing apt packages"
+
+if [ ${#needs_remove[@]} -ne 0 ]; then
+  $SUDO apt remove "${needs_remove[@]}"
+  $SUDO apt autoremove --purge
+fi
+
+header "installing apt packages"
+
+needs_install=()
+for package in "${packages[@]}"; do
+  if ! dpkg --status ${package} &> /dev/null; then
+    info "${package} will be installed"
+    needs_install+=("${package}")
+  fi
+done
+
+if [ ${#needs_install[@]} -ne 0 ]; then
+  $SUDO apt update
+  do_install "${needs_install[@]}"
+fi
+
+success "all packages installed"
+
+{{- end }}

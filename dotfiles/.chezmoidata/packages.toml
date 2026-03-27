@@ -2,7 +2,7 @@
 remove = []
 
 [packages.apt.common]
-packages = ["curl"]
+packages = ["curl", "bat", "fd-find", "git", "ripgrep", "zoxide", "wget"]
 
 [packages.apk]
 remove = []

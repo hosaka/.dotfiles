@@ -1,9 +1,21 @@
 [tools]
 usage = "latest"
 
-tlrc = { version = "1.12" }
+tlrc = "latest"
+
 {{- if ne .chezmoi.os "windows" }}
-tree-sitter = { version = "0.26" }
+{{- if .development }}
+tree-sitter = "latest"
+{{- end }}
+{{- end }}
+
+{{- if eq .osid "linux-ubuntu" }}
+atuin = "latest"
+duf = "latest"
+eza = "latest"
+lazygit = "latest"
+starship = "latest"
+zoxide = "latest"
 {{- end }}
 
 [settings]
