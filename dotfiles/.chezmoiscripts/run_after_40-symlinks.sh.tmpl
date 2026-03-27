@@ -1,7 +1,8 @@
-{{- if eq .osid "linux-ubuntu" -}}
+{{- if eq .chezmoi.os "linux" -}}
 #!/usr/bin/env bash
 
 {{ template "shared_script.bash.tmpl" . }}
+{{- if (or (eq .chezmoi.osRelease.id "ubuntu") (eq .chezmoi.osRelease.id "debian" )) }}
 # bat is installed as batcat
 if ! has bat && has batcat; then
   mkdir --parents {{ .xdgBinDir }}
@@ -15,5 +16,6 @@ if ! has fd && has fdfind; then
   ln -s $(which fdfind) "{{ .xdgBinDir}}/fd"
   info "symlink fdfind to fd"
 fi
+{{- end }}
 
 {{- end }}
