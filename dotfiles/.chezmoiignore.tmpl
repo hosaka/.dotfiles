@@ -36,7 +36,16 @@
 .var/
 {{- end }}
 
-{{- if eq .chezmoi.os "windows" }}
-!Documents/PowerShell/ # track powershell profiles
+{{- if not .personal }}
+.config/aerc
+.config/halloy
+{{- end }}
+
+{{- if not .development }}
+.config/.wakatime.cfg
+{{- end }}
+
+{{- if ne .chezmoi.os "windows" }}
+Documents/PowerShell/
 {{- end }}
 
