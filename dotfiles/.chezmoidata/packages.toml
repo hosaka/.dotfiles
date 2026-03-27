@@ -8,19 +8,19 @@ remove = []
 
 [packages.apk.common]
 packages = [
-  "atuin",
+  "atuin@edge",
   "bat",
-  "chezmoi",
+  "chezmoi@edge",
   "curl",
   "delta",
   "difftastic",
   "eza",
   "fd",
   "git",
-  "just",
-  "lazygit",
+  "just@edge",
+  "lazygit@edge",
   "ripgrep",
-  "starship",
+  "starship@edge",
   "zoxide",
   "wget",
 ]
