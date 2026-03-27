@@ -29,6 +29,18 @@ packages=(
   {{- end }}
 )
 
+needs_remove=(
+  {{- range $package := .packages.apk.remove }}
+  "{{ $package }}"
+  {{- end }}
+)
+
+header "removing apk packages"
+
+if [ ${#needs_remove[@]} -ne 0 ]; then
+  $SUDO apk del "${needs_remove[@]}"
+fi
+
 header "installing apk packages"
 
 needs_install=()

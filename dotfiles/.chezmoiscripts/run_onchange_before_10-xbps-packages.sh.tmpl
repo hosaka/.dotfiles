@@ -29,6 +29,18 @@ packages=(
   {{- end }}
 )
 
+needs_remove=(
+  {{- range $package := .packages.xbps.remove }}
+  "{{ $package }}"
+  {{- end }}
+)
+
+header "removing xbps packages"
+
+if [ ${#needs_remove[@]} -ne 0 ]; then
+  $SUDO xbps-remove --yes "${needs_remove[@]}"
+fi
+
 header "installing xbps packages"
 
 needs_install=()

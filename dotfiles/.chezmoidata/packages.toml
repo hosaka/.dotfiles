@@ -1,4 +1,5 @@
 [packages.apt]
+remove = []
 
 [packages.apt.common]
 packages = ["curl"]
