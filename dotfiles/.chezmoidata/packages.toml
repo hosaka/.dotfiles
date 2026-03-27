@@ -9,6 +9,7 @@ remove = []
 [packages.apk.common]
 packages = [
   "atuin@edge",
+  "atuin-sync@edge",
   "bat",
   "chezmoi@edge",
   "curl",
