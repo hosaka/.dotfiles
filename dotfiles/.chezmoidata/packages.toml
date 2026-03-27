@@ -3,6 +3,26 @@
 [packages.apt.common]
 packages = ["curl"]
 
+[packages.apk]
+remove = []
+
+[packages.apk.common]
+packages = [
+  "atuin",
+  "bat",
+  "chezmoi",
+  "curl",
+  "eza",
+  "fd",
+  "git",
+  "just",
+  "lazygit",
+  "ripgrep",
+  "starship",
+  "zoxide",
+  "wget",
+]
+
 [packages.xbps]
 # when removing a package from a list, place it here and it will
 # be removed next time you run chezmoi apply
@@ -44,6 +64,7 @@ packages = [
   "yazi",
   "zellij",
   "zoxide",
+  "wget",
 ]
 
 [packages.xbps.personal]

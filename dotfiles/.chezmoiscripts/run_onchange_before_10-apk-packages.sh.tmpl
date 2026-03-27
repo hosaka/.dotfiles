@@ -1,0 +1,49 @@
+{{- if eq .osid "linux-alpine" -}}
+#!/usr/bin/env bash
+
+{{ template "shared_script.bash.tmpl" . }}
+do_install() {
+  if [ "$SUDO" = su ]; then
+    su root -c 'apk add "$@"' -- sh "$@"
+  else
+    $SUDO apk add "$@"
+  fi
+}
+
+packages=(
+  # common
+  {{- range $package := .packages.apk.common.packages }}
+  "{{ $package }}"
+  {{- end }}
+  {{ if .development }}
+  # development
+  {{- range $package := .packages.apk.development.packages }}
+  "{{ $package }}"
+  {{- end }}
+  {{- end }}
+  {{ if .personal }}
+  # personal
+  {{- range $package := .packages.apk.personal.packages }}
+  "{{ $package }}"
+  {{- end }}
+  {{- end }}
+)
+
+header "installing apk packages"
+
+needs_install=()
+for package in "${packages[@]}"; do
+  if ! apk info --installed ${package} &> /dev/null; then
+    info "${package} will be installed"
+    needs_install+=("${package}")
+  fi
+done
+
+if [ ${#needs_install[@]} -ne 0 ]; then
+  $SUDO apk update
+  do_install "${needs_install[@]}"
+fi
+
+success "all packages installed"
+
+{{- end }}
