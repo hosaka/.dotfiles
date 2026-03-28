@@ -1,4 +1,4 @@
-{{- if (or (eq .chezmoi.osRelease.id "ubuntu") (eq .chezmoi.osRelease.id "debian" )) }}
+{{- if (or (eq .chezmoi.osRelease.id "ubuntu") (eq .chezmoi.osRelease.id "debian" )) -}}
 #!/usr/bin/env bash
 
 {{ template "shared_script.bash.tmpl" . }}
