@@ -40,7 +40,7 @@ packages = [
   "bat",
   "bob",
   "btop",
-  "chezmoi",            # after bootstrap
+  "chezmoi",
   "curl",
   "delta",
   "difftastic",
@@ -60,7 +60,6 @@ packages = [
   "openpgp-card-tools",
   "ouch",
   "procs",
-  "rbw",                   # should be in personal
   "ripgrep",
   "starship",
   # "tree-sitter",           # when it's 0.26
@@ -76,6 +75,7 @@ packages = [
   "aerc",
   "fastfetch",
   "halloy",    # or senpai
+  "rbw",
   # "helix",
   # "zk",
 ]
