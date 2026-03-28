@@ -1,0 +1,22 @@
+{{- $fastmail := "89f368ca-2047-42aa-9b2c-851a0787325a" }}
+{{- $cockli := "a73ef443-ff91-4405-8809-e0ab4c1e99bb" }}
+
+[fastmail.com]
+source       = jmap+oauthbearer://:{{ (rbwFields $fastmail).aerc_jmap.value }}@api.fastmail.com:443/.well-known/jmap
+outgoing     = jmap://
+default      = INBOX
+from         = Alex March <{{ (rbw $fastmail).data.username }}>
+use-labels   = true
+cache-state  = true
+cache-blobs  = true
+folders-sort = Inbox
+default      = Inbox
+
+[cock.li]
+source        = imaps://{{ (rbw $cockli).data.username }}:{{ (rbw $cockli).data.password }}@mail.cock.li:993
+outgoing      = smtp://{{ (rbw $cockli).data.username }}:{{ (rbw $cockli).data.password }}@mail.cock.li:587
+default       = INBOX
+from          = Alex March <{{ (rbw $cockli).data.username }}>
+copy-to       = Sent
+cache-headers = true
+
