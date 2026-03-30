@@ -1,0 +1,1 @@
+include ~/.cargo/env.fish
