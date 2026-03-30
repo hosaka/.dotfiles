@@ -4,14 +4,6 @@ alias ... 'cd ../..'
 alias .... 'cd ../../..'
 alias ..... 'cd ../../../..'
 
-# enable aliases to run as superuser
-if has sudo
-  alias sudo 'sudo '
-end
-if has doas
-  alias doas 'doas '
-end
-
 alias grep 'grep --color=auto'
 alias fgrep 'fgrep --color=auto'
 alias egrep 'egrep --color=auto'
@@ -35,32 +27,14 @@ else
   alias lla 'ls -lGah --group-directories-first'
 end
 
-if has bat
-  # colorize --help messages
-  function help
-    $argv --help 2>&1 | bat --plain --language=help
-  end
-end
-
-if has rg
-  if has delta
-    # highlight ripgrep output
-    function rgd
-      rg --json --context 2 "$argv" | delta
-    end
-  end
-end
-
 if has nvim
   alias vimdiff='nvim -d'
 end
 
-# dotfiles management and tab completion for chezmoi alias
+# chezmoi (alias and complete wrapper)
 if has chezmoi
   alias dot 'chezmoi'
-  # if has __start_chezmoi
-  #   complete -o default -F __start_chezmoi dot
-  # end
+  complete -c dot -w chezmoi
 end
 
 # git
@@ -96,7 +70,8 @@ end
 
 # restic
 if has resticproendle
-  alias rst 'doas -u restic resticprofile'
+  set SUDO $(which_sudo)
+  alias rst '$SUDO -u restic resticprofile'
 end
 
 # rocketpool

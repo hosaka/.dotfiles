@@ -1,5 +1,11 @@
 # disable shell history
 set -x fish_private_mode "plz"
+
+if status is-interactive
+  function fish_greeting
+  end
+end
+
 # make Python use UTF-8 encoding for output to stdin, stdout, and stderr
 set -gx PYTHONIOENCODING "UTF-8"
 # disable REPL history file (~/.python_history)
@@ -22,8 +28,4 @@ end
 # default manpager
 if has bat
   set -gx MANPAGER "batman"
-end
-
-if status is-interactive
-# Commands to run in interactive sessions can go here
 end
