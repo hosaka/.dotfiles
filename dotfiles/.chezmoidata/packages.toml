@@ -48,6 +48,7 @@ packages = [
   "dust",
   "eza",
   "fd",
+  "fish-shell",
   "git",
   "hexyl",
   "jq",
