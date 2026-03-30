@@ -1,6 +1,7 @@
 # disable shell history
 set -x fish_private_mode "plz"
 
+# disable shell greeting
 if status is-interactive
   function fish_greeting
   end
