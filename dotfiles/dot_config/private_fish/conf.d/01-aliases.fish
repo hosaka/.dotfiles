@@ -34,7 +34,7 @@ end
 # chezmoi (alias and complete wrapper)
 if has chezmoi
   alias dot 'chezmoi'
-  complete -c dot -w chezmoi
+  complete -c dot -w chezmoi -d 'manage dotfiles with chezmoi'
 end
 
 # git
