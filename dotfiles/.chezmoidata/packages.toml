@@ -44,6 +44,7 @@ packages = [
   "curl",
   "delta",
   "difftastic",
+  "dua-cli",
   "duf",
   "dust",
   "eza",
