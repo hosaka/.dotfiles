@@ -9,11 +9,7 @@ set -gx PYTHON_HISTORY /dev/null
 set -gx LESSHISTFILE -
 
 onpath "$HOME/.local/bin"
-
-if on_wsl
-  # avoid issues with gpg not recognising smartcards
-  set -gx GPG_TTY $(tty)
-end
+onpath "$HOME/.cargo/bin"
 
 # default editor
 if has nvim
@@ -24,3 +20,9 @@ end
 if has bat
   set -gx MANPAGER "batman"
 end
+
+if on_wsl
+  # avoid issues with gpg not recognising smartcards
+  set -gx GPG_TTY $(tty)
+end
+
