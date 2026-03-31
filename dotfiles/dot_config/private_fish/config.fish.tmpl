@@ -8,7 +8,18 @@ set -gx PYTHON_HISTORY /dev/null
 # disable less history file (~/.lesshst)
 set -gx LESSHISTFILE -
 
-onpath "$HOME/.local/bin"
+# XDG Base Directory
+set -gx XDG_CACHE_HOME "{{ .xdgCacheDir }}"
+set -gx XDG_CONFIG_HOME "{{ .xdgConfigDir }}"
+set -gx XDG_DATA_HOME "{{ .xdgDataDir }}"
+set -gx XDG_STATE_HOME "{{ .xdgStateDir }}"
+set -gx XDG_DOWNLOAD_DIR "{{ .chezmoi.homeDir }}/Downloads"
+set -gx XDG_DOCUMENTS_DIR "{{ .chezmoi.homeDir }}/Documents"
+set -gx XDG_MUSIC_DIR "{{ .chezmoi.homeDir }}/Music"
+set -gx XDG_PICTURES_DIR "{{ .chezmoi.homeDir }}/Pictures"
+set -gx XDG_VIDEOS_DIR "{{ .chezmoi.homeDir }}/Videos"
+
+onpath "{{ .xdgBinDir }}"
 onpath "$HOME/.cargo/bin"
 
 # default editor

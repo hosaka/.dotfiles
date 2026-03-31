@@ -3,7 +3,6 @@ if not status is-interactive
 end
 
 abbr -a md 'mkdir -p'
-abbr -a code 'cd ~/Code'
 
 if has docker
   abbr -a dimg 'docker images'
