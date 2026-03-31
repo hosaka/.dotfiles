@@ -49,32 +49,15 @@ if has git
   alias gsw 'git switch'
 end
 
-if has lazygit
-  alias gg 'lazygit'
-end
-
-# docker
-if has docker
-  alias dimg 'docker images'
-  alias dpsa 'docker ps -a'
-end
-
 if has keychain
   alias keychain 'keychain --quiet'
 end
 
-# just
 if has just
   alias j 'just --justfile=$HOME/.justfile'
 end
 
-# restic
-if has resticproendle
+if has resticprofile
   set SUDO $(which_sudo)
   alias rst '$SUDO -u restic resticprofile'
-end
-
-# rocketpool
-if has rocketpool
-  alias rp 'rocketpool'
 end
