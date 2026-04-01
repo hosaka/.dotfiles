@@ -48,6 +48,7 @@ packages = [
   "duf",
   "dust",
   "eza",
+  "fastfetch",
   "fd",
   "fish-shell",
   "git",
@@ -57,7 +58,6 @@ packages = [
   "just-lsp",
   # "lazydocker",
   "lazygit",
-  # "neovide",
   "openpgp-card-tool-git",
   "openpgp-card-tools",
   "ouch",
@@ -75,10 +75,11 @@ packages = [
 [packages.xbps.personal]
 packages = [
   "aerc",
-  "fastfetch",
-  "halloy",    # or senpai
-  "rbw",
+  "halloy", # or senpai
   # "helix",
+  "neovide",
+  "rbw",
+  # "xdg-desktop-portal-termfilechooser",
   # "zk",
 ]
 
