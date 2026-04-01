@@ -14,6 +14,8 @@ if has doas; then
   alias doas='doas '
 fi
 
+alias md='mkdir -p'
+
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
@@ -81,27 +83,28 @@ if has lazygit; then
   alias gg='lazygit'
 fi
 
-# docker
 if has docker; then
   alias dimg='docker images'
   alias dpsa='docker ps -a'
+  alias dipr='docker image prune'
 fi
 
 if has keychain; then
   alias keychain='keychain --quiet'
 fi
 
-# just
 if has just; then
   alias j='just --justfile=$HOME/.justfile'
 fi
 
-# restic
 if has resticprofile; then
   alias rst='doas -u restic resticprofile'
 fi
 
-# rocketpool
 if has rocketpool; then
   alias rp='rocketpool'
+fi
+
+if has zellij; then
+  alias zel='zellij'
 fi
