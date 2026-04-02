@@ -15,15 +15,21 @@ packages=(
   {{- range $package := .packages.xbps.common.packages }}
   "{{ $package }}"
   {{- end }}
-  {{ if .development }}
-  # development
-  {{- range $package := .packages.xbps.development.packages }}
+  {{ if .desktop }}
+  # desktop
+  {{- range $package := .packages.xbps.desktop.packages }}
   "{{ $package }}"
   {{- end }}
   {{- end }}
   {{ if .personal }}
   # personal
   {{- range $package := .packages.xbps.personal.packages }}
+  "{{ $package }}"
+  {{- end }}
+  {{- end }}
+  {{ if .development }}
+  # development
+  {{- range $package := .packages.xbps.development.packages }}
   "{{ $package }}"
   {{- end }}
   {{- end }}

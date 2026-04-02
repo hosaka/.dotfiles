@@ -34,13 +34,12 @@ remove = []
 
 [packages.xbps.common]
 packages = [
-  "age",
-  "age-plugin-yubikey",
   "atuin",
   "bat",
   "bob",
   "btop",
   "chezmoi",
+  "chrony",
   "curl",
   "delta",
   "difftastic",
@@ -52,34 +51,79 @@ packages = [
   "fd",
   "fish-shell",
   "git",
-  "hexyl",
   "jq",
   "just",
-  "just-lsp",
-  # "lazydocker",
   "lazygit",
-  "openpgp-card-tool-git",
-  "openpgp-card-tools",
   "ouch",
   "procs",
+  "psmisc",     # killall, pstree
   "ripgrep",
+  "snooze",
+  "socat",      # SSH ProxyCommand helper for FRP servers
   "starship",
-  # "tree-sitter",           # when it's 0.26
-  "xh",
+  "tree",
+  "wget",
+  "xtools",
   "yazi",
   "zellij",
   "zoxide",
-  "wget",
+  # "svs",        # when added to void-packages
+]
+
+[packages.xbps.desktop]
+packages = [
+  "ReGreet",
+  "alacritty",
+  "cage",
+  "dbus",
+  "elogind",
+  "firefox",
+  "fuzzel",
+  "gcr4",                               # gcr-ssh-agent, niri sets SSH_AUTH_SOCK
+  "gnome-keyring",
+  "gpu-screen-recorder",
+  "greetd",
+  "halloy",
+  "ibus",
+  "ibus-mozc",
+  "imv",
+  "kanshi",
+  "mpv",
+  "neovide",
+  "nerd-fonts-symbols-ttf",
+  "nwg-look",
+  "niri",
+  "noto-fonts-cjk",
+  "noto-fonts-emoji",
+  "polkit",                             # noctalia, flatpak dependency
+  "pipewire",
+  "pinentry-gnome",                     # pinentry for rbw
+  "qt6ct",
+  "ripdrag",
+  "seahorse",
+  "turnstile",                          # only used for user runit services
+  "xdg-desktop-portal",
+  "xdg-desktop-portal-gnome",
+  "xdg-desktop-portal-gtk",
+  "xdg-desktop-portal-termfilechooser", # use `zenity --file-selection` for testing
+  "xdg-user-dirs",
+  "xdg-user-dirs-gtk",
+  "xdg-utils",
+  "xwayland-satellite",                 # xwayland for niri
+  # "noctalia-qs",
+  # "noctalia-shell",
 ]
 
 [packages.xbps.personal]
 packages = [
   "aerc",
-  "halloy", # or senpai
-  # "helix",
-  "neovide",
+  "age",
+  "age-plugin-yubikey",
+  "openpgp-card-tool-git",
+  "openpgp-card-tools",
   "rbw",
-  # "xdg-desktop-portal-termfilechooser",
+  "yubikey-manager",
+  # "helix",
   # "zk",
 ]
 
@@ -87,13 +131,19 @@ packages = [
 packages = [
   "StyLua",
   "bash-language-server",
+  "forgejo-cli",
   "github-cli",
+  "hexyl",
   "hyperfine",
+  "just-lsp",
   "lua-language-server",
   "rsync",
   "shellcheck",
   "shfmt",
   "taplo",
   "watchexec",
+  "xh",
   "yaml-language-server",
+  # "rustup",
+  # "tree-sitter",           # when it's 0.26
 ]
