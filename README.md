@@ -10,12 +10,12 @@ To get a new machine setup, there are a few choices.
 
 Get [chezmoi](https://www.chezmoi.io/) via a package manager and init the repo:
 ```bash
-chezmoi init --apply ssh://git@git.hosaka.cc/hosaka/.dotfiles
+chezmoi init --apply https://code.hosaka.cc/hosaka/.dotfiles.git
 ```
 
 Use a remote script from chezmoi:
 ```bash
-sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply ssh://git@git.hosaka.cc/hosaka/.dotfiles
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply https://code.hosaka.cc/hosaka/.dotfiles.git
 ```
 
 Use my remote install script:
@@ -80,3 +80,7 @@ To update an existing version:
 bob update nightly
 ```
 
+## Mirrors
+This repository is hosted on [Forgejo](https://code.hosaka.cc/hosaka/.dotfiles) which mirrors to the following git forges:
+- https://codeberg.org/hosaka/.dotfiles
+- https://github.com/hosaka/.dotfiles
