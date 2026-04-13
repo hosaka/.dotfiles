@@ -8,6 +8,7 @@ if has docker
   abbr -a dimg 'docker images'
   abbr -a dpsa 'docker ps -a'
   abbr -a dipr 'docker image prune'
+  abbr -a dpr  'docker container prune'
 end
 
 if has lazygit
