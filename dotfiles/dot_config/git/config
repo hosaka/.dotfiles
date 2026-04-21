@@ -1,7 +1,7 @@
 [user]
-	name = Alex March
-	email = alexmarch@fastmail.com
-	signingKey = 0x0644B87ED144C988
+  name = Alex March
+  email = alexmarch@fastmail.com
+  signingKey = a06f0ca49cd61d401dc60dd6b3cd3168524d844c
 
 [merge]
   conflictStyle = zdiff3
