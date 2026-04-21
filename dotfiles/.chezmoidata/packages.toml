@@ -134,6 +134,7 @@ packages = [
 packages = [
   "StyLua",
   "bash-language-server",
+  "forgejo-cli",
   "github-cli",
   "hexyl",
   "hyperfine",
