@@ -117,6 +117,9 @@ layout {
     // Set gaps around windows in logical pixels.
     gaps 16
 
+    // Set transparent workspace background color so you see the backdrop at all times.
+    background-color "transparent"
+
     // When to center a column when changing focus, options are:
     // - "never", default behavior, focusing an off-screen column will keep at the left
     //   or right edge of the screen.
@@ -645,6 +648,60 @@ debug {
 layer-rule {
   match namespace="^noctalia-overview*"
   place-within-backdrop true
+}
+
+// Apps: blur them all without xray for a better look
+window-rule {
+  geometry-corner-radius 16
+
+  background-effect {
+    blur true
+    xray false
+  }
+
+  // popups {
+  //   // Matches the default libadwaita pop-up corner radius.
+  //   geometry-corner-radius 15
+  //
+  //   // Note: it'll look better to set background opacity
+  //   // through your GTK theme CSS and not here.
+  //   // This is just an example that makes it look obvious.
+  //   opacity 0.7
+  //
+  //   background-effect {
+  //       blur true
+  //   }
+  // }
+}
+
+// Noctalia: blur everywhere without xray for a better look
+layer-rule {
+  match namespace="^noctalia-(background|launcher-overlay|dock)-.*$"
+  background-effect {
+    blur true
+    xray false
+  }
+}
+
+// Enable blur behind the fuzzel launcher.
+layer-rule {
+    match namespace="^launcher$"
+    geometry-corner-radius 16
+    background-effect {
+        blur true
+        xray false
+    }
+}
+
+blur {
+  // more passes = stronger blur (default: 3)
+  passes 2
+  // sample distance per pass (default: 3.0)
+  offset 3.0
+  // grain overlay (default: 0.02)
+  noise 0.02
+  // color saturation boost (default: 1.5)
+  saturation 1.0
 }
 
 include "./noctalia.kdl"
