@@ -3,6 +3,12 @@ import = [
     "~/.config/alacritty/themes/noctalia.toml"
 ]
 
+[font]
+normal = { family = "Maple Mono NF CN", style = "Regular"}
+bold = { family = "Maple Mono NF CN", style = "Bold"}
+italic = { family = "Maple Mono NF CN", style = "Italic"}
+bold_italic = { family = "Maple Mono NF CN", style = "Bold Italic"}
+
 [[keyboard.bindings]]
 key = "Return"
 mods = "Shift"
