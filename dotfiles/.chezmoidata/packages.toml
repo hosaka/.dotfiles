@@ -23,6 +23,7 @@ packages = [
   "git",
   "just@edge",
   "lazygit@edge",
+  # "prek@edge",       # when available
   "procs@edge",
   "ripgrep",
   "starship@edge",
@@ -64,6 +65,7 @@ packages = [
   "snooze",
   "socat",      # SSH ProxyCommand helper for FRP servers
   "starship",
+  "tlrc",
   "tree",
   "wget",
   "xtools",
@@ -140,6 +142,7 @@ packages = [
   "hyperfine",
   "just-lsp",
   "lua-language-server",
+  "prek",
   "rsync",
   "shellcheck",
   "shfmt",
