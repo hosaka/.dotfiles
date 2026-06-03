@@ -1,0 +1,12 @@
+# search hiden files/dirs (e.g. dotfiles) by default
+--hidden
+
+# apart from files/dirs that we don't care about
+--glob=!.git/*
+
+# OR explicitly add files/dirs to include instead of --hidden
+# --glob=.github/*
+# --glob=.gitlab/*
+# --glob=.codeberg/*
+# --glob=.forgejo/*
+# --glob=.gitlab-ci.yml

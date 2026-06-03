@@ -164,6 +164,11 @@ if has fj; then
   export FJ_FALLBACK_HOST="https://code.hosaka.cc"
 fi
 
+# ripgrep
+if has rg; then
+  export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/ripgreprc"
+fi
+
 # preexec and precmd functions for bash
 include ~/.bash_preexec
 
