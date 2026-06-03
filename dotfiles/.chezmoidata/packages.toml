@@ -67,12 +67,12 @@ packages = [
   "starship",
   "tlrc",
   "tree",
+  "vsv",
   "wget",
   "xtools",
   "yazi",
   "zellij",
   "zoxide",
-  # "svs",        # when added to void-packages
 ]
 
 [packages.xbps.desktop]
