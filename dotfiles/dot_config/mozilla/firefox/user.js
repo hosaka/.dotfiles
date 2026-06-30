@@ -229,7 +229,7 @@ user_pref("gfx.font_rendering.directwrite.use_gdi_table_loading", false);
 
 // PREF: enable Firefox Sync, but with self hosted syncstorage
 user_pref("identity.fxaccounts.enabled", true);
-// user_pref("identity.sync.tokenserver.uri", "https://ffs.hosaka.cc/1.0/sync/1.5");
+user_pref("identity.sync.tokenserver.uri", "https://ffs.hosaka.cc/1.0/sync/1.5");
 
 // PREF: never sync these items
 user_pref("services.sync.engine.addresses", false);
