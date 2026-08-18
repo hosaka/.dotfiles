@@ -1,0 +1,34 @@
+[bar]
+order = ["main"]
+
+[bar.default]
+position = "top"
+enabled = true
+
+[shell]
+telemetry_enabled = true
+
+    [shell.session]
+    show_shortcuts = false
+
+[location]
+auto_locate = false
+latitude = 35.6895
+longtitude = 139.6917
+
+[plugins]
+enabled = [ "noctalia/bongocat", "noctalia/screen_recorder" ]
+auto_update = true
+
+[theme]
+mode = "dark"
+builtin = "Tokyo-Night"
+
+    [theme.templates]
+    builtin_ids = [ "alacritty", "btop", "foot", "gtk3", "gtk4", "helix", "niri", "qt" ]
+    community_ids = [ "bat", "fastfetch", "fuzzel", "lazygit", "pywalfox", "yazi", "zellij" ]
+
+[weather]
+enabled  = true
+unit = "metric"
+effects = true

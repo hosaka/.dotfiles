@@ -94,10 +94,12 @@ packages = [
   "mpv",
   "neovide",
   "nerd-fonts-symbols-ttf",
-  "nwg-look",
   "niri",
+  "noctalia",
+  "noctalia-greeter",
   "noto-fonts-cjk",
   "noto-fonts-emoji",
+  "nwg-look",
   "polkit",                             # noctalia, flatpak dependency
   "pipewire",
   "pinentry-gnome",                     # pinentry for rbw
