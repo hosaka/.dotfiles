@@ -44,7 +44,7 @@ needs_remove=(
 header "removing xbps packages"
 
 if [ ${#needs_remove[@]} -ne 0 ]; then
-  $SUDO xbps-remove --yes "${needs_remove[@]}"
+  $SUDO xbps-remove --yes "${needs_remove[@]}" || true
 fi
 
 header "installing xbps packages"
