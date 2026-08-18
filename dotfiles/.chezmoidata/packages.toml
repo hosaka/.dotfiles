@@ -34,13 +34,12 @@ packages = [
 [packages.xbps]
 # when removing a package from a list, place it here and it will
 # be removed next time you run chezmoi apply
-remove = []
+remove = ["bob", "dust"]
 
 [packages.xbps.common]
 packages = [
   "atuin",
   "bat",
-  "bob",
   "btop",
   "chezmoi",
   "chrony",
@@ -49,7 +48,6 @@ packages = [
   "difftastic",
   "dua-cli",
   "duf",
-  "dust",
   "eza",
   "fastfetch",
   "fd",
