@@ -92,7 +92,8 @@ user_pref("privacy.history.custom", true);
 user_pref("browser.privatebrowsing.resetPBM.enabled", true);
 
 /** SEARCH / URL BAR ***/
-user_pref("browser.urlbar.trimHttps", true);
+user_pref("browser.urlbar.trimHttps", false);
+user_pref("browser.urlbar.trimURLs", false);
 user_pref("browser.urlbar.untrimOnUserInteraction.featureGate", true);
 user_pref("browser.search.separatePrivateDefault.ui.enabled", true);
 user_pref("browser.search.suggest.enabled", false);
