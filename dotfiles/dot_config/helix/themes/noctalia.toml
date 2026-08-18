@@ -11,15 +11,15 @@
 "constant.character" = "secondaryContainer"
 "constant.character.escape" = "tertiaryContainer"
 
-"string" = { fg = "tertiary", bg = "surfaceContainerHigh" }
-"string.regexp" = { fg = "tertiaryContainer", bg = "surfaceContainerHigh" }
-"string.special" = { fg = "tertiary", bg = "surfaceContainerHigh" }
-"string.special.symbol" = { fg = "tertiary", bg = "surfaceContainerHigh" }
+"string" = { fg = "tertiary"}
+"string.regexp" = { fg = "tertiaryContainer" }
+"string.special" = { fg = "tertiary" }
+"string.special.symbol" = { fg = "tertiary" }
 "string.special.path" = { fg = "secondary", underline = { color = "secondary", style = "line" } }
 
 "path" = { fg = "secondary", underline = { color = "secondary", style = "line" } }
 
-"comment" = { fg = "outline", bg = "surfaceContainerHigh", modifiers = ["italic"] }
+"comment" = { fg = "outline", modifiers = ["italic"] }
 
 "variable" = "onSurface"
 "variable.builtin" = "secondary"
@@ -28,8 +28,7 @@
 
 "label" = "secondary"
 
-"punctuation" = "outlineVariant"
-"punctuation.special" = "outline"
+"punctuation" = "outline"
 
 "keyword" = { fg = "primary", modifiers = ["bold"] }
 "keyword.control.conditional" = { fg = "tertiary", modifiers = ["italic", "bold"] }
@@ -96,7 +95,7 @@
 "ui.menu" = { fg = "onSurface", bg = "surfaceContainer" }
 "ui.menu.selected" = { fg = "onPrimary", bg = "primary", modifiers = ["bold"] }
 
-"ui.selection" = { bg = "surfaceContainerHigh" }
+"ui.selection" = { bg = "primaryContainer", fg = "onPrimaryContainer" }
 
 "ui.highlight" = { bg = "primaryContainer", modifiers = ["bold"] }
 
@@ -127,12 +126,12 @@ delta = "#89b4fa"
 primary = "#7aa2f7"
 surfaceTint = "#7aa2f7"
 onPrimary = "#16161e"
-primaryContainer = "#003dbe"
+primaryContainer = "#003dbf"
 onPrimaryContainer = "#cfddfc"
 
 secondary = "#bb9af7"
 onSecondary = "#16161e"
-secondaryContainer = "#4f00de"
+secondaryContainer = "#4f00df"
 onSecondaryContainer = "#dfd0fb"
 
 tertiary = "#9ece6a"
@@ -152,8 +151,8 @@ onSurface = "#c0caf5"
 surfaceVariant = "#24283b"
 onSurfaceVariant = "#9aa5ce"
 
-outline = "#586691"
-outlineVariant = "#3b4561"
+outline = "#5d6682"
+outlineVariant = "#3d4355"
 
 surfaceContainerLowest = "#1c1d2a"
 surfaceContainerLow = "#1f2130"
