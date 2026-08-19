@@ -34,7 +34,7 @@ packages = [
 [packages.xbps]
 # when removing a package from a list, place it here and it will
 # be removed next time you run chezmoi apply
-remove = ["bob", "dust"]
+remove = ["bob", "dust", "cage", "ReGreet"]
 
 [packages.xbps.common]
 packages = [
@@ -75,9 +75,7 @@ packages = [
 
 [packages.xbps.desktop]
 packages = [
-  "ReGreet",
   "alacritty",
-  "cage",
   "dbus",
   "elogind",
   "firefox",
@@ -115,8 +113,6 @@ packages = [
   "xdg-user-dirs-gtk",
   "xdg-utils",
   "xwayland-satellite",                 # xwayland for niri
-  # "noctalia-qs",
-  # "noctalia-shell",
 ]
 
 [packages.xbps.personal]
