@@ -2,8 +2,23 @@
 order = ["main"]
 
 [bar.default]
-position = "top"
 enabled = true
+capsule = true
+position = "top"
+background_opacity = 0.7
+start = ["launcher", "wallpaper", "clock", "date", "cat", "media"]
+center = ["screenshot", "privacy", "workspaces", "recorder"]
+end = [
+  "tray",
+  "notifications",
+  "clipboard",
+  "volume",
+  "brightness",
+  "battery",
+  "theme_mode",
+  "control-center",
+  "session",
+]
 
 [shell]
 avatar_path = "/home/alex/.face"
@@ -11,15 +26,15 @@ password_style = "random"
 polkit_agent = true
 telemetry_enabled = true
 
-    [shell.session]
-    show_shortcuts = false
+[shell.session]
+show_shortcuts = false
 
 [location]
 auto_locate = false
 address = "Tokyo, Japan"
 
 [plugins]
-enabled = [ "noctalia/bongocat", "noctalia/screen_recorder" ]
+enabled = ["noctalia/bongocat", "noctalia/screen_recorder"]
 auto_update = true
 
 [nightlight]
@@ -29,11 +44,40 @@ enabled = true
 mode = "dark"
 builtin = "Tokyo-Night"
 
-    [theme.templates]
-    builtin_ids = [ "alacritty", "btop", "foot", "gtk3", "gtk4", "helix", "niri", "qt" ]
-    community_ids = [ "bat", "fastfetch", "fuzzel", "lazygit", "pywalfox", "yazi", "zellij" ]
+[theme.templates]
+builtin_ids = [
+  "alacritty",
+  "btop",
+  "foot",
+  "gtk3",
+  "gtk4",
+  "helix",
+  "niri",
+  "qt",
+]
+community_ids = [
+  "bat",
+  "fastfetch",
+  "fuzzel",
+  "lazygit",
+  "pywalfox",
+  "yazi",
+  "zellij",
+]
 
 [weather]
-enabled  = true
+enabled = true
 unit = "metric"
 effects = true
+
+[widget.cat]
+type = "noctalia/bongocat:cat"
+color = "tertiary"
+scale = 1.5
+input_devices = ["/dev/input/by-id/usb-*_Hillside_46-event*"]
+
+[widget.privacy]
+hide_inactive = true
+
+[widget.recorder]
+type = "noctalia/screen_recorder:recorder"
