@@ -56,13 +56,14 @@ packages = [
   "jq",
   "just",
   "lazygit",
+  "liberated-packages", # similar to removed-packages but for my own repo
   "ouch",
   "procs",
-  "psmisc",     # killall, pstree
+  "psmisc",             # killall, pstree
   "ripgrep",
   "snooze",
-  "socat",      # SSH ProxyCommand helper for FRP servers
-  "starship",
+  "socat",              # SSH ProxyCommand helper for FRP servers
+  "starship",           # only used on hosts that do not used fish-shell
   "tlrc",
   "tree",
   "vsv",
@@ -75,7 +76,10 @@ packages = [
 
 [packages.xbps.desktop]
 packages = [
+  "adw-gtk3",
   "alacritty",
+  "bibata-cursor-themes",
+  "candy-icons",
   "dbus",
   "elogind",
   "firefox",
@@ -89,6 +93,7 @@ packages = [
   "ibus-mozc",
   "imv",
   "kanshi",
+  "maple-fonts-nerdfonts-cn",
   "mpv",
   "neovide",
   "nerd-fonts-symbols-ttf",
@@ -98,9 +103,10 @@ packages = [
   "noto-fonts-cjk",
   "noto-fonts-emoji",
   "nwg-look",
-  "polkit",                             # noctalia, flatpak dependency
-  "pipewire",
   "pinentry-gnome",                     # pinentry for rbw
+  "pipewire",
+  "polkit",                             # noctalia, flatpak dependency
+  "pywalfox",                           # will eventually be replaced by noctalia built-in host
   "qt6ct",
   "ripdrag",
   "seahorse",
