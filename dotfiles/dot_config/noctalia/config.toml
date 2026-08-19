@@ -6,6 +6,8 @@ position = "top"
 enabled = true
 
 [shell]
+password_style = "random"
+polkit_agent = true
 telemetry_enabled = true
 
     [shell.session]
@@ -13,8 +15,7 @@ telemetry_enabled = true
 
 [location]
 auto_locate = false
-latitude = 35.6895
-longtitude = 139.6917
+address = "Tokyo, Japan"
 
 [plugins]
 enabled = [ "noctalia/bongocat", "noctalia/screen_recorder" ]
