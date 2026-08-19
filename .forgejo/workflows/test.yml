@@ -1,0 +1,31 @@
+name: Test
+
+on:
+  push:
+
+jobs:
+  test:
+    runs-on: linux-amd64
+    container:
+      image: ghcr.io/void-linux/void-glibc-full:latest
+      env:
+        XBPS_MIRROR_URL: mirror.hosaka.cc/voidlinux
+    steps:
+      - name: Prepare container
+        run: |
+          # switch to our own mirror (upstream uses a repo-ci.voidlinux.org instead)
+          mkdir -p /etc/xbps.d && cp /usr/share/xbps.d/*-repository-*.conf /etc/xbps.d/
+          sed -i "s|repo-default.voidlinux.org|$XBPS_MIRROR_URL|g" /etc/xbps.d/*-repository-*.conf
+          # install dependencies
+          xbps-install -Syu xbps && xbps-install -yu && xbps-install -y sudo bash curl git nodejs chezmoi
+
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Repository info
+        run: |
+          echo "This job status is ${{ job.status }}"
+          echo "Triggered by ${{ github.event_name }} event"
+          echo "Running on ${{ runner.os }} os"
+          echo "Running on branch ${{ github.ref }} in repo ${{ github.repository }}"
+          ls ${{ github.workspace }}
