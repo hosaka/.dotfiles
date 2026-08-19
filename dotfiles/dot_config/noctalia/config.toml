@@ -22,6 +22,9 @@ address = "Tokyo, Japan"
 enabled = [ "noctalia/bongocat", "noctalia/screen_recorder" ]
 auto_update = true
 
+[nightlight]
+enabled = true
+
 [theme]
 mode = "dark"
 builtin = "Tokyo-Night"
