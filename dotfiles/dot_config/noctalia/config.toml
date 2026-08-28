@@ -35,7 +35,7 @@ address = "Tokyo, Japan"
 
 [plugins]
 enabled = ["noctalia/bongocat", "noctalia/screen_recorder"]
-auto_update = true
+auto_update = "all"
 
 [nightlight]
 enabled = true
