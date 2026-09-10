@@ -1,2 +1,2 @@
 # atuin
-$env:ATUIN_SYNC_ADDRESS = "https://atuin.box.hosaka.cc"
+$env:ATUIN_SYNC_ADDRESS = "https://atuin.hosaka.cc"
