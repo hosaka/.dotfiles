@@ -1,0 +1,4 @@
+[theme.templates.user.nvim]
+input_path = "./templates/neovim.lua"
+output_path = "~/.config/nvim/lua/noctalia.lua"
+post_hook = 'pkill -SIGUSR1 nvim'
