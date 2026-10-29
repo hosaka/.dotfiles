@@ -1,0 +1,33 @@
+[zoom]
+factor = 2.0
+increment = 0.25
+max_factor = 10.0
+smooth = true
+upscale = "nearest"
+
+[spotlight]
+radius = 250
+dim = 0.65
+softness = 20
+animation_speed = 14.0
+radius_step = 20.0
+
+[general]
+show_cursor = true
+status_badge = false
+
+[annotate]
+default = "rect"
+thickness = 2.0
+color = "ff3333"
+text_color = "ffd933"
+text_size = 1.0
+
+[loupe]
+shape = "rect"
+
+[export]
+format = "png"
+
+[filter]
+default = "none"

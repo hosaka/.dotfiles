@@ -94,6 +94,7 @@ packages = [
   "imv",
   "kanshi",
   "maple-fonts-nerdfonts-cn",
+  "miru",
   "mpv",
   "neovide",
   "nerd-fonts-symbols-ttf",

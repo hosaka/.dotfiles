@@ -274,6 +274,7 @@ layout {
 // xdg-desktop-autostart, which may be more convenient to use.
 // See the binds section below for more spawn examples.
 spawn-at-startup "noctalia"
+spawn-at-startup "miru-daemon"
 spawn-at-startup "ibus" "start" "--type=wayland"
 
 hotkey-overlay {
@@ -650,6 +651,10 @@ binds {
     // Powers off the monitors. To turn them back on, do any input like
     // moving the mouse or pressing any other key.
     Mod+Shift+P { power-off-monitors; }
+
+    // Miru
+    Mod+Z hotkey-overlay-title="toggle miru" { spawn-sh "miructl toggle"; }
+    Mod+Shift+Z hotkey-overlay-title="toggle miru loupe" { spawn-sh "miructl loupe"; }
 }
 
 debug {
