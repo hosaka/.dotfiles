@@ -1,9 +1,9 @@
 [zoom]
-factor = 2.0
+factor = 1.3
 increment = 0.25
 max_factor = 10.0
 smooth = true
-upscale = "nearest"
+upscale = "linear"
 
 [spotlight]
 radius = 250
@@ -31,3 +31,6 @@ format = "png"
 
 [filter]
 default = "none"
+
+[keybinds]
+quit = "Q"
