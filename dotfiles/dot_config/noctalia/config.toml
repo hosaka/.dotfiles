@@ -57,6 +57,7 @@ builtin_ids = [
 ]
 community_ids = [
   "bat",
+  "claude-code",
   "fastfetch",
   "fuzzel",
   "lazygit",
