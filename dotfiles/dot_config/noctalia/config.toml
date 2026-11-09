@@ -59,6 +59,7 @@ community_ids = [
   "bat",
   "claude-code",
   "fastfetch",
+  "feishin",
   "fuzzel",
   "lazygit",
   "pywalfox",
