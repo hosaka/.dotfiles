@@ -18,12 +18,25 @@ secrets_filter = true
 history_filter = [
   # listing, with flags but no path
   '^(l|la|ll|lla|ls|lt)( +-[a-zA-Z]+)*$',
-  # bare navigation
-  '^(cd|cd \.\.|cd -|\.\.|z|y)$',
+  # bare navigation, yazi alias, zoxide
+  '^(cd|cd \.|cd \.\.|cd -|\.\.|\.\.\.|\.\.\.\.|y)$',
+  '^zi?( |$)',
   # shell housekeeping
   '^(clear|exit|fg)$',
-  # bare git shortcuts and lazygit
-  '^(gg|gl|gs|lazygit)$',
+  # apps launched without arguments
+  '^(nvim|vim|claude|zellij|htop|btop|yazi|python3?|fish|bash)$',
+  # git shortcuts, and status/sync without arguments
+  '^(gg|gl|gs|gst|glg|lazygit|lazydocker|git +(status|s|l|log|diff|pull|push|fetch|remotes))$',
+  # chezmoi routine
+  '^(dot|dotgg|(dot|chezmoi) +(gg|l|cd|diff|status|pull|apply|update))$',
+  # docker status and cleanup
+  '^(dimg|dpsa|diprune|dpr|docker +(ps|ps -a|images|container prune|image prune|system prune))$',
+  # package management that names no package
+  '^((sudo|doas) +)?(xi|xrm|xls|xrs|xq|xbps-install|xbps-remove)( +-[a-zA-Z]+)+$',
+  '^((sudo|doas) +)?apt(-get)? +(update|upgrade|full-upgrade|dist-upgrade|autoremove)( +-[a-zA-Z]+)*$',
+  '^((sudo|doas) +)?apk +(update|upgrade)( +-[a-zA-Z]+)*$',
+  '^(flatpak +update( +-y)?|rustup +update)$',
+  '^mise +(ls|env|install|prune|outdated|up|upgrade)( +-[a-zA-Z-]+)*$',
 ]
 
 ## Commands run from these directories are never written to history.
@@ -43,18 +56,7 @@ common_subcommands = [
   "systemctl",
 ]
 common_prefix = ["sudo", "doas"]
-ignored_commands = [
-  "l",
-  "la",
-  "ll",
-  "lla",
-  "ls",
-  "lt",
-  "gg",
-  "gl",
-  "gs",
-  "lazygit",
-]
+ignored_commands = ["l", "la", "ll", "lla", "ls", "lt", "gg", "gl", "gs"]
 
 [sync]
 records = true
