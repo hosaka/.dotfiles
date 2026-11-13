@@ -36,8 +36,14 @@ packages = [
 # be removed next time you run chezmoi apply
 remove = ["bob", "dust", "cage", "ReGreet", "pywalfox"]
 
+# Each group below is named after a data flag from .chezmoi.toml.tmpl and is
+# only used when that flag is true, `common` is always used. `services` are
+# runit services that the group needs enabled, they are not enabled by chezmoi
+# but are used by vast-mklive when building an ISO.
+
 [packages.xbps.common]
 packages = [
+  "7zip",
   "atuin",
   "bat",
   "btop",
@@ -53,25 +59,44 @@ packages = [
   "fd",
   "fish-shell",
   "git",
+  "htop",
   "jq",
   "just",
   "lazygit",
   "liberated-packages", # similar to removed-packages but for my own repo
+  "neovim",
+  "netcat",
+  "opendoas",           # sudo is ignored in /etc/xbps.d/ignore.conf
+  "openssh-sk-helper",  # FIDO2 ssh keys
   "ouch",
   "procs",
   "psmisc",             # killall, pstree
   "ripgrep",
   "snooze",
   "socat",              # SSH ProxyCommand helper for FRP servers
+  "socklog-void",
   "starship",           # only used on hosts that do not used fish-shell
   "tlrc",
   "tree",
+  "unrar",              # nonfree
   "vsv",
   "wget",
   "xtools",
+  "xxd",
   "yazi",
+  "yq",
   "zellij",
   "zoxide",
+]
+services = [
+  "chronyd",
+  "dhcpcd",
+  "nanoklogd",
+  "snooze-daily",
+  "snooze-hourly",
+  "snooze-monthly",
+  "snooze-weekly",      # runs /etc/cron.weekly/fstrim
+  "socklog-unix",
 ]
 
 [packages.xbps.desktop]
@@ -79,8 +104,12 @@ packages = [
   "adw-gtk3",
   "alacritty",
   "bibata-cursor-themes",
+  "bluez",
+  "brightnessctl",
   "candy-icons",
+  "cliphist",
   "dbus",
+  "dejavu-fonts-ttf",
   "elogind",
   "firefox",
   "fuzzel",
@@ -90,11 +119,16 @@ packages = [
   "greetd",
   "halloy",
   "ibus",
+  "ibus-gtk4",
   "ibus-mozc",
   "imv",
   "kanshi",
+  "libnotify",
+  "libspa-bluetooth",
   "maple-fonts-nerdfonts-cn",
+  "mesa-dri",
   "miru",
+  "mozc",
   "mpv",
   "neovide",
   "nerd-fonts-symbols-ttf",
@@ -110,7 +144,11 @@ packages = [
   "qt6ct",
   "ripdrag",
   "seahorse",
+  "sonora",
   "turnstile",                          # only used for user runit services
+  "wdisplays",
+  "wireplumber-elogind",
+  "wlsunset",
   "xdg-desktop-portal",
   "xdg-desktop-portal-gnome",
   "xdg-desktop-portal-gtk",
@@ -119,6 +157,18 @@ packages = [
   "xdg-user-dirs-gtk",
   "xdg-utils",
   "xwayland-satellite",                 # xwayland for niri
+]
+services = [
+  "bluetoothd",
+  "dbus",
+  "greetd",
+  "polkitd",
+  "turnstiled",
+]
+
+[packages.xbps.nvidia]
+packages = [
+  "nvidia", # nonfree, modeset is enabled in system/etc/modprobe.d
 ]
 
 [packages.xbps.personal]
@@ -132,6 +182,9 @@ packages = [
   "yubikey-manager",
   # "helix",
   # "zk",
+]
+services = [
+  "pcscd", # smartcard access for oct and ykman
 ]
 
 [packages.xbps.development]

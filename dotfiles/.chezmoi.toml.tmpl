@@ -1,6 +1,7 @@
 {{- $desktop := promptBoolOnce . "desktop" "Is this a desktop computer? (y/N)" -}}
 {{- $personal := promptBoolOnce . "personal" "Is this a personal computer? (y/N)" -}}
 {{- $development := promptBoolOnce . "development" "Do you do development on this computer? (y/N)" -}}
+{{- $nvidia := promptBoolOnce . "nvidia" "Does this computer have an NVIDIA GPU? (y/N)" -}}
 
 {{- $osid := .chezmoi.os -}}
 {{- if hasKey .chezmoi.osRelease "id" -}}
@@ -16,6 +17,7 @@ encryption = "age"
   desktop     = {{ $desktop }}
   personal    = {{ $personal }}
   development = {{ $development }}
+  nvidia      = {{ $nvidia }}
   osid        = {{ $osid | quote }}
 
   xdgCacheDir  = "{{ .chezmoi.homeDir }}/.cache"

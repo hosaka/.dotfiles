@@ -11,26 +11,13 @@ do_install() {
 }
 
 packages=(
-  # common
-  {{- range $package := .packages.xbps.common.packages }}
+  {{- /* every group is named after a data flag, common is always installed */}}
+  {{- range $group, $set := .packages.xbps }}
+  {{- if and (ne $group "remove") (or (eq $group "common") (index $ $group)) }}
+  # {{ $group }}
+  {{- range $package := $set.packages }}
   "{{ $package }}"
   {{- end }}
-  {{ if .desktop }}
-  # desktop
-  {{- range $package := .packages.xbps.desktop.packages }}
-  "{{ $package }}"
-  {{- end }}
-  {{- end }}
-  {{ if .personal }}
-  # personal
-  {{- range $package := .packages.xbps.personal.packages }}
-  "{{ $package }}"
-  {{- end }}
-  {{- end }}
-  {{ if .development }}
-  # development
-  {{- range $package := .packages.xbps.development.packages }}
-  "{{ $package }}"
   {{- end }}
   {{- end }}
 )
