@@ -116,7 +116,6 @@ packages = [
   "gnome-keyring",
   "gpu-screen-recorder",
   "greetd",
-  "halloy",
   "ibus",
   "ibus-gtk4",
   "ibus-mozc",
