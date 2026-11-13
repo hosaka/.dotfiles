@@ -26,9 +26,9 @@
 .config/chezmoi
 
 {{- if eq .chezmoi.os "linux" }}
-# turnstiled
-.config/service/dbus
-.config/service/turnstile-ready
+# turnstiled rewrites turnstile-ready/run at every login, its conf and the
+# dbus service are managed (turnstile only ships dbus.run/check as examples)
+.config/service/turnstile-ready/run
 .config/service/**/supervise
 .config/service-env/
 .psensor/
