@@ -62,6 +62,8 @@ fi
 # dotfiles management and tab completion for chezmoi alias
 if has chezmoi; then
   alias dot='chezmoi'
+  # system files (/etc) live in a separate source, see system/README.md
+  alias sdot="doas chezmoi --source $HOME/.local/share/chezmoi/system --destination /"
   if has __start_chezmoi; then
     complete -o default -F __start_chezmoi dot
   fi
