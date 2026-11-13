@@ -20,10 +20,10 @@ These files are also baked into the [vast-mklive](https://code.hosaka.cc/hosaka/
 | --- | --- |
 | `/etc/cron.weekly/fstrim` | weekly TRIM, run by `snooze-weekly` |
 | `/etc/default/useradd` | default shell for new users is fish (void-installer does not ask) |
-| `/etc/doas.conf` | doas instead of sudo (sudo is ignored) |
+| `/etc/doas.conf` | doas instead of sudo (sudo is ignored), no password for updates and btrfs info |
 | `/etc/firefox/policies/policies.json` | telemetry off, custom search engines, see `dot_config/mozilla/firefox/README.md` |
 | `/etc/greetd/config.toml` | noctalia greeter |
 | `/etc/modprobe.d/nvidia.conf` | KMS for the proprietary driver, needed by niri |
-| `/etc/pipewire/pipewire.conf.d/` | start wireplumber and pipewire-pulse with pipewire |
+| `/etc/nvidia/nvidia-application-profiles-rc.d/` | stop niri from holding on to freed VRAM, the driver ships this fix for other compositors but not for niri (checked with 595) |
 | `/etc/turnstile/turnstiled.conf` | runit backend for user services (`~/.config/service`), rundir is managed by elogind |
 | `/etc/xbps.d/` | own mirror, vast-packages repo, ignored packages |
