@@ -65,7 +65,6 @@ packages = [
   "lazygit",
   "liberated-packages", # similar to removed-packages but for my own repo
   "neovim",
-  "netcat",
   "opendoas",           # sudo is ignored in /etc/xbps.d/ignore.conf
   "openssh-sk-helper",  # FIDO2 ssh keys
   "ouch",
@@ -78,11 +77,9 @@ packages = [
   "starship",           # only used on hosts that do not used fish-shell
   "tlrc",
   "tree",
-  "unrar",              # nonfree
   "vsv",
   "wget",
   "xtools",
-  "xxd",
   "yazi",
   "yq",
   "zellij",
@@ -95,7 +92,7 @@ services = [
   "snooze-daily",
   "snooze-hourly",
   "snooze-monthly",
-  "snooze-weekly",      # runs /etc/cron.weekly/fstrim
+  "snooze-weekly",  # runs /etc/cron.weekly/fstrim
   "socklog-unix",
 ]
 
@@ -111,7 +108,9 @@ packages = [
   "dbus",
   "dejavu-fonts-ttf",
   "elogind",
+  "evtest",                             # noctalia plugins that read keyboard input
   "firefox",
+  "flatpak",
   "fuzzel",
   "gcr4",                               # gcr-ssh-agent, niri sets SSH_AUTH_SOCK
   "gnome-keyring",
@@ -124,7 +123,7 @@ packages = [
   "imv",
   "kanshi",
   "libnotify",
-  "libspa-bluetooth",
+  "libspa-bluetooth",                   # bluetooth audio devices
   "maple-fonts-nerdfonts-cn",
   "mesa-dri",
   "miru",
@@ -140,14 +139,13 @@ packages = [
   "nwg-look",
   "pinentry-gnome",                     # pinentry for rbw
   "pipewire",
-  "polkit",                             # noctalia, flatpak dependency
+  "polkit",                             # noctalia, flatpak, polkitd is started by D-Bus
+  "qt6-wayland",                        # without it Qt6 apps run under XWayland
   "qt6ct",
   "ripdrag",
   "seahorse",
-  "sonora",
   "turnstile",                          # only used for user runit services
   "wdisplays",
-  "wireplumber-elogind",
   "wlsunset",
   "xdg-desktop-portal",
   "xdg-desktop-portal-gnome",
@@ -158,13 +156,7 @@ packages = [
   "xdg-utils",
   "xwayland-satellite",                 # xwayland for niri
 ]
-services = [
-  "bluetoothd",
-  "dbus",
-  "greetd",
-  "polkitd",
-  "turnstiled",
-]
+services = ["bluetoothd", "dbus", "greetd", "turnstiled"]
 
 [packages.xbps.nvidia]
 packages = [
