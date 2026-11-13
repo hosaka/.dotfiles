@@ -189,6 +189,7 @@ packages = [
   "hyperfine",
   "just-lsp",
   "lua-language-server",
+  "mise", # installed before run_once_10-install-mise.sh, which then skips the curl install
   "prek",
   "rsync",
   "shellcheck",
