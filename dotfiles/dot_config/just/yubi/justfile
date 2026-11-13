@@ -1,23 +1,14 @@
 cwd := quote(invocation_directory())
-hwid := "1050:0407"
 
-alias a := attach
-alias d := detach
 alias s := status
 
-[doc('list recipes (default)'), no-cd]
+[doc('list recipes (default)')]
+[no-cd]
 @help:
-  just --list=yubi --no-aliases
+    just --list=yubi --no-aliases
 
-[doc('attach yubikey to WSL (alias `a`)'), no-cd]
-attach:
-  usbipd.exe attach --wsl --hardware-id {{ hwid }}
-
-[doc('detach yubikey from WSL (alias `d`)'), no-cd]
-detach:
-  usbipd.exe detach --hardware-id {{ hwid }}
-
-[doc('show card status (alias `s`)'), no-cd, no-exit-message]
+[doc('show card status (alias `s`)')]
+[no-cd]
+[no-exit-message]
 status:
-  gpg --card-status
-
+    oct status

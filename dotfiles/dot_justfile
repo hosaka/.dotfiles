@@ -16,12 +16,6 @@ set windows-shell := ["powershell.exe", "-NoLogo", "-NonInteractive", "-Command"
 @edit:
   just --edit
 
-# box management (`just box` for more, alias `b`)
-mod box '~/.config/just/box'
-[private]
-@b *args:
-  just box {{ args }}
-
 # git shortcuts (`just git` for more, alias `g`)
 mod git '~/.config/just/git'
 [private]
