@@ -1,4 +1,8 @@
 [theme.templates.user.nvim]
 input_path = "./templates/neovim.lua"
-output_path = "~/.config/nvim/lua/noctalia.lua"
+# fixme: use these instead of output_path_dynamic when noctalia supports it for user templates
+#        it is ignored in v5.4.1 at least
+# output_path = "~/.config/nvim/lua/noctalia.lua"
+# requires_path = "~/.config/nvim/init.lua"
+output_path_dynamic = "test -f ~/.config/nvim/init.lua && echo ~/.config/nvim/lua/noctalia.lua"
 post_hook = 'pkill -SIGUSR1 nvim'
