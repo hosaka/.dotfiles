@@ -1,3 +1,4 @@
+{{- if and .development (ne .osid "linux-void") -}}
 #!/usr/bin/env bash
 
 set -eu
@@ -12,3 +13,4 @@ if has mise; then
 fi
 
 curl https://mise.run | sh
+{{- end }}

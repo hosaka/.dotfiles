@@ -34,3 +34,9 @@ mod yubi '~/.config/just/yubi'
 [private]
 @y *args:
   just yubi {{ args }}
+
+# profiles management (`just profile` for more, alias `p`)
+mod profile '~/.config/just/profile'
+[private]
+@p *args:
+  just profile {{ args }}

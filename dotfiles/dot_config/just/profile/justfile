@@ -1,0 +1,120 @@
+# Void Linux only for now.
+#
+# Profiles are the chezmoi data flags from .chezmoi.toml.tmpl. Each one has a group in
+# .chezmoidata/packages.toml with xbps packages and runit services.
+import '../common.just'
+
+config := config_directory() / "chezmoi/chezmoi.toml"
+
+alias s := status
+
+[doc('list profiles and recipes (default)')]
+[no-cd]
+@help:
+    just --list=profile --no-aliases
+
+[doc('show which profiles are on (alias `s`)')]
+[no-cd]
+@status:
+    chezmoi data --format json | jq -r '. as $data | .packages.xbps | keys[] \
+      | select(. != "common" and . != "remove") \
+      | [., if $data[.] then "on" else "off" end] | @tsv' | column -t
+
+[doc('turn profiles on: install their packages, apply their dotfiles and link their services')]
+[no-cd]
+on +profiles: (_set "true" profiles) && status
+    #!/usr/bin/env bash
+    set -euo pipefail
+    . ~/.bash_functions
+
+    # the packages script runs again, its package list changed with the flags
+    chezmoi apply
+
+    data=$(chezmoi data --format json)
+    for profile in {{ profiles }}; do
+      for service in $(jq -r --arg p "$profile" '.packages.xbps[$p].services[]?' <<<"$data"); do
+        [ ! -e "/var/service/$service" ] || continue
+        if [ ! -d "/etc/sv/$service" ]; then
+          warning "$service: /etc/sv/$service does not exist, is its package installed?"
+          continue
+        fi
+        info "linking /etc/sv/$service into /var/service"
+        {{ sudo }} ln -s "/etc/sv/$service" /var/service/
+        info "$service linked, runit starts it within 5 seconds"
+      done
+    done
+
+[doc('turn profiles off: unlink their services and remove the packages that nothing else needs (asks first)')]
+[no-cd]
+off +profiles: (_confirm-off profiles) (_set "false" profiles) && status
+    #!/usr/bin/env bash
+    set -euo pipefail
+    . ~/.bash_functions
+
+    # packages or services of a profile that common and the profiles still on do
+    # not list, the flags are already off at this point
+    data=$(chezmoi data --format json)
+    leftover() {
+      jq -r --arg p "$1" --arg kind "$2" '. as $data | .packages.xbps as $groups
+        | [$groups | to_entries[]
+          | select(.key != "remove" and (.key == "common" or $data[.key] == true))
+          | .value[$kind][]?] as $keep
+        | ($groups[$p][$kind] // []) - $keep | .[]' <<<"$data"
+    }
+
+    packages=()
+    for profile in {{ profiles }}; do
+      for service in $(leftover "$profile" services); do
+        [ -L "/var/service/$service" ] || continue
+        {{ sudo }} sv stop "$service" || true
+        {{ sudo }} rm "/var/service/$service"
+        info "$service stopped and unlinked"
+      done
+      for package in $(leftover "$profile" packages); do
+        ! xbps-query "$package" >/dev/null 2>&1 || packages+=("$package")
+      done
+    done
+
+    # Mark them as dependencies, `xbps-remove -o` then removes the ones nothing
+    # depends on, with their own orphaned dependencies. It lists everything first,
+    # including orphans that were already there.
+    [ ${#packages[@]} -eq 0 ] || {{ sudo }} xbps-pkgdb -m auto "${packages[@]}"
+    {{ sudo }} xbps-remove -o
+    info "dotfiles of these profiles are left in place, chezmoi no longer manages them"
+
+# turning desktop off from inside a desktop session ends it halfway through `off`
+[no-cd]
+[no-exit-message]
+[private]
+_confirm-off +profiles:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    . ~/.bash_functions
+
+    for profile in {{ profiles }}; do
+      if [ "$profile" = desktop ]; then
+        warning "this stops greetd and dbus, a running desktop session ends with them, use a TTY"
+        yono "turn the desktop profile off?" || exit 1
+      fi
+    done
+
+# set the flags and render the chezmoi config again, chezmoi has no command for
+# setting a single flag (`chezmoi init --promptBool` matches the prompt texts)
+[no-cd]
+[private]
+_set value +profiles:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    . ~/.bash_functions
+
+    data=$(chezmoi data --format json)
+    for profile in {{ profiles }}; do
+      jq -e --arg p "$profile" '$p != "common" and $p != "remove" and (.packages.xbps | has($p))' \
+        <<<"$data" >/dev/null || error "no such profile: $profile"
+    done
+
+    for profile in {{ profiles }}; do
+      tomlq -i -t --arg p "$profile" '.data[$p] = {{ value }}' {{ quote(config) }}
+    done
+    # back to the layout of .chezmoi.toml.tmpl, promptBoolOnce keeps the flags
+    chezmoi init

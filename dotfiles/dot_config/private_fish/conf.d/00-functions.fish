@@ -49,6 +49,21 @@ function ensure -d 'ensure a command to succeed'
   end
 end
 
+# usage: yono [-y] question, no is the default answer ([y/N]) unless -y ([Y/n])
+function yono -d 'ask a yes/no question, succeeds on yes'
+  set -l default n
+  set -l choices '[y/N]'
+  if test "$argv[1]" = -y
+    set default y
+    set choices '[Y/n]'
+    set -e argv[1]
+  end
+  set -l answer
+  read -P "$BOLD$YELLOW?$NO_COLOR $argv $choices " answer
+  test -n "$answer"; or set answer $default
+  string match -q -i -r '^(y|yes)$' -- $answer
+end
+
 function onpath -d 'add an item to PATH ignoring duplicates'
   if test -d "$argv"
     fish_add_path --path "$argv"

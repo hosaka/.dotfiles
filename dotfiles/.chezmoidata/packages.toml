@@ -39,7 +39,10 @@ remove = ["bob", "dust", "cage", "ReGreet", "pywalfox"]
 # Each group below is named after a data flag from .chezmoi.toml.tmpl and is
 # only used when that flag is true, `common` is always used. `services` are
 # runit services that the group needs enabled, they are not enabled by chezmoi
-# but are used by vast-mklive when building an ISO.
+# automatically
+#
+# instead use `just profile on` to turn a profile on and enable dependent services
+# after installing (see ~/.config/just/profile)
 
 [packages.xbps.common]
 packages = [
@@ -50,8 +53,6 @@ packages = [
   "chezmoi",
   "chrony",
   "curl",
-  "delta",
-  "difftastic",
   "dua-cli",
   "duf",
   "eza",
@@ -62,7 +63,6 @@ packages = [
   "htop",
   "jq",
   "just",
-  "lazygit",
   "liberated-packages", # similar to removed-packages but for my own repo
   "neovim",
   "opendoas",           # sudo is ignored in /etc/xbps.d/ignore.conf
@@ -182,13 +182,16 @@ services = [
 packages = [
   "StyLua",
   "bash-language-server",
+  "delta",
+  "difftastic",
   "forgejo-cli",
   "github-cli",
   "hexyl",
   "hyperfine",
   "just-lsp",
+  "lazygit",
   "lua-language-server",
-  "mise", # installed before run_once_10-install-mise.sh, which then skips the curl install
+  "mise",                 # run_once_10-install-mise.sh installs it on other distributions
   "prek",
   "rsync",
   "shellcheck",

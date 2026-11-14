@@ -49,6 +49,21 @@ ensure() {
   fi
 }
 
+# usage: yono [-y] question, no is the default answer ([y/N]) unless -y ([Y/n])
+yono() {
+  local default=n choices="[y/N]" answer
+  if [ "${1:-}" = -y ]; then
+    default=y choices="[Y/n]"
+    shift
+  fi
+  printf '%s ' "${BOLD}${YELLOW}?${NO_COLOR} $* $choices"
+  read -r answer || answer=
+  case "${answer:-$default}" in
+  [Yy] | [Yy][Ee][Ss]) return 0 ;;
+  *) return 1 ;;
+  esac
+}
+
 # add to path if not already present
 onpath() {
   if [ -d "$1" ]; then

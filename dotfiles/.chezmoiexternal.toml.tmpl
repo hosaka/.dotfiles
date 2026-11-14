@@ -1,7 +1,9 @@
 # Neovim config lives in its own repository. Fetch over https so it can be
 # cloned without keys (e.g. when building an ISO), push over ssh.
 # Pulled by `chezmoi update` or `chezmoi apply --refresh-externals`.
+{{- if .development }}
 [".config/nvim"]
 type = "git-repo"
 url = "https://code.hosaka.cc/hosaka/nvim.git"
 clone.args = ["--config", "remote.origin.pushurl=ssh://git@git.hosaka.cc/hosaka/nvim.git"]
+{{- end }}
