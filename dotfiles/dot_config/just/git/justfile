@@ -7,14 +7,14 @@ alias r := resign
 @help:
     just --list=git --no-aliases
 
-[arg('val', pattern='true|false', help='true enables commit signing in this repository, false disabled it')]
+[arg('val', pattern='true|false', help='true enables commit signing in this repository, false disables it')]
 [doc('enable gpg signing (alias `s`)')]
 [no-cd]
 [no-exit-message]
 sign val='true':
     git config commit.gpgsign {{ val }}
 
-[arg('val', pattern='true|false', help='true enabled removing deleted remote branches on fetch, false disables it')]
+[arg('val', pattern='true|false', help='true enables removing deleted remote branches on fetch, false disables it')]
 [doc('enable pruning on fetch from origin (alias `p`)')]
 [no-cd]
 [no-exit-message]
