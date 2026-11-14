@@ -21,7 +21,7 @@ end = [
 ]
 
 [shell]
-avatar_path = "/home/alex/.face"
+avatar_path = "~/.face"
 password_style = "random"
 polkit_agent = true
 telemetry_enabled = true

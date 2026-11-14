@@ -10,7 +10,7 @@
 
 encryption = "age"
 [age]
-  identity  = "{{ .chezmoi.homeDir }}/.config/sops/age/keys.txt"
+  identity  = "~/.config/sops/age/keys.txt"
   recipient = "age1yubikey1qv9d7qpcpstrf6mafkxekfwjcp29984saucq76gfyewz5ytl70eevwgwkqj"
 
 [data]
@@ -19,9 +19,3 @@ encryption = "age"
   development = {{ $development }}
   nvidia      = {{ $nvidia }}
   osid        = {{ $osid | quote }}
-
-  xdgCacheDir  = "{{ .chezmoi.homeDir }}/.cache"
-  xdgConfigDir = "{{ .chezmoi.homeDir }}/.config"
-  xdgBinDir    = "{{ .chezmoi.homeDir }}/.local/bin"
-  xdgDataDir   = "{{ .chezmoi.homeDir }}/.local/share"
-  xdgStateDir  = "{{ .chezmoi.homeDir }}/.local/state"

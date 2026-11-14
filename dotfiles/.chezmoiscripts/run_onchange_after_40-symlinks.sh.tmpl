@@ -4,15 +4,15 @@
 {{ template "shared_script.bash.tmpl" . }}
 # bat is installed as batcat
 if ! has bat && has batcat; then
-  mkdir --parents {{ .xdgBinDir }}
-  ln -s $(which batcat) "{{ .xdgBinDir}}/bat"
+  mkdir --parents "$HOME/.local/bin"
+  ln -s $(which batcat) "$HOME/.local/bin/bat"
   info "symlink batcat to bat"
 fi
 
 # fd is installed as fdfind
 if ! has fd && has fdfind; then
-  mkdir --parents {{ .xdgBinDir }}
-  ln -s $(which fdfind) "{{ .xdgBinDir}}/fd"
+  mkdir --parents "$HOME/.local/bin"
+  ln -s $(which fdfind) "$HOME/.local/bin/fd"
   info "symlink fdfind to fd"
 fi
 {{- end }}

@@ -10,17 +10,17 @@ set -gx PYTHON_HISTORY /dev/null
 set -gx LESSHISTFILE -
 
 # XDG Base Directory
-set -gx XDG_CACHE_HOME "{{ .xdgCacheDir }}"
-set -gx XDG_CONFIG_HOME "{{ .xdgConfigDir }}"
-set -gx XDG_DATA_HOME "{{ .xdgDataDir }}"
-set -gx XDG_STATE_HOME "{{ .xdgStateDir }}"
-set -gx XDG_DOWNLOAD_DIR "{{ .chezmoi.homeDir }}/Downloads"
-set -gx XDG_DOCUMENTS_DIR "{{ .chezmoi.homeDir }}/Documents"
-set -gx XDG_MUSIC_DIR "{{ .chezmoi.homeDir }}/Music"
-set -gx XDG_PICTURES_DIR "{{ .chezmoi.homeDir }}/Pictures"
-set -gx XDG_VIDEOS_DIR "{{ .chezmoi.homeDir }}/Videos"
+set -gx XDG_CACHE_HOME "$HOME/.cache"
+set -gx XDG_CONFIG_HOME "$HOME/.config"
+set -gx XDG_DATA_HOME "$HOME/.local/share"
+set -gx XDG_STATE_HOME "$HOME/.local/state"
+set -gx XDG_DOWNLOAD_DIR "$HOME/Downloads"
+set -gx XDG_DOCUMENTS_DIR "$HOME/Documents"
+set -gx XDG_MUSIC_DIR "$HOME/Music"
+set -gx XDG_PICTURES_DIR "$HOME/Pictures"
+set -gx XDG_VIDEOS_DIR "$HOME/Videos"
 
-onpath "{{ .xdgBinDir }}"
+onpath "$HOME/.local/bin"
 onpath "$HOME/.cargo/bin"
 
 # default editor
