@@ -1,7 +1,5 @@
 import '../common.just'
 
-cwd := quote(invocation_directory())
-
 alias m := mount
 
 [doc('list recipes (default)')]
@@ -9,7 +7,9 @@ alias m := mount
 @help:
     just --list=usb --no-aliases
 
-[doc('mount usb device with current uid and gid')]
+[arg('path', help='Mount point')]
+[arg('device', pattern='/dev/.+', help='Partition to mount, e.g. /dev/sdb1')]
+[doc('mount a FAT, exFAT or NTFS partition owned by the current user (alias `m`)')]
 [no-cd]
-mount device path="/mnt/usb":
+mount device path='/mnt/usb':
     {{ sudo }} mount -o uid=$(id -u),gid=$(id -g) {{ device }} {{ path }}

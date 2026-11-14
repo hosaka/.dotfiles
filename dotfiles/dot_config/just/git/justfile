@@ -1,23 +1,30 @@
-cwd := quote(invocation_directory())
-
 alias s := sign
 alias p := prune
 alias r := resign
 
-[doc('list recipes (default)'), no-cd]
+[doc('list recipes (default)')]
+[no-cd]
 @help:
-  just --list=git --no-aliases
+    just --list=git --no-aliases
 
-[doc('enable gpg signing (alias `s`)'), no-cd, no-exit-message]
-sign val="true":
-  git config commit.gpgsign {{ val }}
+[arg('val', pattern='true|false', help='true enables commit signing in this repository, false disabled it')]
+[doc('enable gpg signing (alias `s`)')]
+[no-cd]
+[no-exit-message]
+sign val='true':
+    git config commit.gpgsign {{ val }}
 
-[doc('enable origin prune on (alias `p`)'), no-cd, no-exit-message]
-prune val="true":
-  git config remote.origin.prune {{ val }}
+[arg('val', pattern='true|false', help='true enabled removing deleted remote branches on fetch, false disables it')]
+[doc('enable pruning on fetch from origin (alias `p`)')]
+[no-cd]
+[no-exit-message]
+prune val='true':
+    git config remote.origin.prune {{ val }}
 
-[doc('gpg resign last commits (alias `r`)'), no-cd, no-exit-message]
-resign ref="HEAD~1":
-  git rebase --keep-empty --exec "git commit --amend --no-edit --gpg-sign" {{ ref }}
-  git log --abbrev-commit --date=relative --date-order --pretty=format:"%C(auto,yellow)%h %C(auto,blue)%>(12,trunc)%ad %C(auto,white italic)%G? %C(reset)%C(auto,green)%<(12,trunc)%aN %C(reset)%s" {{ ref }}..HEAD
-
+[arg('ref', help='Commit to start after, every later commit is signed again')]
+[doc('gpg sign the last commits again (alias `r`)')]
+[no-cd]
+[no-exit-message]
+resign ref='HEAD~1':
+    git rebase --keep-empty --exec "git commit --amend --no-edit --gpg-sign" {{ ref }}
+    git log --abbrev-commit --date=relative --date-order --pretty=format:"%C(auto,yellow)%h %C(auto,blue)%>(12,trunc)%ad %C(auto,white italic)%G? %C(reset)%C(auto,green)%<(12,trunc)%aN %C(reset)%s" {{ ref }}..HEAD

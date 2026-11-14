@@ -1,42 +1,49 @@
 set minimum-version := '1.59.0'
-set windows-shell := ["powershell.exe", "-NoLogo", "-NonInteractive", "-Command"]
 
 [doc('list recipes (default)')]
 @help:
-  just --list --no-aliases
+    just --list --no-aliases
 
 [doc('list recipes with submodules')]
 @list:
-  just --list --no-aliases --list-submodules
+    just --list --no-aliases --list-submodules
 
-[doc('show a recipe (args can be `recipe` or `mod::recipe`)'), no-exit-message]
+[arg('args', help='Recipe to show, `recipe` or `mod::recipe`')]
+[doc('show a recipe')]
+[no-exit-message]
 @show +args:
-  just --show {{ args }}
+    just --show {{ args }}
+
+[arg('args', help='Recipe to show the usage of, `recipe` or `mod recipe`')]
+[doc('show a recipe usage')]
+[no-exit-message]
+@usage +args:
+    just --usage {{ args }}
 
 [doc('edit recipes')]
 @edit:
-  just --edit
+    just --edit
 
 # git shortcuts (`just git` for more, alias `g`)
 mod git '~/.config/just/git'
 [private]
 @g *args:
-  just git {{ args }}
+    just git {{ args }}
 
 # usb management (`just usb` for more, alias `u`)
 mod usb '~/.config/just/usb'
 [private]
 @u *args:
-  just usb {{ args }}
+    just usb {{ args }}
 
 # yubikey management (`just yubi` for more, alias `y`)
 mod yubi '~/.config/just/yubi'
 [private]
 @y *args:
-  just yubi {{ args }}
+    just yubi {{ args }}
 
 # profiles management (`just profile` for more, alias `p`)
 mod profile '~/.config/just/profile'
 [private]
 @p *args:
-  just profile {{ args }}
+    just profile {{ args }}

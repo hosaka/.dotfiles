@@ -1,5 +1,3 @@
-cwd := quote(invocation_directory())
-
 alias s := status
 
 [doc('list recipes (default)')]

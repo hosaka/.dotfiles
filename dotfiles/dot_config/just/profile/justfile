@@ -8,7 +8,7 @@ config := config_directory() / "chezmoi/chezmoi.toml"
 
 alias s := status
 
-[doc('list profiles and recipes (default)')]
+[doc('list recipes (default)')]
 [no-cd]
 @help:
     just --list=profile --no-aliases
@@ -20,6 +20,8 @@ alias s := status
       | select(. != "common" and . != "remove") \
       | [., if $data[.] then "on" else "off" end] | @tsv' | column -t
 
+# note: the profiles patterns list the groups in .chezmoidata/packages.toml, keep them in sync
+[arg('profiles', pattern='desktop|nvidia|personal|development', help='Profiles to turn on')]
 [doc('turn profiles on: install their packages, apply their dotfiles and link their services')]
 [no-cd]
 on +profiles: (_set "true" profiles) && status
@@ -44,6 +46,8 @@ on +profiles: (_set "true" profiles) && status
       done
     done
 
+# note: the profiles patterns list the groups in .chezmoidata/packages.toml, keep them in sync
+[arg('profiles', pattern='desktop|nvidia|personal|development', help='Profiles to turn off')]
 [doc('turn profiles off: unlink their services and remove the packages that nothing else needs (asks first)')]
 [no-cd]
 off +profiles: (_confirm-off profiles) (_set "false" profiles) && status
@@ -85,7 +89,6 @@ off +profiles: (_confirm-off profiles) (_set "false" profiles) && status
 # turning desktop off from inside a desktop session ends it halfway through `off`
 [no-cd]
 [no-exit-message]
-[private]
 _confirm-off +profiles:
     #!/usr/bin/env bash
     set -euo pipefail
@@ -101,17 +104,9 @@ _confirm-off +profiles:
 # set the flags and render the chezmoi config again, chezmoi has no command for
 # setting a single flag (`chezmoi init --promptBool` matches the prompt texts)
 [no-cd]
-[private]
 _set value +profiles:
     #!/usr/bin/env bash
     set -euo pipefail
-    . ~/.bash_functions
-
-    data=$(chezmoi data --format json)
-    for profile in {{ profiles }}; do
-      jq -e --arg p "$profile" '$p != "common" and $p != "remove" and (.packages.xbps | has($p))' \
-        <<<"$data" >/dev/null || error "no such profile: $profile"
-    done
 
     for profile in {{ profiles }}; do
       tomlq -i -t --arg p "$profile" '.data[$p] = {{ value }}' {{ quote(config) }}
