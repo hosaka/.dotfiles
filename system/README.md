@@ -12,6 +12,6 @@ sdot apply /etc/greetd/config.toml  # apply a single file
 
 Root keeps its own chezmoi state in `/root/.config/chezmoi`, separate from the dotfiles state. Edit files here as your own user, never with `sdot add` or `sdot edit` (they would leave root owned files in the repo).
 
-There are no templates in here on purpose: there is no data to render them with (root has no chezmoi config). Everything is static and safe to apply on any of my Void machines, e.g. `modprobe.d/nvidia.conf` does nothing without the nvidia driver.
+There is no data to render templates with (root has no chezmoi config), so the files are static. One exception to this is [.chezmoiignore](.chezmoiignore) - it skips the config for software that is not installed (e.g. Firefox when `desktop` profile is off. `just profile on` applies these files after installing a profile's packages.
 
 These files are also baked into the [vast-mklive](https://code.hosaka.cc/hosaka/vast-mklive) ISO, which also reads the repositories and ignored packages from `etc/xbps.d/`.

@@ -1,1 +1,16 @@
 README.md
+
+{{- /* config of software that is not installed, e.g. a profile is off */}}
+{{- if not (lookPath "firefox") }}
+etc/firefox
+{{- end }}
+{{- if not (lookPath "greetd") }}
+etc/greetd
+{{- end }}
+{{- if not (lookPath "turnstiled") }}
+etc/turnstile
+{{- end }}
+{{- if not (lookPath "nvidia-smi") }}
+etc/modprobe.d/nvidia.conf
+etc/nvidia
+{{- end }}

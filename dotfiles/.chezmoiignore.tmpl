@@ -36,6 +36,32 @@
 .var/
 {{- end }}
 
+{{- if not .desktop }}
+# graphical apps and the user services that turnstile runs, add new GUI configs here
+.config/alacritty
+.config/fontconfig
+.config/foot
+.config/fuzzel
+.config/gtk-3.0
+.config/gtk-4.0
+.config/kanshi
+.config/miru
+.config/mozilla
+.config/mpv
+.config/neovide
+.config/niri
+.config/noctalia
+.config/nwg-look
+.config/pipewire
+.config/qt6ct
+.config/service
+.config/wezterm
+.config/xdg-desktop-portal
+.config/xdg-desktop-portal-termfilechooser
+.config/xsettingsd
+.face
+{{- end }}
+
 {{- if not .personal }}
 .config/aerc
 .config/halloy

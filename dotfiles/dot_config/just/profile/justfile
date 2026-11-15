@@ -22,7 +22,7 @@ alias s := status
 
 # note: the profiles patterns list the groups in .chezmoidata/packages.toml, keep them in sync
 [arg('profiles', pattern='desktop|nvidia|personal|development', help='Profiles to turn on')]
-[doc('turn profiles on: install their packages, apply their dotfiles and link their services')]
+[doc('turn profiles on: install their packages, apply their dotfiles and system files, link their services')]
 [no-cd]
 on +profiles: (_set "true" profiles) && status
     #!/usr/bin/env bash
@@ -31,6 +31,10 @@ on +profiles: (_set "true" profiles) && status
 
     # the packages script runs again, its package list changed with the flags
     chezmoi apply
+
+    # applies the system/ config, only for the software that is installed
+    info "applying the system files to / (as root)"
+    {{ sudo }} chezmoi --source "$HOME/.local/share/chezmoi/system" --destination / apply
 
     data=$(chezmoi data --format json)
     for profile in {{ profiles }}; do
