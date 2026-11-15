@@ -15,15 +15,3 @@ Root keeps its own chezmoi state in `/root/.config/chezmoi`, separate from the d
 There are no templates in here on purpose: there is no data to render them with (root has no chezmoi config). Everything is static and safe to apply on any of my Void machines, e.g. `modprobe.d/nvidia.conf` does nothing without the nvidia driver.
 
 These files are also baked into the [vast-mklive](https://code.hosaka.cc/hosaka/vast-mklive) ISO, which also reads the repositories and ignored packages from `etc/xbps.d/`.
-
-| Path | Why |
-| --- | --- |
-| `/etc/cron.weekly/fstrim` | weekly TRIM, run by `snooze-weekly` |
-| `/etc/default/useradd` | default shell for new users is fish (void-installer does not ask) |
-| `/etc/doas.conf` | doas instead of sudo (sudo is ignored), no password for updates and btrfs info |
-| `/etc/firefox/policies/policies.json` | telemetry off, custom search engines, see `dot_config/mozilla/firefox/README.md` |
-| `/etc/greetd/config.toml` | noctalia greeter |
-| `/etc/modprobe.d/nvidia.conf` | KMS for the proprietary driver, needed by niri |
-| `/etc/nvidia/nvidia-application-profiles-rc.d/` | stop niri from holding on to freed VRAM, the driver ships this fix for other compositors but not for niri (checked with 595) |
-| `/etc/turnstile/turnstiled.conf` | runit backend for user services (`~/.config/service`), rundir is managed by elogind |
-| `/etc/xbps.d/` | own mirror, vast-packages repo, ignored packages |

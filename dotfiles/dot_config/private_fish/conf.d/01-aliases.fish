@@ -36,7 +36,7 @@ if has chezmoi
   alias dot 'chezmoi'
   complete -c dot -w chezmoi -d 'manage dotfiles with chezmoi'
   # system files (/etc) live in a separate source, see system/README.md
-  alias sdot "doas chezmoi --source $HOME/.local/share/chezmoi/system --destination /"
+  alias sdot "$(which_sudo) chezmoi --source $HOME/.local/share/chezmoi/system --destination /"
   complete -c sdot -w chezmoi -d 'manage system files with chezmoi'
 end
 
