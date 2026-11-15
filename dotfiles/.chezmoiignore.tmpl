@@ -65,11 +65,16 @@
 {{- if not .personal }}
 .config/aerc
 .config/halloy
+.config/openpgp-card-state
+.config/rbw
+.config/sops
 {{- end }}
 
 {{- if not .development }}
+.config/forgejo-cli
 .config/lazygit
 .config/mise
+.config/pypoetry
 .wakatime.cfg
 {{- end }}
 
