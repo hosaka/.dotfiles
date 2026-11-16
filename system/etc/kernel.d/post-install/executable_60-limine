@@ -1,0 +1,93 @@
+#!/bin/bash
+#
+# Kernel hook for limine. Lists every kernel in /boot in limine.conf,
+# newest first, and copies limine's EFI executables to the ESP when the
+# limine package has newer ones.
+#
+# Arguments passed to this script: $1 pkgname, $2 version, both unused.
+#
+# The hook only rewrites the block between the BEGIN and END lines below,
+# the kernel command line comes from the VOID_CMDLINE macro.
+# An example limine.conf:
+#
+#   timeout: 3
+#
+#   ${VOID_CMDLINE}=root=UUID=... rw loglevel=4
+#
+#   # BEGIN 60-limine
+#   # END 60-limine
+#
+#   /Windows
+#       protocol: efi
+#       path: uuid(...):/EFI/Microsoft/Boot/bootmgfw.efi
+#
+# Run it as root after a limine update, the EFI executables are otherwise only
+# copied with the next kernel update.
+
+set -euo pipefail
+
+# xbps and vkpurge run kernel hooks from / with ROOTDIR=.
+boot=${ROOTDIR:-}/boot
+
+# the locations limine looks for its config in, with the ESP at /boot
+for conf in "$boot"/EFI/limine/limine.conf "$boot"/EFI/BOOT/limine.conf \
+  "$boot"/limine/limine.conf "$boot"/limine.conf; do
+  [ ! -f "$conf" ] || break
+done
+[ -f "$conf" ] || exit 0 # not booted with limine, e.g. grub
+
+# limine's EFI executables live next to its config
+for efi in "${conf%/*}"/BOOT*.EFI; do
+  new=${ROOTDIR:-}/usr/share/limine/${efi##*/}
+  [ -f "$efi" ] && [ -f "$new" ] || continue
+  cmp -s "$new" "$efi" && continue
+  cp "$new" "$efi"
+  echo "60-limine: updated $efi from the limine package"
+done
+
+die() {
+  echo "60-limine: $*, $conf is unchanged" >&2
+  exit 1
+}
+
+begin='# BEGIN 60-limine'
+end='# END 60-limine'
+# shellcheck disable=SC2016 # a limine macro, not a shell variable
+cmdline='${VOID_CMDLINE}'
+
+grep -qx "$begin" "$conf" || die "the '$begin' line is missing"
+grep -qx "$end" "$conf" || die "the '$end' line is missing"
+# limine expands an undefined macro to nothing, which would boot without root=
+grep -qF "$cmdline=" "$conf" || die "the $cmdline= line is missing"
+
+mapfile -t versions < <(find "$boot" -maxdepth 1 -name 'vmlinuz-*' -printf '%f\n' |
+  sed 's/^vmlinuz-//' | sort -rV)
+[ ${#versions[@]} -gt 0 ] || die "there are no kernels in $boot"
+
+entry() {
+  echo "    protocol: linux"
+  echo "    path: boot():/vmlinuz-$1"
+  [ ! -f "$boot/initramfs-$1.img" ] || echo "    module_path: boot():/initramfs-$1.img"
+  echo "    cmdline: $cmdline"
+}
+
+{
+  sed "/^$begin\$/,\$d" "$conf"
+  echo "$begin"
+  echo "# written by /etc/kernel.d/post-install/60-limine, edits are overwritten"
+  echo "/Void Linux"
+  echo "    comment: kernel ${versions[0]}"
+  entry "${versions[0]}"
+  if [ ${#versions[@]} -gt 1 ]; then
+    echo "/Void Linux (older kernels)"
+    for version in "${versions[@]:1}"; do
+      echo "//$version"
+      entry "$version"
+    done
+  fi
+  echo "$end"
+  sed "1,/^$end\$/d" "$conf"
+} >"$conf.new"
+mv "$conf.new" "$conf"
+
+echo "60-limine: $conf boots kernel ${versions[0]}${versions[1]:+, older: ${versions[*]:1}}"

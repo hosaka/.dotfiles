@@ -14,3 +14,7 @@ etc/turnstile
 etc/modprobe.d/nvidia.conf
 etc/nvidia
 {{- end }}
+{{- if not (lookPath "limine") }}
+etc/kernel.d/post-install/60-limine
+etc/kernel.d/post-remove/60-limine
+{{- end }}
