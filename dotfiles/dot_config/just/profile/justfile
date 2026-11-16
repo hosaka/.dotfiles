@@ -105,15 +105,13 @@ _confirm-off +profiles:
       fi
     done
 
-# set the flags and render the chezmoi config again, chezmoi has no command for
-# setting a single flag (`chezmoi init --promptBool` matches the prompt texts)
+# set the flags in the chezmoi config, chezmoi has no command for setting a single flag
 [no-cd]
 _set value +profiles:
     #!/usr/bin/env bash
     set -euo pipefail
 
+    # the `  flag = value` lines that .chezmoi.toml.tmpl renders
     for profile in {{ profiles }}; do
-      tomlq -i -t --arg p "$profile" '.data[$p] = {{ value }}' {{ quote(config) }}
+      sed -i -E "s/^(\s*$profile\s*=\s*).*/\1{{ value }}/" {{ quote(config) }}
     done
-    # back to the layout of .chezmoi.toml.tmpl, promptBoolOnce keeps the flags
-    chezmoi init

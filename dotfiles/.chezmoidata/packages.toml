@@ -47,7 +47,6 @@ remove = []
 [packages.xbps.common]
 packages = [
   "7zip",
-  "atuin",
   "bat",
   "btop",
   "chezmoi",
@@ -81,7 +80,6 @@ packages = [
   "wget",
   "xtools",
   "yazi",
-  "yq",
   "zellij",
   "zoxide",
 ]
@@ -167,6 +165,7 @@ packages = [
   "aerc",
   "age",
   "age-plugin-yubikey",
+  "atuin",
   "openpgp-card-tool-git",
   "openpgp-card-tools",
   "rbw",
@@ -200,6 +199,7 @@ packages = [
   "watchexec",
   "xh",
   "yaml-language-server",
+  "yq",
   # "rustup",
   # "tree-sitter",           # when it's 0.26
 ]
