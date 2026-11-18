@@ -61,6 +61,7 @@ community_ids = [
   "fastfetch",
   "feishin",
   "fuzzel",
+  "ibus",
   "lazygit",
   "pywalfox",
   "sonora",
