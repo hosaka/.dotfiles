@@ -71,7 +71,6 @@ packages = [
   "psmisc",             # killall, pstree
   "ripgrep",
   "snooze",
-  "socat",              # SSH ProxyCommand helper for FRP servers
   "socklog-void",
   "starship",           # only used on hosts that do not used fish-shell
   "tlrc",
@@ -107,7 +106,6 @@ packages = [
   "dejavu-fonts-ttf",
   "elogind",
   "evtest",                             # noctalia plugins that read keyboard input
-  "firefox",
   "flatpak",
   "fuzzel",
   "gcr4",                               # gcr-ssh-agent, niri sets SSH_AUTH_SOCK
@@ -116,17 +114,13 @@ packages = [
   "greetd",
   "ibus",
   "ibus-gtk4",
-  "ibus-mozc",
   "imv",
-  "kanshi",
   "libnotify",
   "libspa-bluetooth",                   # bluetooth audio devices
   "maple-fonts-nerdfonts-cn",
   "mesa-dri",
   "miru",
-  "mozc",
   "mpv",
-  "neovide",
   "nerd-fonts-symbols-ttf",
   "niri",
   "noctalia",
@@ -134,7 +128,6 @@ packages = [
   "noto-fonts-cjk",
   "noto-fonts-emoji",
   "nwg-look",
-  "pinentry-gnome",                     # pinentry for rbw
   "pipewire",
   "polkit",                             # noctalia, flatpak, polkitd is started by D-Bus
   "qt6-wayland",                        # without it Qt6 apps run under XWayland
@@ -166,9 +159,16 @@ packages = [
   "age",
   "age-plugin-yubikey",
   "atuin",
+  "firefox",
+  "ibus-mozc",
+  "kanshi",
+  "mozc",
+  "neovide",
   "openpgp-card-tool-git",
   "openpgp-card-tools",
+  "pinentry-gnome",        # pinentry for rbw
   "rbw",
+  "socat",                 # SSH ProxyCommand helper for FRP servers
   "yubikey-manager",
   # "helix",
   # "zk",

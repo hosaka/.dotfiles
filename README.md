@@ -18,12 +18,6 @@ Use a remote script from chezmoi:
 sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply https://code.hosaka.cc/hosaka/.dotfiles.git
 ```
 
-Use my remote install script:
-
-```bash
-curl https://hosaka.cc/sh/dotinstall | sh
-```
-
 ## Use
 
 Pull the latest changes from this repo and apply them:

@@ -1,0 +1,10 @@
+# My location and keyboard, only applied with the personal profile. noctalia
+# merges every *.toml in this folder in alphabetical order, so these values
+# override config.toml
+
+[location]
+auto_locate = false
+address = "Tokyo, Japan"
+
+[widget.cat]
+input_devices = ["/dev/input/by-id/usb-*_Hillside_46-event*"]
