@@ -11,7 +11,7 @@ alias s := status
 [doc('list recipes (default)')]
 [no-cd]
 @help:
-    just --list=profile --no-aliases
+    just --justfile ~/.justfile --list=profile --no-aliases
 
 [doc('show which profiles are on (alias `s`)')]
 [no-cd]

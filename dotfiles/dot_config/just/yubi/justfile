@@ -3,7 +3,7 @@ alias s := status
 [doc('list recipes (default)')]
 [no-cd]
 @help:
-    just --list=yubi --no-aliases
+    just --justfile ~/.justfile --list=yubi --no-aliases
 
 [doc('show card status (alias `s`)')]
 [no-cd]

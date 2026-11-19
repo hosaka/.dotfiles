@@ -5,7 +5,7 @@ alias r := resign
 [doc('list recipes (default)')]
 [no-cd]
 @help:
-    just --list=git --no-aliases
+    just --justfile ~/.justfile --list=git --no-aliases
 
 [arg('val', pattern='true|false', help='true enables commit signing in this repository, false disables it')]
 [doc('enable gpg signing (alias `s`)')]

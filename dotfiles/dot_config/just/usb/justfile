@@ -5,7 +5,7 @@ alias m := mount
 [doc('list recipes (default)')]
 [no-cd]
 @help:
-    just --list=usb --no-aliases
+    just --justfile ~/.justfile --list=usb --no-aliases
 
 [arg('path', help='Mount point')]
 [arg('device', pattern='/dev/.+', help='Partition to mount, e.g. /dev/sdb1')]
