@@ -157,7 +157,7 @@ services = ["bluetoothd", "dbus", "greetd", "turnstiled"]
 
 [packages.xbps.nvidia]
 packages = [
-  "nvidia", # nonfree, modeset is enabled in system/etc/modprobe.d
+  "nvidia", # nonfree, nvidia_drm modeset is on by default (version 595)
 ]
 
 [packages.xbps.personal]

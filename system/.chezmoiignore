@@ -11,7 +11,6 @@ etc/greetd
 etc/turnstile
 {{- end }}
 {{- if not (lookPath "nvidia-smi") }}
-etc/modprobe.d/nvidia.conf
 etc/nvidia
 {{- end }}
 {{- if not (lookPath "limine") }}
