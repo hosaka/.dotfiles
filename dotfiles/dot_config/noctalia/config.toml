@@ -45,6 +45,7 @@ builtin_ids = [
   "alacritty",
   "btop",
   "foot",
+  "ghostty",
   "gtk3",
   "gtk4",
   "helix",
