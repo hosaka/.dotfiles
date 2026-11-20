@@ -129,6 +129,7 @@ packages = [
   "noto-fonts-emoji",
   "nwg-look",
   "pipewire",
+  "playerctl",                          # media keys mapping in niri
   "polkit",                             # noctalia, flatpak, polkitd is started by D-Bus
   "qt6-wayland",                        # without it Qt6 apps run under XWayland
   "qt6ct",
