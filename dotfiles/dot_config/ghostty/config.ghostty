@@ -17,5 +17,10 @@ font-style-italic = Italic
 font-style-bold-italic = Bold Italic
 font-size = 12
 
+# When using a background service (~/.config/service/ghostty)
+# quit ghostty five minutes after the last window was closed
+quit-after-last-window-closed = true
+quit-after-last-window-closed-delay = 5m
+
 # Theme
 theme = noctalia
