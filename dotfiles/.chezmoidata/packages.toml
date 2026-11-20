@@ -169,6 +169,7 @@ packages = [
   "pinentry-gnome",        # pinentry for rbw
   "rbw",
   "socat",                 # SSH ProxyCommand helper for FRP servers
+  "sonora",
   "yubikey-manager",
   # "helix",
   # "zk",
