@@ -4,9 +4,15 @@
 theme = "noctalia"
 check_for_update_on_launch = false
 
+[font]
+code = "Maple Mono NF CN"
+family = "Maple Mono NF CN"
+size = 16
+weight = "normal"
+bold_weight = "bold"
+
 [servers.liberachat]
 nickname = "GoodSoftMud"
-nick_password_command = "rbw get libera.chat"
 server = "irc.libera.chat"
 channels = ["#voidlinux", "#neovim"]
 
