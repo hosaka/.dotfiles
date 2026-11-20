@@ -51,3 +51,5 @@
   amend-sign = commit --amend --no-edit --gpg-sign
   # discards all changes and removes all untracked files/directories
   nuke = !git reset --hard HEAD && git clean --force -d
+  # difftastic
+  dft = -c diff.external=difft diff

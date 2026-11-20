@@ -125,18 +125,6 @@ if has just; then
   eval "$(just --completions bash)"
 fi
 
-# delta
-if has delta; then
-  export GIT_PAGER="delta"
-  export DELTA_FEATURES="line-numbers navigate"
-  # todo: not sure how to add interactive.diffFilter = delta --color-only
-fi
-
-# difftastic
-if has difft; then
-  export GIT_EXTERNAL_DIFF="difft --color=always"
-fi
-
 # watchexec
 if has watchexec; then
   eval "$(watchexec --completions bash)"
@@ -160,7 +148,6 @@ fi
 # forgejo-cli
 if has fj; then
   eval "$(fj completion bash)"
-  export FJ_FALLBACK_HOST="https://code.hosaka.cc"
 fi
 
 # ripgrep
@@ -172,4 +159,3 @@ fi
 include ~/.bash_preexec
 
 export PATH
-

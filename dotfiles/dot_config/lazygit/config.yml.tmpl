@@ -1,11 +1,21 @@
+{{- $difft := lookPath "difft" -}}
+{{- $delta := lookPath "delta" -}}
 # yaml-language-server: $schema=https://raw.githubusercontent.com/jesseduffield/lazygit/master/schema/config.json
 
 os:
   editPreset: "nvim-remote"
+{{- if or $difft $delta }}
+
 git:
   diffRenderers:
+{{- if $difft }}
     - type: extDiff
-    - command: delta --dark --paging=never --hyperlinks --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"
+      command: difft --color=always --context={{ "{{diffContext}}" }}
+{{- end }}
+{{- if $delta }}
+    - command: delta --dark --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"
+{{- end }}
+{{- end }}
 
 gui:
   theme:
