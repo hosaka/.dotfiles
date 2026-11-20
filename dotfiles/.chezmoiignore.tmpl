@@ -85,14 +85,14 @@
 .wakatime.cfg
 {{- end }}
 
-{{- if ne .chezmoi.os "windows" }}
-Documents/PowerShell/
+{{- if not (get . "wakatime_api_key") }}
+# no wakatime_api_key in ~/.config/chezmoi/chezmoi.toml
+.wakatime.cfg
 {{- end }}
 
 {{- if env "CHEZMOI_NO_SECRETS" }}
 # templates that read secrets from rbw, skipped when building images
 # (vast-mklive), run `rbw unlock && chezmoi apply` after installing
 .config/aerc/accounts.conf
-.wakatime.cfg
 {{- end }}
 

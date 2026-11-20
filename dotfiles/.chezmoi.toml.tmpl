@@ -3,6 +3,12 @@
 {{- $development := promptBoolOnce . "development" "Do you do development on this computer? (y/N)" -}}
 {{- $nvidia := promptBoolOnce . "nvidia" "Does this computer have an NVIDIA GPU? (y/N)" -}}
 
+{{- /* in ~/.config/chezmoi/chezmoi.toml, to change it delete the line and run `chezmoi init` */ -}}
+{{- $wakatimeApiKey := get . "wakatime_api_key" -}}
+{{- if and $development (not (env "CHEZMOI_NO_SECRETS")) -}}
+{{-   $wakatimeApiKey = promptStringOnce . "wakatime_api_key" "WakaTime API key (optional)" -}}
+{{- end -}}
+
 {{- $osid := .chezmoi.os -}}
 {{- if hasKey .chezmoi.osRelease "id" -}}
 {{-   $osid = printf "%s-%s" .chezmoi.os .chezmoi.osRelease.id -}}
@@ -19,3 +25,5 @@ encryption = "age"
   development = {{ $development }}
   nvidia      = {{ $nvidia }}
   osid        = {{ $osid | quote }}
+
+  wakatime_api_key = {{ $wakatimeApiKey | quote }}
