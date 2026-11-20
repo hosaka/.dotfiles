@@ -2,6 +2,10 @@
 
 os:
   editPreset: "nvim-remote"
+  # open files as a buffer in the neovim, in instead of a new tab, see ~/.local/bin/lazygit-nvim
+  edit: "lazygit-nvim {{filename}}"
+  editAtLine: "lazygit-nvim {{filename}} {{line}}"
+  openDirInEditor: "lazygit-nvim {{dir}}"
 git:
   diffRenderers:
     - type: extDiff

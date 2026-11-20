@@ -1,0 +1,21 @@
+#!/bin/sh
+# lazygit nvim helper, see `os.edit` in ~/.config/lazygit/config.yml
+#
+# inside a neovim terminal ($NVIM is set): hide lazygit's window and open the
+# file as a buffer in the window below it, lazygit keeps running in its hidden
+# terminal and comes back with the same toggle (the nvim-remote preset quits
+# lazygit and opens a new tab instead), otherwise just start nvim os usual
+#
+# usage: lazygit-nvim <file|dir> [line]
+file=$1
+line=$2
+
+if [ -z "$NVIM" ]; then
+  exec nvim ${line:+"+$line"} -- "$file"
+fi
+
+nvim --server "$NVIM" --remote-expr 'nvim_win_close(0, v:false)' >/dev/null 2>&1
+nvim --server "$NVIM" --remote "$file"
+if [ -n "$line" ]; then
+  nvim --server "$NVIM" --remote-send "<C-\\><C-n>:$line<CR>"
+fi
