@@ -1,0 +1,13 @@
+#!/bin/sh
+# turnstile's /usr/share/examples/turnstile/dbus.run, plus 2>&1 so dbus-daemon
+# and the services it activates log through log/run instead of the runsvdir title
+
+[ -r ./conf ] && . ./conf
+
+: "${DBUS_SESSION_BUS_ADDRESS:=unix:path=/run/user/$(id -u)/bus}"
+
+if [ -d "$TURNSTILE_ENV_DIR" ]; then
+	echo "$DBUS_SESSION_BUS_ADDRESS" > "$TURNSTILE_ENV_DIR"/DBUS_SESSION_BUS_ADDRESS
+fi
+
+exec chpst -e "$TURNSTILE_ENV_DIR" dbus-daemon --session --nofork --nopidfile --address="$DBUS_SESSION_BUS_ADDRESS" $OPTS 2>&1
