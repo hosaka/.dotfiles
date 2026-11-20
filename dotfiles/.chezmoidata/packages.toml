@@ -96,7 +96,6 @@ services = [
 [packages.xbps.desktop]
 packages = [
   "adw-gtk3",
-  "alacritty",
   "bibata-cursor-themes",
   "bluez",
   "brightnessctl",
@@ -109,6 +108,7 @@ packages = [
   "flatpak",
   "fuzzel",
   "gcr4",                               # gcr-ssh-agent, niri sets SSH_AUTH_SOCK
+  "ghostty",
   "gnome-keyring",
   "gpu-screen-recorder",
   "greetd",
