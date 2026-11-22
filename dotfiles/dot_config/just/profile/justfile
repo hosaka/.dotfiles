@@ -27,7 +27,7 @@ alias s := status
 on +profiles: (onpath 'jq') (_set "true" profiles) && status
     #!/usr/bin/env bash
     set -euo pipefail
-    . ~/.bash_functions
+    {{ logger }}
 
     # the packages script runs again, its package list changed with the flags
     chezmoi apply
@@ -57,7 +57,7 @@ on +profiles: (onpath 'jq') (_set "true" profiles) && status
 off +profiles: (onpath 'jq') (onpath 'sv') (onpath 'xbps-remove') (_confirm-off profiles) (_set "false" profiles) && status
     #!/usr/bin/env bash
     set -euo pipefail
-    . ~/.bash_functions
+    {{ logger }}
 
     # packages or services of a profile that common and the profiles still on do
     # not list, the flags are already off at this point
@@ -96,7 +96,7 @@ off +profiles: (onpath 'jq') (onpath 'sv') (onpath 'xbps-remove') (_confirm-off 
 _confirm-off +profiles:
     #!/usr/bin/env bash
     set -euo pipefail
-    . ~/.bash_functions
+    {{ logger }}
 
     for profile in {{ profiles }}; do
       if [ "$profile" = desktop ]; then

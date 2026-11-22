@@ -14,7 +14,7 @@ alias s := status
 status: (onpath 'jq') (onpath 'git') (onpath 'age') (onpath 'age-plugin-yubikey')
     #!/usr/bin/env bash
     set -euo pipefail
-    . ~/.bash_functions
+    {{ logger }}
 
     IFS=$'\t' read -r age_yubikey recipients < <(chezmoi dump-config --format json | jq -r '[.age.command, .age.recipientsFile] | @tsv')
     plugged=$("$age_yubikey" --list)
@@ -27,7 +27,7 @@ status: (onpath 'jq') (onpath 'git') (onpath 'age') (onpath 'age-plugin-yubikey'
         IFS=$'\t' read -r _ _ serial slot name pin touch <<<"$line"
         printf '  %s  %s\n' "${recipient:0:24}…" "$(label "$serial" "$slot" "$name" "$pin" "$touch")"
       else
-        printf '  %s  %s\n' "${recipient:0:24}…" "${GREY}not plugged in${NO_COLOR}"
+        printf '  %s  %s\n' "${recipient:0:24}…" "${grey}not plugged in${reset}"
       fi
     done < <(grep '^age1' "$recipients")
 
@@ -46,15 +46,15 @@ status: (onpath 'jq') (onpath 'git') (onpath 'age') (onpath 'age-plugin-yubikey'
     while read -r file; do
       target=$(chezmoi target-path "$src/$file")
       if [ ! -e "$target" ]; then
-        state="${GREY}not deployed${NO_COLOR}"
+        state="${grey}not deployed${reset}"
       elif ! $readable; then
         state=deployed
       elif cmp -s "$target" <(chezmoi decrypt "$src/$file" </dev/null); then
         state="deployed, in sync"
       elif [ "$target" -nt "$src/$file" ]; then
-        state="${YELLOW}changed since, \`just dot encrypt\` updates the source${NO_COLOR}"
+        state="${yellow}changed since, \`just dot encrypt\` updates the source${reset}"
       else
-        state="${YELLOW}newer in the source, \`just dot decrypt\` deploys it${NO_COLOR}"
+        state="${yellow}newer in the source, \`just dot decrypt\` deploys it${reset}"
       fi
       printf '  %s  %s\n' "${target/#$HOME/\~}" "$state"
     done < <(git -C "$src" ls-files --cached --others --exclude-standard -- '*.age')
@@ -71,7 +71,7 @@ status: (onpath 'jq') (onpath 'git') (onpath 'age') (onpath 'age-plugin-yubikey'
 new: (onpath 'jq') (onpath 'git') (onpath 'age') (onpath 'age-plugin-yubikey')
     #!/usr/bin/env bash
     set -euo pipefail
-    . ~/.bash_functions
+    {{ logger }}
 
     IFS=$'\t' read -r age_yubikey recipients < <(chezmoi dump-config --format json | jq -r '[.age.command, .age.recipientsFile] | @tsv')
     plugged=$("$age_yubikey" --list)
@@ -91,7 +91,7 @@ new: (onpath 'jq') (onpath 'git') (onpath 'age') (onpath 'age-plugin-yubikey')
       IFS=$'\t' read -r _ _ serial slot name pin touch <<<"${unlisted[i]}"
       printf '%2d) YubiKey %s slot %s: %s (PIN %s, touch %s)\n' $((i + 1)) "$serial" "$slot" "$name" "${pin,,}" "${touch,,}"
     done
-    printf '%s ' "${BOLD}${YELLOW}?${NO_COLOR} add which one to recipients.txt and re-encrypt the encrypted files? [1-${#unlisted[@]}, enter cancels]"
+    printf '%s ' "${bold}${yellow}[$tag]${reset} add which one to recipients.txt and re-encrypt the encrypted files? [1-${#unlisted[@]}, enter cancels]" >&2
     read -r n || n=
     if ! [[ $n =~ ^[0-9]+$ ]] || ((n < 1 || n > ${#unlisted[@]})); then exit 1; fi
 
@@ -110,7 +110,7 @@ new: (onpath 'jq') (onpath 'git') (onpath 'age') (onpath 'age-plugin-yubikey')
 remove: (onpath 'jq') (onpath 'git') (onpath 'age') (onpath 'age-plugin-yubikey')
     #!/usr/bin/env bash
     set -euo pipefail
-    . ~/.bash_functions
+    {{ logger }}
 
     IFS=$'\t' read -r age_yubikey recipients < <(chezmoi dump-config --format json | jq -r '[.age.command, .age.recipientsFile] | @tsv')
     plugged=$("$age_yubikey" --list)
@@ -128,7 +128,7 @@ remove: (onpath 'jq') (onpath 'git') (onpath 'age') (onpath 'age-plugin-yubikey'
         printf '%2d) %s (not plugged in)\n' $((i + 1)) "${listed[i]}"
       fi
     done
-    printf '%s ' "${BOLD}${YELLOW}?${NO_COLOR} remove which one from recipients.txt and re-encrypt the encrypted files? [1-${#listed[@]}, enter cancels]"
+    printf '%s ' "${bold}${yellow}[$tag]${reset} remove which one from recipients.txt and re-encrypt the encrypted files? [1-${#listed[@]}, enter cancels]" >&2
     read -r n || n=
     if ! [[ $n =~ ^[0-9]+$ ]] || ((n < 1 || n > ${#listed[@]})); then exit 1; fi
 
@@ -148,7 +148,7 @@ remove: (onpath 'jq') (onpath 'git') (onpath 'age') (onpath 'age-plugin-yubikey'
 _reencrypt: (onpath 'git') (onpath 'age') (onpath 'age-plugin-yubikey')
     #!/usr/bin/env bash
     set -euo pipefail
-    . ~/.bash_functions
+    {{ logger }}
 
     src=$(chezmoi source-path)
     mapfile -t files < <(git -C "$src" ls-files --cached --others --exclude-standard -- '*.age')

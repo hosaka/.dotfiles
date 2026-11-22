@@ -15,7 +15,7 @@ import '../common.just'
 encrypt *files: (onpath 'jq') (onpath 'age') (onpath 'age-plugin-yubikey')
     #!/usr/bin/env bash
     set -euo pipefail
-    . ~/.bash_functions
+    {{ logger }}
 
     age_yubikey=$(chezmoi dump-config --format json | jq -r .age.command)
     [ "$("$age_yubikey" --check)" = ok ] || error "no YubiKey from recipients.txt is readable, checking the encrypted files needs one"
@@ -58,7 +58,7 @@ encrypt *files: (onpath 'jq') (onpath 'age') (onpath 'age-plugin-yubikey')
 decrypt *files: (onpath 'jq') (onpath 'age') (onpath 'age-plugin-yubikey')
     #!/usr/bin/env bash
     set -euo pipefail
-    . ~/.bash_functions
+    {{ logger }}
 
     age_yubikey=$(chezmoi dump-config --format json | jq -r .age.command)
     [ "$("$age_yubikey" --check)" = ok ] || error "no YubiKey from recipients.txt is readable"
