@@ -29,6 +29,11 @@ on +profiles: (onpath 'jq') (_set "true" profiles) && status
     set -euo pipefail
     {{ logger }}
 
+    # Render the config from .chezmoi.toml.tmpl again, it keeps the flags that _set
+    # wrote. An ISO install inherits a config rendered for the live user, its age paths
+    # point at the live user's home until this runs.
+    chezmoi init --no-tty
+
     # the packages script runs again, its package list changed with the flags
     chezmoi apply
 
