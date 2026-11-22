@@ -18,46 +18,48 @@ status: (onpath 'jq') (onpath 'git') (onpath 'age') (onpath 'age-plugin-yubikey'
 
     IFS=$'\t' read -r age_yubikey recipients < <(chezmoi dump-config --format json | jq -r '[.age.command, .age.recipientsFile] | @tsv')
     plugged=$("$age_yubikey" --list)
-    label() { printf 'YubiKey %s slot %s: %s (PIN %s, touch %s)' "$1" "$2" "$3" "${4,,}" "${5,,}"; }
-
-    header "recipients.txt (${recipients/#$HOME/\~})"
-    while read -r recipient; do
-      line=$(awk -F'\t' -v r="$recipient" '$2 == r' <<<"$plugged")
-      if [ -n "$line" ]; then
-        IFS=$'\t' read -r _ _ serial slot name pin touch <<<"$line"
-        printf '  %s  %s\n' "${recipient:0:24}…" "$(label "$serial" "$slot" "$name" "$pin" "$touch")"
-      else
-        printf '  %s  %s\n' "${recipient:0:24}…" "${grey}not plugged in${reset}"
-      fi
-    done < <(grep '^age1' "$recipients")
-
-    if grep -q '^no' <<<"$plugged"; then
-      header "plugged in, not in recipients.txt (add one with \`just dot key new\`)"
-      while IFS=$'\t' read -r _ recipient serial slot name pin touch; do
-        printf '  %s  %s\n' "${recipient:0:24}…" "$(label "$serial" "$slot" "$name" "$pin" "$touch")"
-      done < <(grep '^no' <<<"$plugged")
-    fi
-
     readable=false
     [ "$("$age_yubikey" --check)" != ok ] || readable=true
 
-    header "encrypted files"
+    # the YubiKeys in recipients.txt and the ones plugged in
+    {
+      printf 'recipient\tyubikey\tslot\tname\tpin\ttouch\trecipients.txt\tplugged in\n'
+      while read -r recipient; do
+        line=$(awk -F'\t' -v r="$recipient" '$2 == r' <<<"$plugged")
+        if [ -n "$line" ]; then
+          IFS=$'\t' read -r _ _ serial slot name pin touch <<<"$line"
+          printf '%s\t%s\t%s\t%s\t%s\t%s\tyes\tyes\n' "${recipient:0:20}…" "$serial" "$slot" "$name" "${pin,,}" "${touch,,}"
+        else
+          printf '%s\t-\t-\t-\t-\t-\tyes\tno\n' "${recipient:0:20}…"
+        fi
+      done < <(grep '^age1' "$recipients")
+      while IFS=$'\t' read -r _ recipient serial slot name pin touch; do
+        printf '%s\t%s\t%s\t%s\t%s\t%s\tno\tyes\n' "${recipient:0:20}…" "$serial" "$slot" "$name" "${pin,,}" "${touch,,}"
+      done < <(grep '^no' <<<"$plugged" || true)
+    } | column -t -s $'\t'
+    echo
+
+    # deployed encrypted files compared to their source
     src=$(chezmoi source-path)
-    while read -r file; do
-      target=$(chezmoi target-path "$src/$file")
-      if [ ! -e "$target" ]; then
-        state="${grey}not deployed${reset}"
-      elif ! $readable; then
-        state=deployed
-      elif cmp -s "$target" <(chezmoi decrypt "$src/$file" </dev/null); then
-        state="deployed, in sync"
-      elif [ "$target" -nt "$src/$file" ]; then
-        state="${yellow}changed since, \`just dot encrypt\` updates the source${reset}"
-      else
-        state="${yellow}newer in the source, \`just dot decrypt\` deploys it${reset}"
-      fi
-      printf '  %s  %s\n' "${target/#$HOME/\~}" "$state"
-    done < <(git -C "$src" ls-files --cached --others --exclude-standard -- '*.age')
+    {
+      printf 'file\tstate\trun\n'
+      while read -r file; do
+        target=$(chezmoi target-path "$src/$file")
+        if [ ! -e "$target" ]; then
+          state=missing run='just dot decrypt'
+        elif ! $readable; then
+          state=unchecked run=-
+        elif cmp -s "$target" <(chezmoi decrypt "$src/$file" </dev/null); then
+          state='in sync' run=-
+        elif [ "$target" -nt "$src/$file" ]; then
+          state=changed run='just dot encrypt'
+        else
+          state=outdated run='just dot decrypt'
+        fi
+        printf '%s\t%s\t%s\n' "${target/#$HOME/\~}" "$state" "$run"
+      done < <(git -C "$src" ls-files --cached --others --exclude-standard -- '*.age')
+    } | column -t -s $'\t'
+    echo
 
     if $readable; then
       success "a YubiKey from recipients.txt is plugged in, the encrypted files can be decrypted"

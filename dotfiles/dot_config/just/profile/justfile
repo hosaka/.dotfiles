@@ -16,9 +16,9 @@ alias s := status
 [doc('show which profiles are on (alias `s`)')]
 [no-cd]
 @status: (onpath 'jq')
-    chezmoi data --format json | jq -r '. as $data | .packages.xbps | keys[] \
+    { printf 'profile\tstate\n'; chezmoi data --format json | jq -r '. as $data | .packages.xbps | keys[] \
       | select(. != "common" and . != "remove") \
-      | [., if $data[.] then "on" else "off" end] | @tsv' | column -t
+      | [., if $data[.] then "on" else "off" end] | @tsv'; } | column -t -s "$(printf '\t')"
 
 # note: the profiles patterns list the groups in .chezmoidata/packages.toml, keep them in sync
 [arg('profiles', pattern='desktop|nvidia|personal|development')]
