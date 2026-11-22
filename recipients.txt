@@ -1,0 +1,5 @@
+# chezmoi encrypts to all of these, one key per line, any one of them can decrypt
+# `just dot key new` adds a plugged in YubiKey, `just dot key remove` drops one,
+# both of these commands will re-encrypt all secrets in this repo
+age1yubikey1qv9d7qpcpstrf6mafkxekfwjcp29984saucq76gfyewz5ytl70eevwgwkqj
+age1yubikey1qwsjvvhw8mtsdv0d7puwtvrxz2gtu4skwjdh9c6vs6ekr6sxjwr6zvvaj3v

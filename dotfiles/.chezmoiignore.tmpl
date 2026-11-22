@@ -26,8 +26,7 @@
 .config/chezmoi
 
 {{- if eq .chezmoi.os "linux" }}
-# turnstiled rewrites turnstile-ready/run at every login, its conf and the
-# dbus service are managed (turnstile only ships dbus.run/check as examples)
+# turnstiled rewrites turnstile-ready/run at every login
 .config/service/turnstile-ready/run
 .config/service/**/supervise
 .config/service-env/
@@ -37,7 +36,6 @@
 {{- end }}
 
 {{- if not .desktop }}
-# graphical apps and the user services that turnstile runs, add new GUI configs here
 .config/alacritty
 .config/fontconfig
 .config/foot
@@ -73,7 +71,6 @@
 .config/openpgp-card-state
 .config/rbw
 .config/service/kanshi
-.config/sops
 .ssh/config
 {{- end }}
 
@@ -86,14 +83,26 @@
 .wakatime.cfg
 {{- end }}
 
-{{- if not (get . "wakatime_api_key") }}
-# no wakatime_api_key in ~/.config/chezmoi/chezmoi.toml
-.wakatime.cfg
-{{- end }}
+{{- /* encrypted dotfiles of the profiles that are currently on, the missing files 
+       are skipped until a YubiKey from recipients.txt is plugged in and readable */ -}}
 
-{{- if env "CHEZMOI_NO_SECRETS" }}
-# templates that read secrets from rbw, skipped when building images
-# (vast-mklive), run `rbw unlock && chezmoi apply` after installing
-.config/aerc/accounts.conf
+{{- $encrypted := list }}
+{{- if .personal }}
+  {{ $encrypted = append $encrypted ".config/aerc/accounts.conf" }}
+{{ end }}
+
+{{- if .development }}
+  {{ $encrypted = append $encrypted ".wakatime.cfg" }}
+{{ end }}
+
+{{- $missing := list }}
+{{- range $encrypted }}
+  {{ if not (stat (joinPath $.chezmoi.destDir .)) }}
+    {{ $missing = append $missing . }}
+  {{ end }}
+{{ end }}
+
+{{- if and $missing (ne (output (joinPath .chezmoi.workingTree "age-yubikey") "--check" | trim) "ok") }}
+  {{ join "\n" $missing }}
 {{- end }}
 

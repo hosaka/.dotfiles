@@ -1,0 +1,118 @@
+# Manage chezmoi dotfiles in ~/.local/share/chezmoi
+
+import '../common.just'
+
+[doc('list recipes (default)')]
+[no-cd]
+@help:
+    just --justfile ~/.justfile --list dot --no-aliases --list-submodules
+
+[arg('files', help='Deployed files or *.age source files, all of them by default')]
+[doc('encrypt deployed files into the source (adds unmanaged ones), by default the changed ones')]
+[no-cd]
+[no-exit-message]
+[positional-arguments]
+encrypt *files: (onpath 'jq') (onpath 'age') (onpath 'age-plugin-yubikey')
+    #!/usr/bin/env bash
+    set -euo pipefail
+    . ~/.bash_functions
+
+    age_yubikey=$(chezmoi dump-config --format json | jq -r .age.command)
+    [ "$("$age_yubikey" --check)" = ok ] || error "no YubiKey from recipients.txt is readable, checking the encrypted files needs one"
+
+    # copy the modification time over, when the deployed file and the source
+    # differ the newer one has the changes
+    while IFS=$'\t' read -r -u 3 target source; do
+      name=${target/#$HOME/\~}
+      if [ -z "$source" ]; then
+        [ -f "$target" ] || error "$name does not exist"
+        chezmoi add --encrypt --create "$target" </dev/null
+        touch -r "$target" "$(chezmoi source-path "$target")"
+        success "added $name encrypted"
+        continue
+      fi
+      [[ $source == *.age ]] || error "$name is in the dotfiles unencrypted"
+      if [ $# -eq 0 ]; then
+        [ -e "$target" ] || continue
+        ! cmp -s "$target" <(chezmoi decrypt "$source" </dev/null) || continue
+        if [ "$source" -nt "$target" ]; then
+          warning "skipped $name: the source is newer, \`just dot decrypt\` it first"
+          continue
+        fi
+      fi
+      chezmoi encrypt <"$target" >"$source.tmp"
+      if ! cmp -s "$target" <(chezmoi decrypt "$source.tmp" </dev/null); then
+        rm -f "$source.tmp"
+        error "encrypted $name does not decrypt to the same content, left the source as it was"
+      fi
+      mv "$source.tmp" "$source"
+      touch -r "$target" "$source"
+      success "encrypted $name"
+    done 3< <(just --justfile ~/.justfile dot _entries "$@")
+
+[arg('files', help='Deployed files or *.age source files, all of them by default')]
+[doc('decrypt source files to where they are deployed, by default the changed ones')]
+[no-cd]
+[no-exit-message]
+[positional-arguments]
+decrypt *files: (onpath 'jq') (onpath 'age') (onpath 'age-plugin-yubikey')
+    #!/usr/bin/env bash
+    set -euo pipefail
+    . ~/.bash_functions
+
+    age_yubikey=$(chezmoi dump-config --format json | jq -r .age.command)
+    [ "$("$age_yubikey" --check)" = ok ] || error "no YubiKey from recipients.txt is readable"
+
+    while IFS=$'\t' read -r -u 3 target source; do
+      name=${target/#$HOME/\~}
+      [[ $source == *.age ]] || error "$name is not an encrypted file in the dotfiles"
+      if [ $# -eq 0 ] && [ -e "$target" ]; then
+        ! cmp -s "$target" <(chezmoi decrypt "$source" </dev/null) || continue
+        if [ "$target" -nt "$source" ]; then
+          warning "skipped $name: it has changes, \`just dot encrypt\` it first"
+          continue
+        fi
+      fi
+      mkdir -p "$(dirname "$target")"
+      # mktemp creates it 600, the decrypted content is never readable by others
+      tmp=$(mktemp "$target.XXXXXX")
+      if ! chezmoi decrypt "$source" >"$tmp" </dev/null; then
+        rm -f "$tmp"
+        error "could not decrypt $name"
+      fi
+      mv "$tmp" "$target"
+      touch -r "$source" "$target"
+      success "decrypted $name"
+    done 3< <(just --justfile ~/.justfile dot _entries "$@")
+
+# `<target>\t<source>` for each encrypted file, the deployed ones by default or the given
+# deployed or *.age source files, the source is empty (last, read keeps it) for a file
+# that isn't managed
+[no-cd]
+[positional-arguments]
+_entries *files:
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    if [ $# -eq 0 ]; then
+      chezmoi managed --include encrypted --path-style absolute | while read -r target; do
+        printf '%s\t%s\n' "$target" "$(chezmoi source-path "$target")"
+      done
+      exit 0
+    fi
+    for file; do
+      if [[ $file == *.age ]]; then
+        source=$(realpath "$file")
+        printf '%s\t%s\n' "$(chezmoi target-path "$source")" "$source"
+      else
+        target=$(realpath -m "$file")
+        printf '%s\t%s\n' "$target" "$(chezmoi source-path "$target" 2>/dev/null || true)"
+      fi
+    done
+
+# keys for dotfiles encryption and decryption (alias `k`)
+mod key 'key.just'
+[no-cd]
+[private]
+@k *args:
+    just --justfile ~/.justfile dot key {{ args }}

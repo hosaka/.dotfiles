@@ -1,3 +1,5 @@
+import '../common.just'
+
 alias s := status
 
 [doc('list recipes (default)')]
@@ -8,5 +10,15 @@ alias s := status
 [doc('show card status (alias `s`)')]
 [no-cd]
 [no-exit-message]
-status:
+status: (onpath 'oct')
     oct status
+
+[arg('slot', long='slot', help='Retired PIV slot (1-20), the first free one if empty')]
+[arg('serial', long='serial', help='YubiKey to use if more than one is plugged in')]
+[doc('generate an age identity that decrypts without PIN or touch')]
+[no-cd]
+[no-exit-message]
+generate name serial='' slot='': (onpath 'age-plugin-yubikey')
+    age-plugin-yubikey --generate --name {{ quote(name) }} --pin-policy never --touch-policy never \
+        {{ if serial == '' { '' } else { '--serial ' + quote(serial) } }} \
+        {{ if slot == '' { '' } else { '--slot ' + quote(slot) } }}

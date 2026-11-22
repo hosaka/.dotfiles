@@ -15,16 +15,16 @@ alias s := status
 
 [doc('show which profiles are on (alias `s`)')]
 [no-cd]
-@status:
+@status: (onpath 'jq')
     chezmoi data --format json | jq -r '. as $data | .packages.xbps | keys[] \
       | select(. != "common" and . != "remove") \
       | [., if $data[.] then "on" else "off" end] | @tsv' | column -t
 
 # note: the profiles patterns list the groups in .chezmoidata/packages.toml, keep them in sync
-[arg('profiles', pattern='desktop|nvidia|personal|development', help='Profiles to turn on')]
-[doc('turn profiles on: install their packages, apply their dotfiles and system files, link their services')]
+[arg('profiles', pattern='desktop|nvidia|personal|development')]
+[doc('turn profiles on: install packages, apply dotfiles and system files, link services')]
 [no-cd]
-on +profiles: (_set "true" profiles) && status
+on +profiles: (onpath 'jq') (_set "true" profiles) && status
     #!/usr/bin/env bash
     set -euo pipefail
     . ~/.bash_functions
@@ -51,10 +51,10 @@ on +profiles: (_set "true" profiles) && status
     done
 
 # note: the profiles patterns list the groups in .chezmoidata/packages.toml, keep them in sync
-[arg('profiles', pattern='desktop|nvidia|personal|development', help='Profiles to turn off')]
-[doc('turn profiles off: unlink their services and remove the packages that nothing else needs (asks first)')]
+[arg('profiles', pattern='desktop|nvidia|personal|development')]
+[doc('turn profiles off: unlink services, remove packages nothing else needs')]
 [no-cd]
-off +profiles: (_confirm-off profiles) (_set "false" profiles) && status
+off +profiles: (onpath 'jq') (onpath 'sv') (onpath 'xbps-remove') (_confirm-off profiles) (_set "false" profiles) && status
     #!/usr/bin/env bash
     set -euo pipefail
     . ~/.bash_functions

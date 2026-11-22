@@ -3,12 +3,6 @@
 {{- $development := promptBoolOnce . "development" "Do you do development on this computer? (y/N)" -}}
 {{- $nvidia := promptBoolOnce . "nvidia" "Does this computer have an NVIDIA GPU? (y/N)" -}}
 
-{{- /* in ~/.config/chezmoi/chezmoi.toml, to change it delete the line and run `chezmoi init` */ -}}
-{{- $wakatimeApiKey := get . "wakatime_api_key" -}}
-{{- if and $development (not (env "CHEZMOI_NO_SECRETS")) -}}
-{{-   $wakatimeApiKey = promptStringOnce . "wakatime_api_key" "WakaTime API key (optional)" -}}
-{{- end -}}
-
 {{- $osid := .chezmoi.os -}}
 {{- if hasKey .chezmoi.osRelease "id" -}}
 {{-   $osid = printf "%s-%s" .chezmoi.os .chezmoi.osRelease.id -}}
@@ -16,8 +10,9 @@
 
 encryption = "age"
 [age]
-  identity  = "~/.config/sops/age/keys.txt"
-  recipient = "age1yubikey1qv9d7qpcpstrf6mafkxekfwjcp29984saucq76gfyewz5ytl70eevwgwkqj"
+  # no identity file, age-yubikey decrypts with whichever YubiKey from recipients.txt is plugged in
+  command        = {{ joinPath .chezmoi.workingTree "age-yubikey" | quote }}
+  recipientsFile = {{ joinPath .chezmoi.workingTree "recipients.txt" | quote }}
 
 [data]
   desktop     = {{ $desktop }}
@@ -25,5 +20,3 @@ encryption = "age"
   development = {{ $development }}
   nvidia      = {{ $nvidia }}
   osid        = {{ $osid | quote }}
-
-  wakatime_api_key = {{ $wakatimeApiKey | quote }}

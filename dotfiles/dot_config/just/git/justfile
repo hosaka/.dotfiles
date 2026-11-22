@@ -1,3 +1,5 @@
+import '../common.just'
+
 alias s := sign
 alias p := prune
 alias r := resign
@@ -7,24 +9,24 @@ alias r := resign
 @help:
     just --justfile ~/.justfile --list=git --no-aliases
 
-[arg('val', pattern='true|false', help='true enables commit signing in this repository, false disables it')]
-[doc('enable gpg signing (alias `s`)')]
+[arg('val', pattern='true|false')]
+[doc('gpg sign commits in this repository (alias `s`)')]
 [no-cd]
 [no-exit-message]
-sign val='true':
+sign val='true': (onpath 'git')
     git config commit.gpgsign {{ val }}
 
-[arg('val', pattern='true|false', help='true enables removing deleted remote branches on fetch, false disables it')]
-[doc('enable pruning on fetch from origin (alias `p`)')]
+[arg('val', pattern='true|false')]
+[doc('prune deleted origin branches on fetch in this repository (alias `p`)')]
 [no-cd]
 [no-exit-message]
-prune val='true':
+prune val='true': (onpath 'git')
     git config remote.origin.prune {{ val }}
 
-[arg('ref', help='Commit to start after, every later commit is signed again')]
+[arg('ref', help='Sign the commits after this one')]
 [doc('gpg sign the last commits again (alias `r`)')]
 [no-cd]
 [no-exit-message]
-resign ref='HEAD~1':
+resign ref='HEAD~1': (onpath 'git')
     git rebase --keep-empty --exec "git commit --amend --no-edit --gpg-sign" {{ ref }}
     git log --abbrev-commit --date=relative --date-order --pretty=format:"%C(auto,yellow)%h %C(auto,blue)%>(12,trunc)%ad %C(auto,white italic)%G? %C(reset)%C(auto,green)%<(12,trunc)%aN %C(reset)%s" {{ ref }}..HEAD

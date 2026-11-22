@@ -1,0 +1,72 @@
+#!/bin/sh
+# chezmoi's age.command, decrypts with whichever YubiKey from the recipients.txt
+# is plugged in, everything else is passed to age unchanged.
+#
+# `age-yubikey --list` prints the age slots on the plugged in YubiKeys.
+# `age-yubikey --check` prints "ok" when a YubiKey from recipients.txt is plugged in.
+set -eu
+
+list() {
+  recipients=$(grep '^age1' "$(dirname "$0")/recipients.txt" 2>/dev/null) || recipients=
+  serial='' slot='' name='' pin='' touch=''
+  age-plugin-yubikey --list 2>/dev/null | while IFS= read -r line; do
+    case $line in
+    '#'*'Serial: '*) serial=${line#*Serial: } serial=${serial%%,*} slot=${line##*Slot: } ;;
+    '#'*'Name: '*) name=${line#*Name: } ;;
+    '#'*'PIN policy: '*) pin=${line#*PIN policy: } pin=${pin%% *} ;;
+    '#'*'Touch policy: '*) touch=${line#*Touch policy: } touch=${touch%% *} ;;
+    age1yubikey1*)
+      listed=no
+      case "
+$recipients
+" in *"
+$line
+"*) listed=yes ;; esac
+      printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' "$listed" "$line" "$serial" "$slot" "$name" "$pin" "$touch"
+      ;;
+    esac
+  done
+}
+
+case "${1:-}" in
+--list)
+  list
+  exit 0
+  ;;
+--check)
+  if list | grep -q '^yes'; then echo ok; fi
+  exit 0
+  ;;
+esac
+
+case " $* " in
+*" --decrypt "*)
+  # a stub for every age slot on the connected YubiKeys, age uses the one that
+  # matches the file, stubs only point at a slot and are not secret. The plugin
+  # tries them in order and stops at a slot that needs a PIN or touch, so slots
+  # that need neither go first and the others only get used when nothing else
+  # matches the file.
+  identities=$(age-plugin-yubikey --identity 2>/dev/null | awk '
+    /^#/ {
+      block = block $0 "\n"
+      if ($0 ~ /(PIN|Touch) policy: / && $0 !~ /policy: Never/) asks = 1
+      next
+    }
+    /^AGE-PLUGIN-YUBIKEY-/ {
+      if (asks) later = later block $0 "\n"; else first = first block $0 "\n"
+      block = ""; asks = 0
+    }
+    END { printf "%s%s", first, later }
+  ') || identities=
+  if [ -z "$identities" ]; then
+    echo "age-yubikey: no YubiKey with an age identity is plugged in" >&2
+    exit 1
+  fi
+  # stdin is the ciphertext from chezmoi, so the identities go in on fd 3
+  exec age "$@" --identity /dev/fd/3 3<<IDENTITIES
+$identities
+IDENTITIES
+  ;;
+esac
+
+exec age "$@"

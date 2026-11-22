@@ -24,26 +24,32 @@ set minimum-version := '1.59.0'
 @edit:
     just --edit
 
-# git shortcuts (`just git` for more, alias `g`)
+# git shortcuts (alias `g`)
 mod git '~/.config/just/git'
 [private]
 @g *args:
     just git {{ args }}
 
-# usb management (`just usb` for more, alias `u`)
+# usb management (alias `u`)
 mod usb '~/.config/just/usb'
 [private]
 @u *args:
     just usb {{ args }}
 
-# yubikey management (`just yubi` for more, alias `y`)
+# yubikey management (alias `y`)
 mod yubi '~/.config/just/yubi'
 [private]
 @y *args:
     just yubi {{ args }}
 
-# profiles management (`just profile` for more, alias `p`)
+# profiles management (alias `p`)
 mod profile '~/.config/just/profile'
 [private]
 @p *args:
     just profile {{ args }}
+
+# dotfiles management (alias `d`)
+mod dot '~/.config/just/dot'
+[private]
+@d *args:
+    just dot {{ args }}
