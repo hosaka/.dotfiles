@@ -5,13 +5,6 @@
 
 environment {
     SSH_AUTH_SOCK "/run/user/1000/gcr/ssh"
-    // Make GTK apps talk to IBus over D-Bus instead of the Wayland
-    // input-method protocol. Works around ibus <1.5.34 making Ghostty drop
-    // non-text keys after a focus change. See:
-    // https://github.com/ghostty-org/ghostty/discussions/9250
-    // https://github.com/ibus/ibus/issues/2819
-    // This can be removed once the distro shipped ibus is >1.5.34
-    GTK_IM_MODULE "ibus"
 }
 
 // Input device configuration.
