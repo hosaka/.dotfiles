@@ -2,4 +2,4 @@
 
 [ -r ./conf ] && . ./conf
 
-exec chpst ibus exit > /dev/null 2>&1
+exec chpst -e "$TURNSTILE_ENV_DIR" ibus exit >/dev/null 2>&1

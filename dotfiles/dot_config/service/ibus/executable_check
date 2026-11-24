@@ -1,4 +1,7 @@
 #!/bin/sh
 
-exec ibus address | grep --invert-match "(null)" > /dev/null 2> /dev/null
-
+# ibus finds its daemon via ~/.config/ibus/bus/<machine-id>-unix-<display>
+# `sv` runs this from the caller's env, where TURNSTILE_ENV_DIR is usually unset,
+# hence the fallback.
+exec chpst -e "${TURNSTILE_ENV_DIR:-$HOME/.config/service-env}" \
+  ibus engine >/dev/null 2>&1

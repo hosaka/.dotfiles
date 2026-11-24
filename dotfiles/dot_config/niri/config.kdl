@@ -280,9 +280,12 @@ layout {
 // Note that running niri as a session (with systemd) supports
 // xdg-desktop-autostart, which may be more convenient to use.
 // See the binds section below for more spawn examples.
+
+// Share this session's wayland socket with turnstile's runit user services.
+// Services will read it from ~/.config/service-env via chpst -e.
+spawn-at-startup "turnstile-update-runit-env" "WAYLAND_DISPLAY"
 spawn-at-startup "noctalia"
 spawn-at-startup "miru-daemon"
-spawn-at-startup "ibus" "start" "--type=wayland"
 
 hotkey-overlay {
     // Uncomment this line to disable the "Important Hotkeys" pop-up at startup.
