@@ -13,6 +13,12 @@ etc/turnstile
 {{- if not (lookPath "nvidia-smi") }}
 etc/nvidia
 {{- end }}
+{{- if not (lookPath "pipewire") }}
+etc/pipewire
+{{- end }}
+{{- if not (lookPath "wireplumber") }}
+etc/pipewire/pipewire.conf.d/10-wireplumber.conf
+{{- end }}
 {{- if not (lookPath "limine") }}
 etc/kernel.d/post-install/60-limine
 etc/kernel.d/post-remove/60-limine
