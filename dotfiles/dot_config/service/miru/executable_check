@@ -1,0 +1,4 @@
+#!/bin/sh
+# miructl has no status command, but miru-daemon ignores commands it doesn't
+# know (MIRU_IPC_UNKNOWN has no handler in src/main.c as of miru 0.16)
+exec miructl ping >/dev/null 2>&1

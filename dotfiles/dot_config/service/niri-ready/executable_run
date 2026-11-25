@@ -1,0 +1,8 @@
+#!/bin/sh
+# Stand-in for niri, which runit can't supervise because it isn't spawned by
+# runsvdir. Services that depend on the compositor can wait on it with:
+#
+#   sv start ../niri-ready || exit 1
+#
+# The service itself does nothing, ./check decides whether the session is up.
+exec pause

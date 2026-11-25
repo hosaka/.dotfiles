@@ -1,0 +1,13 @@
+#!/bin/sh
+# niri needs to publish NIRI_SOCKET to the env dir at startup, see spawn-at-startup
+# in niri/config.kdl.
+#
+# The env dir is never cleared, so values from the previous session are still
+# on disk before niri gets to it. NIRI_SOCKET has niri's PID in its path, so
+# only a running niri can answer on it.
+#
+# `sv` runs this from the caller env, where TURNSTILE_ENV_DIR is usually unset,
+# hence the fallback.
+NIRI_SOCKET="$(cat "${TURNSTILE_ENV_DIR:-$HOME/.config/service-env}/NIRI_SOCKET" 2>/dev/null)"
+export NIRI_SOCKET
+exec niri msg version >/dev/null 2>&1

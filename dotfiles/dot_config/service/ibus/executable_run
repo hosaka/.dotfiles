@@ -2,18 +2,9 @@
 
 [ -r ./conf ] && . ./conf
 
-# turnstile starts user services at the same time as niri, before the wayland
-# socket exists. ibus-ui-gtk3 doesn't exit when it can't open the display, so
-# runsv never restarts it. Exit until the socket exists and let runsv retry.
-#
-# WAYLAND_DISPLAY is re-read from the env dir on every try, so a value niri
-# writes at startup gets picked up.
-wl="$XDG_RUNTIME_DIR/$(cat "$TURNSTILE_ENV_DIR/WAYLAND_DISPLAY" 2>/dev/null)"
-if [ ! -S "$wl" ]; then
-  echo "waiting for wayland socket $wl"
-  sleep 1
-  exit 1
-fi
+# ibus-ui-gtk3 doesn't exit when it can't open the display, so runsv would
+# never restart it, don't start it before niri is ready instead
+sv start ../niri-ready || exit 1
 
 exec chpst -e "$TURNSTILE_ENV_DIR" /usr/libexec/ibus-ui-gtk3 \
   --enable-wayland-im --exec-daemon --daemon-args "--panel disable $OPTS" 2>&1
