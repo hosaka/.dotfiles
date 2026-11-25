@@ -13,12 +13,66 @@ alias s := status
 status: (onpath 'oct')
     oct status
 
-[arg('slot', long='slot', help='Retired PIV slot (1-20), the first free one if empty')]
+[arg('slot', long='slot', help='PIV slot (1-20), the first free one if empty')]
 [arg('serial', long='serial', help='YubiKey to use if more than one is plugged in')]
-[doc('generate an age identity that decrypts without PIN or touch')]
+[doc('generate an age identity without PIN or touch')]
 [no-cd]
 [no-exit-message]
 generate name serial='' slot='': (onpath 'age-plugin-yubikey')
     age-plugin-yubikey --generate --name {{ quote(name) }} --pin-policy never --touch-policy never \
         {{ if serial == '' { '' } else { '--serial ' + quote(serial) } }} \
         {{ if slot == '' { '' } else { '--slot ' + quote(slot) } }}
+
+[arg('uid', help='User ID to add, free-form but usually `Name <email@example.com>`')]
+[arg('key', long='key', help='Key to add it to (fingerprint, key ID or user ID)')]
+[doc('add a user ID to a gpg key, its primary secret key has to be available')]
+[no-cd]
+[no-exit-message]
+add uid key=gpg_key: (onpath 'gpg') (onpath 'gpgconf')
+    #!/usr/bin/env bash
+    set -euo pipefail
+    {{ logger }}
+
+    uid={{ quote(uid) }}
+    # gpg trims the whitespace around a user ID, the checks below compare it trimmed
+    shopt -s extglob
+    uid=${uid##+([[:space:]])}
+    uid=${uid%%+([[:space:]])}
+    [ -n "$uid" ] || error "the user ID is empty"
+    key={{ quote(key) }}
+    mapfile -t fprs < <(gpg --with-colons --list-keys -- "$key" 2>/dev/null | awk -F: '$1 == "pub" { p = 1; next } p && $1 == "fpr" { print $10; p = 0 }')
+    [ ${#fprs[@]} -gt 0 ] || error "gpg has no key $key"
+    [ ${#fprs[@]} -eq 1 ] || error "$key matches ${#fprs[@]} keys in gpg, pass a fingerprint with --key"
+    fpr=${fprs[0]}
+
+    # looks the user ID up by exact match (=), its uid field in the colon output has
+    # : and \ escaped and wouldn't compare equal
+    has_uid() {
+      gpg --with-colons --list-keys -- "=$uid" 2>/dev/null |
+        awk -F: -v f="$fpr" '$1 == "pub" { p = 1; next } p && $1 == "fpr" { if ($10 == f) x = 1; p = 0 } END { exit !x }'
+    }
+    if has_uid; then
+      info "$fpr already has $uid"
+      exit 0
+    fi
+
+    # gpg only knows a key is on a card once it has seen the card, with the YubiKey
+    # holding the primary key plugged in this turns sec# into sec>. scdaemon keeps the
+    # card to itself (no pcsc-shared), it's stopped at the end so oct can use it again.
+    trap 'gpgconf --kill scdaemon' EXIT
+    gpg --card-status >/dev/null 2>&1 || true
+    # field 15: # for a stub, a card's AID, + (empty before gpg 2.5) when it's on disk
+    where=$(gpg --with-colons --list-secret-keys -- "$fpr" 2>/dev/null | awk -F: '$1 == "sec" { print ($15 == "" || $15 == "+" ? "disk" : $15); exit }' || true)
+    case $where in
+      '') error "gpg has no secret key for $fpr" ;;
+      '#') error "the primary secret key of $fpr isn't available" ;;
+      disk) info "adding $uid with the primary secret key on disk" ;;
+      # an OpenPGP card AID, the manufacturer and serial are what `oct list` shows
+      *) info "adding $uid with the primary secret key on card ${where:16:4}:${where:20:8}" ;;
+    esac
+
+    gpg --quick-add-uid -- "$fpr" "$uid" || error "gpg could not add $uid to $fpr"
+    has_uid || error "gpg didn't fail, but $fpr still doesn't have $uid"
+
+    gpg --list-keys -- "$fpr"
+    success "added $uid to $fpr, \`just git import{{ if key == gpg_key { '' } else { ' ' + key } }}\` to update oct-git cert store"

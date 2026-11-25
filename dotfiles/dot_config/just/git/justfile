@@ -30,3 +30,40 @@ prune val='true': (onpath 'git')
 resign ref='HEAD~1': (onpath 'git')
     git rebase --keep-empty --exec "git commit --amend --no-edit --gpg-sign" {{ ref }}
     git log --abbrev-commit --date=relative --date-order --pretty=format:"%C(auto,yellow)%h %C(auto,blue)%>(12,trunc)%ad %C(auto,white italic)%G? %C(reset)%C(auto,green)%<(12,trunc)%aN %C(reset)%s" {{ ref }}..HEAD
+
+[arg('key', help='Key to re-import (fingerprint, key ID, user ID)')]
+[doc("re-import a key from gpg into oct-git certificate store")]
+[no-cd]
+[no-exit-message]
+import key=gpg_key: (onpath 'gpg') (onpath 'oct-git')
+    #!/usr/bin/env bash
+    set -euo pipefail
+    {{ logger }}
+
+    key={{ quote(key) }}
+    # oct-git stores a certificate under its primary keys fingerprint
+    mapfile -t fprs < <(gpg --with-colons --list-keys -- "$key" 2>/dev/null | awk -F: '$1 == "pub" { p = 1; next } p && $1 == "fpr" { print tolower($10); p = 0 }')
+    [ ${#fprs[@]} -gt 0 ] || error "gpg has no key $key"
+    [ ${#fprs[@]} -eq 1 ] || error "$key matches ${#fprs[@]} keys in gpg, pass a fingerprint"
+    fpr=${fprs[0]}
+
+    certd=${PGP_CERT_D:-${XDG_DATA_HOME:-$HOME/.local/share}/pgp.cert.d}
+    cert=$certd/${fpr:0:2}/${fpr:2}
+    tmp=$(mktemp -d)
+    # puts the old certificate back when the import fails or is interrupted
+    trap 'if [ -e "$tmp/old" ] && [ ! -e "$cert" ]; then mv "$tmp/old" "$cert"; fi; rm -rf "$tmp"' EXIT
+
+    gpg --export -- "$fpr" >"$tmp/new"
+    [ -s "$tmp/new" ] || error "gpg exported nothing for $fpr"
+
+    # oct-git can't update a certificate it already has (not implemented)
+    # the old one is moved out of the way first
+    [ ! -e "$cert" ] || mv "$cert" "$tmp/old"
+    oct-git --import "$tmp/new" || error "oct-git could not import $fpr, the certificate store is as it was"
+    [ -s "$cert" ] || error "oct-git didn't store $fpr in ${certd/#$HOME/\~}, the certificate store is as it was"
+    # the index still points at the replaced certificate ("Certificate not available"),
+    # it's only a cache that oct-git rebuilds on the next lookup
+    rm -f "$certd/_rpgpie.sqlite"
+
+    gpg --show-keys -- "$cert"
+    success "re-imported $fpr into ${certd/#$HOME/\~}"

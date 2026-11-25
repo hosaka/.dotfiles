@@ -36,6 +36,9 @@ sudo := ```
   fi
 ```
 
+# my gpg key fingerprint
+gpg_key := '2A420F2982E589326CA49D1B0644B87ED144C988'
+
 [private]
 @onpath tool:
     echo 'using {{ require(tool) }}' > /dev/null
